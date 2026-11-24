@@ -1,0 +1,9 @@
+{
+  "name": "tradeoff-layer-gemini-4-carbon",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Tradeoff Layer Gemini 4 Carbon — Skia (@napi-rs/canvas) 60fps 2D Scene-Graph & IK Character Animation Engine",
+  "dependencies": {
+    "@napi-rs/canvas": "^1.2.0"
+  }
+}

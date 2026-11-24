@@ -59,6 +59,7 @@ Return STRICTLY valid JSON (no markdown fences outside JSON) matching this schem
       "id": "L01",
       "chapter_title": "Chapter title (set on first scene of each chapter, empty string if continuing same chapter)",
       "voice_style": "hook | narrative | analytical",
+      "animation_type": "character_walk_handoff | rain_buckets_analogy | chip_3d_flip_stack | whiteboard_systolic_sim | dark_cross_section_meter | dark_gpu_partition_split | map_supply_chain_arcs | wafer_conveyor_zoom_out",
       "visual_mode": "dark_metric_card | vector_whiteboard_scene | editorial_illustration",
       "narration": "45 to 75 words of spoken narration in exact @TradeoffLayer voice.",
       "headline": "Short 2-6 word on-screen title",

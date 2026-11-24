@@ -77,6 +77,7 @@
         "S8"
       ],
       "citation_fact": "SK Hynix produced the first HBM chip in 2013; AMD Fiji shipped first in 2015",
+      "animation_type": "character_walk_handoff",
       "resolved_sources": [
         {
           "id": "S1",
@@ -135,6 +136,7 @@
         "S2"
       ],
       "citation_fact": "2025-present global memory shortage driven by AI accelerator HBM demand",
+      "animation_type": "dark_cross_section_meter",
       "resolved_sources": [
         {
           "id": "S3",
@@ -194,6 +196,7 @@
         "S9"
       ],
       "citation_fact": "Memory bandwidth measures bytes/second delivered across the processor interface",
+      "animation_type": "rain_buckets_analogy",
       "resolved_sources": [
         {
           "id": "S2",
@@ -253,6 +256,7 @@
         "S9"
       ],
       "citation_fact": "3D-stacked SDRAM connected vertically via Through-Silicon Vias",
+      "animation_type": "chip_3d_flip_stack",
       "resolved_sources": [
         {
           "id": "S1",
@@ -312,6 +316,7 @@
         "S9"
       ],
       "citation_fact": "2.5D packaging places HBM stacks and compute dies side-by-side on an interposer",
+      "animation_type": "map_supply_chain_arcs",
       "resolved_sources": [
         {
           "id": "S1",
@@ -379,6 +384,7 @@
         "S5"
       ],
       "citation_fact": "arXiv Shuhai & FPGA+HBM benchmarks: 425 GB/s measured, up to 12.9x speedup",
+      "animation_type": "whiteboard_systolic_sim",
       "resolved_sources": [
         {
           "id": "S4",
@@ -432,6 +438,7 @@
         "S6"
       ],
       "citation_fact": "arXiv 2025: H100 HBM size limits force multi-GPU partitioning and sync overhead",
+      "animation_type": "dark_gpu_partition_split",
       "resolved_sources": [
         {
           "id": "S6",
@@ -483,6 +490,7 @@
         "S10"
       ],
       "citation_fact": "Samsung HBM-PIM (2021) vs SK Hynix custom high-bandwidth DRAM (256 GB/s on R1)",
+      "animation_type": "character_walk_handoff",
       "resolved_sources": [
         {
           "id": "S1",
@@ -550,6 +558,7 @@
         "S9"
       ],
       "citation_fact": "HBM die size and stacking complexity consume far more fab capacity, fueling shortage",
+      "animation_type": "wafer_conveyor_zoom_out",
       "resolved_sources": [
         {
           "id": "S3",
@@ -610,6 +619,7 @@
         "S6"
       ],
       "citation_fact": "Specialized HBM ties memory fabs directly to hyperscaler AI accelerator cycles",
+      "animation_type": "whiteboard_systolic_sim",
       "resolved_sources": [
         {
           "id": "S1",
@@ -680,6 +690,7 @@
             "S3"
           ],
           "citation_fact": "Memory bandwidth limits how fast processors receive data",
+          "animation_type": "dark_cross_section_meter",
           "resolved_sources": [
             {
               "id": "S2",
@@ -733,6 +744,7 @@
             "S9"
           ],
           "citation_fact": "Long board traces bottleneck bandwidth and power",
+          "animation_type": "rain_buckets_analogy",
           "resolved_sources": [
             {
               "id": "S2",
@@ -786,6 +798,7 @@
             "S4"
           ],
           "citation_fact": "SK Hynix built the first 3D-stacked HBM chip in 2013",
+          "animation_type": "chip_3d_flip_stack",
           "resolved_sources": [
             {
               "id": "S1",
@@ -839,6 +852,7 @@
             "S5"
           ],
           "citation_fact": "Up to 12.9x speedup; 2025-present global memory shortage",
+          "animation_type": "dark_gpu_partition_split",
           "resolved_sources": [
             {
               "id": "S3",
@@ -892,6 +906,7 @@
             "S6"
           ],
           "citation_fact": "Full episode: Why Every AI Chip Depends on SK Hynix?",
+          "animation_type": "character_walk_handoff",
           "resolved_sources": [
             {
               "id": "S1",

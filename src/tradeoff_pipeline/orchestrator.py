@@ -213,9 +213,11 @@ def run_pipeline(
         client.download_dir(f"{remote_run}/visuals", run_dir / "visuals")
         print("[orchestrator] Pulled AI illustrations back to local host.", flush=True)
 
-        # Stage 5: 60fps Long-Form & Vertical Shorts Rendering on RTX PRO 6000
-        print(f"[orchestrator] Stage 5/5: Rendering {fps}fps 1080p Long-Form + 1080x1920 Shorts on RTX PRO 6000...", flush=True)
+        # Stage 5: 60fps Skia 2D Animation Long-Form & Vertical Shorts Rendering on RTX PRO 6000
+        print(f"[orchestrator] Stage 5/5: Animating {fps}fps 1080p Long-Form + 1080x1920 Shorts on RTX PRO 6000...", flush=True)
         cmd_render = (
+            f"PATH=/content/tradeoff_layer_carbon/node22/bin:$PATH "
+            f"NODE_PATH=/content/tradeoff_layer_carbon/animator_env/node_modules "
             f"PYTHONPATH=/content/tradeoff_layer_carbon/repo/src "
             f"/content/tradeoff_layer_carbon/.venv/bin/python -m tradeoff_pipeline.video_composer "
             f"--plan /content/tradeoff_layer_carbon/{remote_run}/production_plan.json "
@@ -266,7 +268,8 @@ def run_pipeline(
             + (f" && {short_tts_chain}" if short_tts_chain else "")
             + f" && PYTHONPATH=src .venv/bin/python -m tradeoff_pipeline.visual_engine "
             f"--plan {r_run}/production_plan.json --output-dir {r_run}/visuals "
-            f"&& PYTHONPATH=src .venv/bin/python -m tradeoff_pipeline.video_composer "
+            f"&& NODE_PATH=$HOME/tradeoff-layer-gemini-4-carbon/node_modules "
+            f"PYTHONPATH=src .venv/bin/python -m tradeoff_pipeline.video_composer "
             f"--plan {r_run}/production_plan.json --visual-dir {r_run}/visuals "
             f"--long-tts-dir {r_run}/tts_long --shorts-tts-root {r_run}/tts_shorts "
             f"--output-dir {r_run}/deliverables --fps {fps} --max-workers 6"

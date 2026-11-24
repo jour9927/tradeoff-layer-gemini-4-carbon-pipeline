@@ -14,14 +14,20 @@ scripts/_*.py
 scripts/_*.js
 scripts/_*.txt
 
-# Python & OS artifacts
+# Python, Node & OS artifacts
 __pycache__/
 *.py[cod]
 .venv/
+node_modules/
+package-lock.json
 .DS_Store
 *.egg-info/
 dist/
 build/
+
+# Temporary QA frame strips
+reference_channel/motion_strips/
+runs/*/qa_motion_strips/
 
 # Large intermediate run WAVs (keep showcase deliverables & metadata selectively)
 runs/*/_scene_segments/

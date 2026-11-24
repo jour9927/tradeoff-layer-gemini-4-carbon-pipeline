@@ -16,11 +16,17 @@
 3. **本人聲音 PyTorch 克隆配音 + 詞級時間軸對齊（`voice_engine.py`）**
    - 從授權下載之頻道高純度人聲（SNR > 61 dB）提取四種語氣聲紋母帶（`hook`、`narrative`、`analytical`、`short_punchy`）。
    - 使用 PyTorch **F5-TTS** 流匹配擴散模型進行本人聲音克隆，內建美金金額（`$6.3B`）、倍率（`5x`、`100x`）與半導體縮寫（`GPU`、`TPU`、`ASML`、`HBM3e`）口語正規化，並經 EBU R128 `-14.0 LUFS` 廣播級母帶處理與 `faster-whisper` 詞級時間軸強制對齊。
-4. **AI 賽璐璐向量產圖 + 三模態 60fps 動態合成引擎（`visual_engine.py` & `video_composer.py`）**
-   - 完整復刻 `@TradeoffLayer` 三大標誌視覺模式：
-     - **`dark_metric_card`**：霧黑 `#0B0B0E` 底板、`#1A1A1F` 數據卡、動態貝茲曲線連接線與紅綠對比計價表（對標 `0vZCvW7IzmA`）。
-     - **`vector_whiteboard_scene`**：PyTorch SDXL-Turbo 扁平賽璐璐建築／機房背景 + 四色頂條圓角白板圖表 + `@TradeoffLayer` 標誌性 **2D 賽璐璐上半身角色配黑色火柴人手腳與語音同步嘴型**（對標 200 萬觀看 `yB9SC4HbH5o`）。
-     - **`editorial_illustration`**：全幅賽璐璐敘事插畫搭配 60fps Ken Burns 運鏡、懸浮指標卡與章節進度條（對標 `2d883UK7p9E`）。
+4. **全彩扁平賽璐璐角色／道具去背 + Google Skia 60fps 真 2D 骨骼與物理動畫引擎（`visual_engine.py`, `skia_animator.js` & `video_composer.py`）**
+   - 於 RTX PRO 6000 執行 PyTorch **SDXL-Base 1.0（FP16 原生高解析 + HSV 彩度品管）** 產出明亮粉彩扁平賽璐璐場景、全彩角色上半身去背精靈（RGBA Cutout）與硬體道具去背素材。
+   - 內建 `skia_animator.js`（`@napi-rs/canvas` 原生 RGBA 串流直入 FFmpeg），以 **8 大參數化 60fps 2D 動畫編排** 1:1 還原 `@TradeoffLayer` 動畫語言（零靜態投影片字卡）：
+     1. **`character_walk_handoff`**：2-Bone IK 火柴人雙腿行走步態＋全彩角色上半身走入鏡位、雙手遞交發光晶片／GPU 道具＋2D 虛擬攝影機推軌（對標 `yB9SC4HbH5o`）。
+     2. **`rain_buckets_analogy`**：生活物理類比模擬——窄管阻塞滴水 vs 平行寬管注水、玻璃量杯內正弦波液位動態上升（對標 `2d883UK7p9E`）。
+     3. **`chip_3d_flip_stack`**：木紋工作台精密鑷子夾持矽晶圓 3D 翻轉（`scaleY(cos)`）、12 層 DRAM 彈簧物理堆疊於 2.5D Interposer 並鑽入貫穿式金色 TSV 電梯發射資料光點（對標 `2d883UK7p9E`）。
+     4. **`whiteboard_systolic_sim`**：角色持教鞭指向圓角白板，模擬窄匯流排飢餓暫停（`||`）切換至 HBM 對角線 Systolic Array 波前脈衝（對標 `yB9SC4HbH5o`）。
+     5. **`dark_cross_section_meter`**：霧黑 `#0B0B0E` 貝茲曲線光球計價表連續跳表＋地底／跨海／封裝剖面線條漸進繪製與封包奔馳（對標 `0vZCvW7IzmA`）。
+     6. **`dark_gpu_partition_split`**：單顆 GPU 權重矩陣溢位閃紅後，以彈簧物理分裂為 4 顆 GPU 並發射黃色 `NCCL Sync` 同步雷射（對標 `0vZCvW7IzmA`）。
+     7. **`map_supply_chain_arcs`**：暖米色向量地圖＋飄動旗幟＋晶片模組沿虛線拋物線跨國飛行（對標 `KTY7TnGIVNY`）。
+     8. **`wafer_conveyor_zoom_out`**：3 片晶圓壓縮為 1 座 HBM 塔＋攝影機 `2.0x -> 0.75x` 大範圍拉遠展現產能排擠（對標 `cER6uZO6gvA`）。
    - **Shorts 逐詞高亮字幕**：精確還原頻道 Shorts 下方逐詞漸進變白（已唸 `#FFFFFF` Bold ／ 未唸 `#71717A` Bold）動態字幕（對標 `bmFUEo6A_1U`）。
 5. **主腳本本機優先 + 異地算力彈性調度（`orchestrator.py` & `scripts/remote_client.py`）**
    - 所有主程式與階段產物一律優先寫入並同步回本機（`alan-hub`），內建硬體保護鎖嚴禁於 `alan-hub` 執行影片渲染。

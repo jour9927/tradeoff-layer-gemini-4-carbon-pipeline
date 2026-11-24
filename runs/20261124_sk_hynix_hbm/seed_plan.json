@@ -49,14 +49,35 @@
       "headline": "2013: The Stack Nobody Ordered",
       "subheadline": "From one niche AMD GPU in 2015 to the choke point of global AI",
       "metrics": [
-        {"label": "First HBM Chip", "value": "2013", "tone": "blue"},
-        {"label": "First GPU Ship", "value": "2015", "tone": "amber"}
+        {
+          "label": "First HBM Chip",
+          "value": "2013",
+          "tone": "blue"
+        },
+        {
+          "label": "First GPU Ship",
+          "value": "2015",
+          "tone": "amber"
+        }
       ],
-      "diagram_nodes": ["2013 Prototype", "2015 AMD Fiji", "2026 AI Boom"],
-      "characters": [{"role": "engineer", "accent": "#3B82F6"}],
+      "diagram_nodes": [
+        "2013 Prototype",
+        "2015 AMD Fiji",
+        "2026 AI Boom"
+      ],
+      "characters": [
+        {
+          "role": "engineer",
+          "accent": "#3B82F6"
+        }
+      ],
       "ai_image_prompt": "Warm flat cel-shaded 2D vector illustration of an engineer desk in Seoul in 2013 with a glowing golden stacked silicon microchip on warm wood, crisp dark ink outlines, sunny window",
-      "source_ids": ["S1", "S8"],
-      "citation_fact": "SK Hynix produced the first HBM chip in 2013; AMD Fiji shipped first in 2015"
+      "source_ids": [
+        "S1",
+        "S8"
+      ],
+      "citation_fact": "SK Hynix produced the first HBM chip in 2013; AMD Fiji shipped first in 2015",
+      "animation_type": "character_walk_handoff"
     },
     {
       "id": "L02",
@@ -67,15 +88,35 @@
       "headline": "The AI Memory Supply Crunch",
       "subheadline": "Math cores sit idle when memory delivery falls behind",
       "metrics": [
-        {"label": "GPU Math Speed", "value": "IDLE", "tone": "red"},
-        {"label": "HBM Supply", "value": "SOLD OUT", "tone": "amber"},
-        {"label": "Bottleneck", "value": "BANDWIDTH", "tone": "green"}
+        {
+          "label": "GPU Math Speed",
+          "value": "IDLE",
+          "tone": "red"
+        },
+        {
+          "label": "HBM Supply",
+          "value": "SOLD OUT",
+          "tone": "amber"
+        },
+        {
+          "label": "Bottleneck",
+          "value": "BANDWIDTH",
+          "tone": "green"
+        }
       ],
-      "diagram_nodes": ["AI Demand", "HBM Allocation", "2025-26 Shortage"],
+      "diagram_nodes": [
+        "AI Demand",
+        "HBM Allocation",
+        "2025-26 Shortage"
+      ],
       "characters": [],
       "ai_image_prompt": "",
-      "source_ids": ["S3", "S2"],
-      "citation_fact": "2025-present global memory shortage driven by AI accelerator HBM demand"
+      "source_ids": [
+        "S3",
+        "S2"
+      ],
+      "citation_fact": "2025-present global memory shortage driven by AI accelerator HBM demand",
+      "animation_type": "dark_cross_section_meter"
     },
     {
       "id": "L03",
@@ -86,14 +127,36 @@
       "headline": "10,000 Chefs, One Narrow Door",
       "subheadline": "Memory bandwidth is bytes per second delivered to the processor",
       "metrics": [
-        {"label": "Flat PCB Trace", "value": "Long & Power-Hungry", "tone": "red"},
-        {"label": "Core Utilization", "value": "Starved", "tone": "amber"}
+        {
+          "label": "Flat PCB Trace",
+          "value": "Long & Power-Hungry",
+          "tone": "red"
+        },
+        {
+          "label": "Core Utilization",
+          "value": "Starved",
+          "tone": "amber"
+        }
       ],
-      "diagram_nodes": ["Flat DRAM", "Long Copper Trace", "Narrow Bus", "Waiting GPU"],
-      "characters": [{"role": "engineer", "accent": "#3B82F6"}],
+      "diagram_nodes": [
+        "Flat DRAM",
+        "Long Copper Trace",
+        "Narrow Bus",
+        "Waiting GPU"
+      ],
+      "characters": [
+        {
+          "role": "engineer",
+          "accent": "#3B82F6"
+        }
+      ],
       "ai_image_prompt": "Bright modern daylight tech studio room with large floor-to-ceiling windows and green plants outside, clean flat 2D cel-shaded vector architectural background",
-      "source_ids": ["S2", "S9"],
-      "citation_fact": "Memory bandwidth measures bytes/second delivered across the processor interface"
+      "source_ids": [
+        "S2",
+        "S9"
+      ],
+      "citation_fact": "Memory bandwidth measures bytes/second delivered across the processor interface",
+      "animation_type": "rain_buckets_analogy"
     },
     {
       "id": "L04",
@@ -104,14 +167,36 @@
       "headline": "Vertical Silicon + 1,024 Lanes",
       "subheadline": "3D-stacked DRAM dies linked by Through-Silicon Vias (TSVs)",
       "metrics": [
-        {"label": "Architecture", "value": "3D Stacked", "tone": "blue"},
-        {"label": "Vertical Links", "value": "TSV Elevators", "tone": "green"}
+        {
+          "label": "Architecture",
+          "value": "3D Stacked",
+          "tone": "blue"
+        },
+        {
+          "label": "Vertical Links",
+          "value": "TSV Elevators",
+          "tone": "green"
+        }
       ],
-      "diagram_nodes": ["Thin DRAM Dies", "Vertical Stack", "TSV Channels", "Wide Interface"],
-      "characters": [{"role": "analyst", "accent": "#10B981"}],
+      "diagram_nodes": [
+        "Thin DRAM Dies",
+        "Vertical Stack",
+        "TSV Channels",
+        "Wide Interface"
+      ],
+      "characters": [
+        {
+          "role": "analyst",
+          "accent": "#10B981"
+        }
+      ],
       "ai_image_prompt": "Clean bright semiconductor design laboratory with sky blue walls and glass partitions, 2D flat cel-shaded vector style, crisp dark ink outlines",
-      "source_ids": ["S1", "S9"],
-      "citation_fact": "3D-stacked SDRAM connected vertically via Through-Silicon Vias"
+      "source_ids": [
+        "S1",
+        "S9"
+      ],
+      "citation_fact": "3D-stacked SDRAM connected vertically via Through-Silicon Vias",
+      "animation_type": "chip_3d_flip_stack"
     },
     {
       "id": "L05",
@@ -122,14 +207,36 @@
       "headline": "The 2.5D Silicon Interposer",
       "subheadline": "Bare dies placed side-by-side on ultra-fine silicon wiring",
       "metrics": [
-        {"label": "Packaging", "value": "2.5D Interposer", "tone": "blue"},
-        {"label": "Wire Length", "value": "Sub-Millimeter", "tone": "green"}
+        {
+          "label": "Packaging",
+          "value": "2.5D Interposer",
+          "tone": "blue"
+        },
+        {
+          "label": "Wire Length",
+          "value": "Sub-Millimeter",
+          "tone": "green"
+        }
       ],
-      "diagram_nodes": ["HBM Stacks", "Silicon Interposer", "GPU Die"],
-      "characters": [{"role": "engineer", "accent": "#6366F1"}],
+      "diagram_nodes": [
+        "HBM Stacks",
+        "Silicon Interposer",
+        "GPU Die"
+      ],
+      "characters": [
+        {
+          "role": "engineer",
+          "accent": "#6366F1"
+        }
+      ],
       "ai_image_prompt": "Cross-section flat cel-shaded 2D vector illustration of a glowing processor die and four vertical memory towers sitting side by side on a sleek silver silicon wafer bridge, clean outlines",
-      "source_ids": ["S1", "S8", "S9"],
-      "citation_fact": "2.5D packaging places HBM stacks and compute dies side-by-side on an interposer"
+      "source_ids": [
+        "S1",
+        "S8",
+        "S9"
+      ],
+      "citation_fact": "2.5D packaging places HBM stacks and compute dies side-by-side on an interposer",
+      "animation_type": "map_supply_chain_arcs"
     },
     {
       "id": "L06",
@@ -140,15 +247,35 @@
       "headline": "Measured HBM Speedup",
       "subheadline": "Hardware benchmarks on data-intensive compute workloads",
       "metrics": [
-        {"label": "2-Stack Measured", "value": "425 GB/s", "tone": "green"},
-        {"label": "Join Speedup", "value": "12.9x", "tone": "blue"},
-        {"label": "SGD Training", "value": "3.2x", "tone": "amber"}
+        {
+          "label": "2-Stack Measured",
+          "value": "425 GB/s",
+          "tone": "green"
+        },
+        {
+          "label": "Join Speedup",
+          "value": "12.9x",
+          "tone": "blue"
+        },
+        {
+          "label": "SGD Training",
+          "value": "3.2x",
+          "tone": "amber"
+        }
       ],
-      "diagram_nodes": ["2-Stack HBM", "425 GB/s", "12.9x Faster"],
+      "diagram_nodes": [
+        "2-Stack HBM",
+        "425 GB/s",
+        "12.9x Faster"
+      ],
       "characters": [],
       "ai_image_prompt": "",
-      "source_ids": ["S4", "S5"],
-      "citation_fact": "arXiv Shuhai & FPGA+HBM benchmarks: 425 GB/s measured, up to 12.9x speedup"
+      "source_ids": [
+        "S4",
+        "S5"
+      ],
+      "citation_fact": "arXiv Shuhai & FPGA+HBM benchmarks: 425 GB/s measured, up to 12.9x speedup",
+      "animation_type": "whiteboard_systolic_sim"
     },
     {
       "id": "L07",
@@ -159,14 +286,30 @@
       "headline": "When Models Outgrow One GPU",
       "subheadline": "Package perimeter limits total HBM capacity per accelerator",
       "metrics": [
-        {"label": "Single GPU Limit", "value": "HBM Perimeter", "tone": "red"},
-        {"label": "Multi-GPU Split", "value": "NCCL Overhead", "tone": "amber"}
+        {
+          "label": "Single GPU Limit",
+          "value": "HBM Perimeter",
+          "tone": "red"
+        },
+        {
+          "label": "Multi-GPU Split",
+          "value": "NCCL Overhead",
+          "tone": "amber"
+        }
       ],
-      "diagram_nodes": ["Model Too Big", "Partition GPUs", "NVSHMEM / NCCL", "Sync Delay"],
+      "diagram_nodes": [
+        "Model Too Big",
+        "Partition GPUs",
+        "NVSHMEM / NCCL",
+        "Sync Delay"
+      ],
       "characters": [],
       "ai_image_prompt": "",
-      "source_ids": ["S6"],
-      "citation_fact": "arXiv 2025: H100 HBM size limits force multi-GPU partitioning and sync overhead"
+      "source_ids": [
+        "S6"
+      ],
+      "citation_fact": "arXiv 2025: H100 HBM size limits force multi-GPU partitioning and sync overhead",
+      "animation_type": "dark_gpu_partition_split"
     },
     {
       "id": "L08",
@@ -177,14 +320,37 @@
       "headline": "Why SK Hynix Beat Bigger Rivals",
       "subheadline": "Yield, thermal bonding, and custom silicon partnerships",
       "metrics": [
-        {"label": "Apple R1 Custom", "value": "256 GB/s", "tone": "blue"},
-        {"label": "Key Advantage", "value": "Stack Yield", "tone": "green"}
+        {
+          "label": "Apple R1 Custom",
+          "value": "256 GB/s",
+          "tone": "blue"
+        },
+        {
+          "label": "Key Advantage",
+          "value": "Stack Yield",
+          "tone": "green"
+        }
       ],
-      "diagram_nodes": ["2013 HBM1", "Thermal Control", "High Stack Yield", "AI Lead"],
-      "characters": [{"role": "ceo", "accent": "#10B981"}],
+      "diagram_nodes": [
+        "2013 HBM1",
+        "Thermal Control",
+        "High Stack Yield",
+        "AI Lead"
+      ],
+      "characters": [
+        {
+          "role": "ceo",
+          "accent": "#10B981"
+        }
+      ],
       "ai_image_prompt": "Modern semiconductor corporate campus exterior with glass facade, green trees, blue sky with soft white clouds, 2D flat cel-shaded vector style",
-      "source_ids": ["S1", "S7", "S10"],
-      "citation_fact": "Samsung HBM-PIM (2021) vs SK Hynix custom high-bandwidth DRAM (256 GB/s on R1)"
+      "source_ids": [
+        "S1",
+        "S7",
+        "S10"
+      ],
+      "citation_fact": "Samsung HBM-PIM (2021) vs SK Hynix custom high-bandwidth DRAM (256 GB/s on R1)",
+      "animation_type": "character_walk_handoff"
     },
     {
       "id": "L09",
@@ -195,14 +361,35 @@
       "headline": "One Tower Eats Three Wafers",
       "subheadline": "Shifting fabs to HBM tightens global standard DRAM supply",
       "metrics": [
-        {"label": "Wafer Penalty", "value": "~3x Area", "tone": "red"},
-        {"label": "Market Effect", "value": "Global Shortage", "tone": "amber"}
+        {
+          "label": "Wafer Penalty",
+          "value": "~3x Area",
+          "tone": "red"
+        },
+        {
+          "label": "Market Effect",
+          "value": "Global Shortage",
+          "tone": "amber"
+        }
       ],
-      "diagram_nodes": ["Cleanroom Fabs", "HBM Priority", "Standard DRAM Squeeze"],
-      "characters": [{"role": "analyst", "accent": "#F59E0B"}],
+      "diagram_nodes": [
+        "Cleanroom Fabs",
+        "HBM Priority",
+        "Standard DRAM Squeeze"
+      ],
+      "characters": [
+        {
+          "role": "analyst",
+          "accent": "#F59E0B"
+        }
+      ],
       "ai_image_prompt": "Clean 2D flat cel-shaded vector illustration of automated semiconductor cleanroom overhead wafer carriers moving glowing silicon wafers above golden production machines",
-      "source_ids": ["S3", "S9"],
-      "citation_fact": "HBM die size and stacking complexity consume far more fab capacity, fueling shortage"
+      "source_ids": [
+        "S3",
+        "S9"
+      ],
+      "citation_fact": "HBM die size and stacking complexity consume far more fab capacity, fueling shortage",
+      "animation_type": "wafer_conveyor_zoom_out"
     },
     {
       "id": "L10",
@@ -213,14 +400,37 @@
       "headline": "The Tradeoff: Kingmaker's Lock-In",
       "subheadline": "Custom pre-sold towers trade commodity flexibility for AI concentration",
       "metrics": [
-        {"label": "Old DRAM", "value": "Sell To Anyone", "tone": "blue"},
-        {"label": "Custom HBM", "value": "Locked To AI", "tone": "red"}
+        {
+          "label": "Old DRAM",
+          "value": "Sell To Anyone",
+          "tone": "blue"
+        },
+        {
+          "label": "Custom HBM",
+          "value": "Locked To AI",
+          "tone": "red"
+        }
       ],
-      "diagram_nodes": ["Custom Bonding", "1-Year Preorders", "AI Moat", "Cycle Risk"],
-      "characters": [{"role": "ceo", "accent": "#EF4444"}],
+      "diagram_nodes": [
+        "Custom Bonding",
+        "1-Year Preorders",
+        "AI Moat",
+        "Cycle Risk"
+      ],
+      "characters": [
+        {
+          "role": "ceo",
+          "accent": "#EF4444"
+        }
+      ],
       "ai_image_prompt": "Clean bright data center server aisle with blue glass walls and glowing server racks in 2D flat cel-shaded vector style, crisp dark ink outlines",
-      "source_ids": ["S1", "S3", "S6"],
-      "citation_fact": "Specialized HBM ties memory fabs directly to hyperscaler AI accelerator cycles"
+      "source_ids": [
+        "S1",
+        "S3",
+        "S6"
+      ],
+      "citation_fact": "Specialized HBM ties memory fabs directly to hyperscaler AI accelerator cycles",
+      "animation_type": "whiteboard_systolic_sim"
     }
   ],
   "shorts": [
@@ -239,14 +449,30 @@
           "headline": "Why AI Chips Sit Waiting",
           "subheadline": "The real bottleneck isn't math — it's delivery",
           "metrics": [
-            {"label": "Math Cores", "value": "WAITING", "tone": "red"},
-            {"label": "Bottleneck", "value": "MEMORY", "tone": "green"}
+            {
+              "label": "Math Cores",
+              "value": "WAITING",
+              "tone": "red"
+            },
+            {
+              "label": "Bottleneck",
+              "value": "MEMORY",
+              "tone": "green"
+            }
           ],
-          "diagram_nodes": ["Prompt", "Math Cores", "Memory Wall"],
+          "diagram_nodes": [
+            "Prompt",
+            "Math Cores",
+            "Memory Wall"
+          ],
           "characters": [],
           "ai_image_prompt": "",
-          "source_ids": ["S2", "S3"],
-          "citation_fact": "Memory bandwidth limits how fast processors receive data"
+          "source_ids": [
+            "S2",
+            "S3"
+          ],
+          "citation_fact": "Memory bandwidth limits how fast processors receive data",
+          "animation_type": "dark_cross_section_meter"
         },
         {
           "id": "S02",
@@ -257,13 +483,30 @@
           "headline": "10,000 Chefs, One Door",
           "subheadline": "Flat memory wires can't feed modern GPUs fast enough",
           "metrics": [
-            {"label": "Flat DRAM", "value": "Too Slow", "tone": "red"}
+            {
+              "label": "Flat DRAM",
+              "value": "Too Slow",
+              "tone": "red"
+            }
           ],
-          "diagram_nodes": ["10,000 Chefs", "Narrow Door", "Idle GPU"],
-          "characters": [{"role": "engineer", "accent": "#3B82F6"}],
+          "diagram_nodes": [
+            "10,000 Chefs",
+            "Narrow Door",
+            "Idle GPU"
+          ],
+          "characters": [
+            {
+              "role": "engineer",
+              "accent": "#3B82F6"
+            }
+          ],
           "ai_image_prompt": "Vertical 9:16 clean flat 2D cel-shaded vector tech studio interior with bright window light and clean architectural lines",
-          "source_ids": ["S2", "S9"],
-          "citation_fact": "Long board traces bottleneck bandwidth and power"
+          "source_ids": [
+            "S2",
+            "S9"
+          ],
+          "citation_fact": "Long board traces bottleneck bandwidth and power",
+          "animation_type": "rain_buckets_analogy"
         },
         {
           "id": "S03",
@@ -274,14 +517,30 @@
           "headline": "2013: Stack Silicon Upward",
           "subheadline": "High Bandwidth Memory (HBM) + vertical TSV elevators",
           "metrics": [
-            {"label": "First Built", "value": "2013", "tone": "blue"},
-            {"label": "Measured", "value": "425 GB/s+", "tone": "green"}
+            {
+              "label": "First Built",
+              "value": "2013",
+              "tone": "blue"
+            },
+            {
+              "label": "Measured",
+              "value": "425 GB/s+",
+              "tone": "green"
+            }
           ],
-          "diagram_nodes": ["Thin Silicon", "Stack High", "TSVs"],
+          "diagram_nodes": [
+            "Thin Silicon",
+            "Stack High",
+            "TSVs"
+          ],
           "characters": [],
           "ai_image_prompt": "Vertical 9:16 flat cel-shaded 2D vector illustration of a glowing golden 12-layer stacked microchip tower on a clean blue silicon interposer, dark ink outlines",
-          "source_ids": ["S1", "S4"],
-          "citation_fact": "SK Hynix built the first 3D-stacked HBM chip in 2013"
+          "source_ids": [
+            "S1",
+            "S4"
+          ],
+          "citation_fact": "SK Hynix built the first 3D-stacked HBM chip in 2013",
+          "animation_type": "chip_3d_flip_stack"
         },
         {
           "id": "S04",
@@ -292,14 +551,30 @@
           "headline": "Sold Out Globally",
           "subheadline": "AI accelerators triggered the 2025–2026 memory shortage",
           "metrics": [
-            {"label": "Join Speedup", "value": "12.9x", "tone": "green"},
-            {"label": "2025-26 HBM", "value": "SHORTAGE", "tone": "red"}
+            {
+              "label": "Join Speedup",
+              "value": "12.9x",
+              "tone": "green"
+            },
+            {
+              "label": "2025-26 HBM",
+              "value": "SHORTAGE",
+              "tone": "red"
+            }
           ],
-          "diagram_nodes": ["AI Boom", "HBM Sold Out", "Global Crunch"],
+          "diagram_nodes": [
+            "AI Boom",
+            "HBM Sold Out",
+            "Global Crunch"
+          ],
           "characters": [],
           "ai_image_prompt": "",
-          "source_ids": ["S3", "S5"],
-          "citation_fact": "Up to 12.9x speedup; 2025-present global memory shortage"
+          "source_ids": [
+            "S3",
+            "S5"
+          ],
+          "citation_fact": "Up to 12.9x speedup; 2025-present global memory shortage",
+          "animation_type": "dark_gpu_partition_split"
         },
         {
           "id": "S05",
@@ -310,13 +585,30 @@
           "headline": "Kingmaker — Or Locked In?",
           "subheadline": "Watch the full breakdown on @TradeoffLayer",
           "metrics": [
-            {"label": "Full Video", "value": "@TradeoffLayer", "tone": "blue"}
+            {
+              "label": "Full Video",
+              "value": "@TradeoffLayer",
+              "tone": "blue"
+            }
           ],
-          "diagram_nodes": ["Custom HBM", "1-Year Lock", "The Tradeoff"],
-          "characters": [{"role": "ceo", "accent": "#10B981"}],
+          "diagram_nodes": [
+            "Custom HBM",
+            "1-Year Lock",
+            "The Tradeoff"
+          ],
+          "characters": [
+            {
+              "role": "ceo",
+              "accent": "#10B981"
+            }
+          ],
           "ai_image_prompt": "Vertical 9:16 clean flat 2D cel-shaded server room aisle with glowing blue racks and bright ceiling panels, crisp dark outlines",
-          "source_ids": ["S1", "S6"],
-          "citation_fact": "Full episode: Why Every AI Chip Depends on SK Hynix?"
+          "source_ids": [
+            "S1",
+            "S6"
+          ],
+          "citation_fact": "Full episode: Why Every AI Chip Depends on SK Hynix?",
+          "animation_type": "character_walk_handoff"
         }
       ]
     }

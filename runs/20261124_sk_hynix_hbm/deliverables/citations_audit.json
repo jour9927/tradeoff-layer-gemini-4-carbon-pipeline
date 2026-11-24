@@ -133,7 +133,7 @@
   "scene_citations": [
     {
       "scene_id": "L01",
-      "headline": "2013: The Stack Nobody Ordered",
+      "animation_type": "character_walk_handoff",
       "citation_fact": "SK Hynix produced the first HBM chip in 2013; AMD Fiji shipped first in 2015",
       "sources": [
         {
@@ -158,7 +158,7 @@
     },
     {
       "scene_id": "L02",
-      "headline": "The AI Memory Supply Crunch",
+      "animation_type": "dark_cross_section_meter",
       "citation_fact": "2025-present global memory shortage driven by AI accelerator HBM demand",
       "sources": [
         {
@@ -183,7 +183,7 @@
     },
     {
       "scene_id": "L03",
-      "headline": "10,000 Chefs, One Narrow Door",
+      "animation_type": "rain_buckets_analogy",
       "citation_fact": "Memory bandwidth measures bytes/second delivered across the processor interface",
       "sources": [
         {
@@ -208,7 +208,7 @@
     },
     {
       "scene_id": "L04",
-      "headline": "Vertical Silicon + 1,024 Lanes",
+      "animation_type": "chip_3d_flip_stack",
       "citation_fact": "3D-stacked SDRAM connected vertically via Through-Silicon Vias",
       "sources": [
         {
@@ -233,7 +233,7 @@
     },
     {
       "scene_id": "L05",
-      "headline": "The 2.5D Silicon Interposer",
+      "animation_type": "map_supply_chain_arcs",
       "citation_fact": "2.5D packaging places HBM stacks and compute dies side-by-side on an interposer",
       "sources": [
         {
@@ -267,7 +267,7 @@
     },
     {
       "scene_id": "L06",
-      "headline": "Measured HBM Speedup",
+      "animation_type": "whiteboard_systolic_sim",
       "citation_fact": "arXiv Shuhai & FPGA+HBM benchmarks: 425 GB/s measured, up to 12.9x speedup",
       "sources": [
         {
@@ -292,7 +292,7 @@
     },
     {
       "scene_id": "L07",
-      "headline": "When Models Outgrow One GPU",
+      "animation_type": "dark_gpu_partition_split",
       "citation_fact": "arXiv 2025: H100 HBM size limits force multi-GPU partitioning and sync overhead",
       "sources": [
         {
@@ -308,7 +308,7 @@
     },
     {
       "scene_id": "L08",
-      "headline": "Why SK Hynix Beat Bigger Rivals",
+      "animation_type": "character_walk_handoff",
       "citation_fact": "Samsung HBM-PIM (2021) vs SK Hynix custom high-bandwidth DRAM (256 GB/s on R1)",
       "sources": [
         {
@@ -342,7 +342,7 @@
     },
     {
       "scene_id": "L09",
-      "headline": "One Tower Eats Three Wafers",
+      "animation_type": "wafer_conveyor_zoom_out",
       "citation_fact": "HBM die size and stacking complexity consume far more fab capacity, fueling shortage",
       "sources": [
         {
@@ -367,7 +367,7 @@
     },
     {
       "scene_id": "L10",
-      "headline": "The Tradeoff: Kingmaker's Lock-In",
+      "animation_type": "whiteboard_systolic_sim",
       "citation_fact": "Specialized HBM ties memory fabs directly to hyperscaler AI accelerator cycles",
       "sources": [
         {

@@ -1,6 +1,7 @@
 {
   "ok": true,
-  "elapsed_sec": 79.47,
+  "engine": "skia-2d-60fps",
+  "elapsed_sec": 22.7,
   "long_video": "long_video_1080p60.mp4",
   "long_duration_sec": 172.737,
   "shorts": [
