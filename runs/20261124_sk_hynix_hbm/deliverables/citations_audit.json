@@ -1,6 +1,7 @@
 {
-  "title": "Why Every AI Chip Depends on SK Hynix?",
-  "retrieved_at": "2026-11-24T06:33:19Z",
+  "title": "Why Every AI Chip Needs SK Hynix? HBM Memory Explained",
+  "version": "v3",
+  "retrieved_at": "2026-11-24T09:36:18Z",
   "sources": [
     {
       "id": "S1",
@@ -10,9 +11,11 @@
       "publisher": "Wikipedia",
       "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
       "date": "2026-11-18",
-      "retrieved_at": "2026-11-24T06:33:19Z",
-      "summary": "High Bandwidth Memory (HBM) is a computer memory interface for 3D-stacked synchronous dynamic random-access memory (SDRAM), initially developed by Samsung, AMD and SK Hynix. It is often used in conjunction with performance-oriented graphics accelerators, network devices, FPGAs and ASICs; some CPUs use HBM as on-package cache or RAM, such as the NEC SX-Aurora TSUBASA and Fujitsu A64FX. The first HBM memory chip was produced by SK Hynix in 2013, and the first devices shipped with HBM were the AMD Fiji GPUs in 2015.",
-      "key_facts": []
+      "retrieved_at": "2026-11-24T09:36:18Z",
+      "summary": "High Bandwidth Memory (HBM) is a computer memory interface for 3D-stacked synchronous dynamic random-access memory (SDRAM), initially developed by Samsung, AMD and SK Hynix. It is often used in conjunction with performance-oriented graphics accelerators, network devices, FPGAs and ASICs; some CPUs use HBM as on-package cache or RAM, such as the NEC SX-Aurora TSUBASA and Fujitsu A64FX. The first HBM memory chip was produced by SK Hynix in 2013, and the first devices shipped with HBM were the AMD Fiji GPUs in 2015. HBM was adopted by JEDEC as an industry standard in October 2013. The second generation, HBM2, was accepted by JEDEC in January 2016. JEDEC officially announced the HBM3 standard on January 27, 2022, and the HBM4 standard in April 2025. In 2025, the world's largest manufacturers of HBM include SK Hynix, Samsung Electronics, and Micron Technology. TSMC produces the base die for HBM and is planned to be the foundry for several HBM companies in 2026. HBM has had an unprecedented demand increase, and in general DRAM (DDR4, DDR, and flash memory/NAND) price has in early 2026 \"experienced compounded increases, some exceeding 200%, since early 2025 ... [because of] unprecedented ",
+      "key_facts": [
+        "HBM has had an unprecedented demand increase, and in general DRAM (DDR4, DDR, and flash memory/NAND) price has in early 2026 \"experienced compounded increases, some exceeding 200%, since early 2025 ..."
+      ]
     },
     {
       "id": "S2",
@@ -22,61 +25,63 @@
       "publisher": "Wikipedia",
       "url": "https://en.wikipedia.org/wiki/Memory_bandwidth",
       "date": "2026-10-31",
-      "retrieved_at": "2026-11-24T06:33:19Z",
-      "summary": "Memory bandwidth is the rate at which data can be read from or stored into a semiconductor memory by a processor. Memory bandwidth is usually expressed in units of bytes/second, though this can vary for systems with natural data sizes that are not a multiple of the commonly used 8-bit bytes.",
-      "key_facts": []
+      "retrieved_at": "2026-11-24T09:36:18Z",
+      "summary": "Memory bandwidth is the rate at which data can be read from or stored into a semiconductor memory by a processor. Memory bandwidth is usually expressed in units of bytes/second, though this can vary for systems with natural data sizes that are not a multiple of the commonly used 8-bit bytes. Memory bandwidth that is advertised for a given memory or system is usually the maximum theoretical bandwidth. In practice the observed memory bandwidth will be less than (and is guaranteed not to exceed) the advertised bandwidth. A variety of computer benchmarks exist to measure sustained memory bandwidth using a variety of access patterns. These are intended to provide insight into the memory bandwidth that a system should sustain on various classes of real applications. == Measurement conventions == There are three different conventions for defining the quantity of data transferred in the numerator of \"bytes/second\": The bcopy convention: counts the amount of data copied from one location in memory to another location per unit time. For example, copying 1 million bytes from one location in memory to another location in memory in one second would be counted as 1 million bytes per second....",
+      "key_facts": [
+        "For example, copying 1 million bytes from one location in memory to another location in memory in one second would be counted as 1 million bytes per second...."
+      ]
     },
     {
       "id": "S3",
-      "badge_label": "[S3] Wikipedia (2026-11-24)",
-      "short_url": "en.wikipedia.org/wiki/2025%E2%80%93present_global_me",
-      "title": "Wikipedia — 2025–present global memory supply shortage",
+      "badge_label": "[S3] Wikipedia (2026-11-15)",
+      "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+      "title": "Wikipedia — SK Hynix",
       "publisher": "Wikipedia",
-      "url": "https://en.wikipedia.org/wiki/2025%E2%80%93present_global_memory_supply_shortage",
-      "date": "2026-11-24",
-      "retrieved_at": "2026-11-24T06:33:19Z",
-      "summary": "triggered unprecedented demand for specialized memory products, particularly high bandwidth memory (HBM) used in AI accelerators and data center GPUs.",
+      "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+      "date": "2026-11-15",
+      "retrieved_at": "2026-11-24T09:36:18Z",
+      "summary": "SK Hynix Inc. (Korean: 에스케이하이닉스 주식회사), stylized SK hynix, is a South Korean semiconductor company that manufactures dynamic random-access memory (DRAM) chips and flash memory chips. SK Hynix is one of the world's largest semiconductor vendors, and, along with Samsung Electronics and Micron, one of the \"Big Three\" memory manufacturers. Founded in 1983 as Hyundai Electronics, SK Hynix was integrated into the SK Group in 2012 following a series of mergers, acquisitions, and restructuring efforts. After being incorporated into the SK Group, SK Hynix became a major affiliate alongside SK Innovation and SK Telecom. The company's major customers include Nvidia, Microsoft, Apple, Asus, Dell, MSI, HP Inc., and Hewlett Packard Enterprise (formerly Hewlett-Packard). Other products that use Hynix memory include DVD players, cellular phones, set-top boxes, personal digital assistants, networking equipment, and hard disk drives. == History == === Beginning === ==== Hyundai Electronics ==== Hyundai Electronics was founded in 1983 by Chung Ju-yung, the founder of Hyundai Group. In the early 1980s, Chung recognized the growing importance of electronics in the automobile industry, one of Hyundai's p",
       "key_facts": []
     },
     {
       "id": "S4",
-      "badge_label": "[S4] arXiv (2020-05-09)",
+      "badge_label": "[S4] Wikipedia (2026-10-25)",
+      "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+      "title": "Wikipedia — Advanced packaging",
+      "publisher": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+      "date": "2026-10-25",
+      "retrieved_at": "2026-11-24T09:36:18Z",
+      "summary": "Advanced packaging is the aggregation and interconnection of components before traditional integrated circuit packaging, where a single die is packaged. Advanced packaging allows multiple devices, including electrical, mechanical, or semiconductor devices, to be merged and packaged as a single electronic device. Advanced packaging uses processes and techniques that are typically performed at semiconductor fabrication facilities, unlike traditional integrated circuit packaging, which does not. Advanced packaging thus sits between fabrication and traditional packaging-or, in other terminology, between BEoL and post-fab. Advanced packaging includes multi-chip modules, 3D ICs, 2.5D ICs, heterogeneous integration, fan-out wafer-level packaging, system-in-package, quilt packaging, combining logic (processors) and memory in a single package, die stacking, wafer bonding/stacking, several chiplets or dies in a package, combinations of these techniques, and others. 2.5D and 3D ICs are also called 2.5D or 3D packages. Advanced packaging can help achieve performance gains through the integration of several devices in one package and associated efficiency gains (by reducing the distances signal",
+      "key_facts": []
+    },
+    {
+      "id": "S5",
+      "badge_label": "[S5] arXiv (2020-05-09)",
       "short_url": "arxiv.org/abs/2005.04324v1",
       "title": "Benchmarking High Bandwidth Memory on FPGAs (Zeke Wang, Hongjing Huang, Jie Zhang)",
       "publisher": "arXiv",
       "url": "https://arxiv.org/abs/2005.04324v1",
       "date": "2020-05-09",
-      "retrieved_at": "2026-11-24T06:33:19Z",
+      "retrieved_at": "2026-11-24T09:36:18Z",
       "summary": "FPGAs are starting to be enhanced with High Bandwidth Memory (HBM) as a way to reduce the memory bandwidth bottleneck encountered in some applications and to give the FPGA more capacity to deal with application state. However, the performance characteristics of HBM are still not well specified, especially in the context of FPGAs. In this paper, we bridge the gap between nominal specifications and actual performance by benchmarkingHBM on a state-of-the-art FPGA, i.e., a Xilinx Alveo U280 featuring a two-stack HBM subsystem. To this end, we propose Shuhai, a benchmarking tool that allows us to demystify all the underlying details of HBM on an FPGA. FPGA-based benchmarking should also provide a more accurate picture of HBM than doing so on CPUs/GPUs, since CPUs/GPUs are noisier systems due to their complex control logic and cache hierarchy. Since the memory itself is complex, leveraging custom hardware logic to benchmark inside an FPGA provides more details as well as accurate and deterministic measurements. We observe that 1) HBM is able to provide up to 425GB/s memory bandwidth, and 2) how HBM is used has a significant impact on performance, which in turn demonstrates the importance",
       "key_facts": [
         "We observe that 1) HBM is able to provide up to 425GB/s memory bandwidth, and 2) how HBM is used has a significant impact on performance, which in turn demonstrates the importance of unveiling the performance characteristics of HBM so as to select the best approach."
       ]
     },
     {
-      "id": "S5",
-      "badge_label": "[S5] arXiv (2020-04-02)",
+      "id": "S6",
+      "badge_label": "[S6] arXiv (2020-04-02)",
       "short_url": "arxiv.org/abs/2004.01635v1",
       "title": "High Bandwidth Memory on FPGAs: A Data Analytics Perspective (Kaan Kara, Christoph Hagleitner, Dionysios Diamantopoulos)",
       "publisher": "arXiv",
       "url": "https://arxiv.org/abs/2004.01635v1",
       "date": "2020-04-02",
-      "retrieved_at": "2026-11-24T06:33:19Z",
+      "retrieved_at": "2026-11-24T09:36:18Z",
       "summary": "FPGA-based data processing in datacenters is increasing in popularity due to the demands of modern workloads and the ensuing necessity for specialization in hardware. Driven by this trend, vendors are rapidly adapting reconfigurable devices to suit data and compute intensive workloads. Inclusion of High Bandwidth Memory (HBM) in FPGA devices is a recent example. HBM promises overcoming the bandwidth bottleneck, faced often by FPGA-based accelerators due to their throughput oriented design. In this paper, we study the usage and benefits of HBM on FPGAs from a data analytics perspective. We consider three workloads that are often performed in analytics oriented databases and implement them on FPGA showing in which cases they benefit from HBM: range selection, hash join, and stochastic gradient descent for linear model training. We integrate our designs into a columnar database (MonetDB) and show the trade-offs arising from the integration related to data movement and partitioning. In certain cases, FPGA+HBM based solutions are able to surpass the highest performance provided by either a 2-socket POWER9 system or a 14-core XeonE5 by up to 1.8x (selection), 12.9x (join), and 3.2x (SGD)",
       "key_facts": [
         "In certain cases, FPGA+HBM based solutions are able to surpass the highest performance provided by either a 2-socket POWER9 system or a 14-core XeonE5 by up to 1.8x (selection), 12.9x (join), and 3.2x (SGD)."
       ]
-    },
-    {
-      "id": "S6",
-      "badge_label": "[S6] arXiv (2025-12-05)",
-      "short_url": "arxiv.org/abs/2512.05831v1",
-      "title": "Dissecting Embedding Bag Performance in DLRM Inference (Chandrish Ambati, Jing Ding, Trung Diep)",
-      "publisher": "arXiv",
-      "url": "https://arxiv.org/abs/2512.05831v1",
-      "date": "2025-12-05",
-      "retrieved_at": "2026-11-24T06:33:19Z",
-      "summary": "As the size of DLRMs gets larger, the models must be partitioned across multiple GPUs or nodes of GPUs due to the size limitation of total HBM memory that can be packaged in a GPU. This partitioning adds communication and synchronization overhead of sending and receiving data across GPUs. We use the NCCL and NVSHMEM libraries to measure the performance of an Embedding Bag kernel implemented on H100 GPUs. We compare its performance across diOerent batch sizes, number of tables, table sizes, pooling factors, and embedding dimensions. For a large embedding table that spans multiple GPUs, we project the performance slowdown from distributing an embedding table across multiple GPUs.",
-      "key_facts": []
     },
     {
       "id": "S7",
@@ -86,7 +91,7 @@
       "publisher": "Hacker News",
       "url": "https://news.ycombinator.com/item?id=26163655",
       "date": "2021-02-17",
-      "retrieved_at": "2026-11-24T06:33:19Z",
+      "retrieved_at": "2026-11-24T09:36:18Z",
       "summary": "Community-verified engineering discussion (82 pts, 38 comments): Samsung Develops Industry’s First High Bandwidth Memory with AI Processing Power (https://news.samsung.com/global/samsung-develops-industrys-first-high-bandwidth-memory-with-ai-processing-power)",
       "key_facts": []
     },
@@ -98,7 +103,7 @@
       "publisher": "Hacker News",
       "url": "https://news.ycombinator.com/item?id=9569405",
       "date": "2015-05-19",
-      "retrieved_at": "2026-11-24T06:33:19Z",
+      "retrieved_at": "2026-11-24T09:36:18Z",
       "summary": "Community-verified engineering discussion (82 pts, 18 comments): AMD's high-bandwidth memory explained (http://techreport.com/review/28294/amd-high-bandwidth-memory-explained)",
       "key_facts": []
     },
@@ -110,7 +115,7 @@
       "publisher": "semiengineering.com",
       "url": "https://semiengineering.com/choosing-the-correct-high-bandwidth-memory/",
       "date": "2023-01-30",
-      "retrieved_at": "2026-11-24T06:33:19Z",
+      "retrieved_at": "2026-11-24T09:36:18Z",
       "summary": "Choosing The Correct High-Bandwidth Memory Trending People (see all) --> Trending Technology (see all) --> Trending Entities (see all) --> Submit Subscribe Home Systems & Design Low Power - High Performance Manufacturing, Packaging & Materials Test, Measurement & Analytics Auto, Security and AI Startup Corner --> Industry Research --> Special Reports Videos --> Business & Startups Jobs Knowledge Center Technical Papers Home '; AI/ML/DL Architectures Automotive/ Aerospace Communication/Data Movement Design & Verification Lithography Manufacturing Materials Memory Optoelectronics / Photonics Packaging Power & Performance Quantum Security Test, Measurement, Analytics tech papers Transistors Z-End Applications Events & Webinars Events Webinars Videos & Research Videos Industry Research Startup Corner --> Newsletters --> Newsletters & Store Newsletters Store MENU Home Special Reports Systems & Design Low Power-High Performance Manufacturing, Packaging & Materials Test, Measurement & Analytics Auto, Security and AI Knowledge Center Videos Startup Corner Business & Startups Jobs Technical Papers Events Webinars Industry Research Newsletters Store Special Reports Home > Low Power-High Perf",
       "key_facts": []
     },
@@ -122,19 +127,37 @@
       "publisher": "news.ycombinator.com",
       "url": "https://news.ycombinator.com/item?id=39094181",
       "date": "2024-01-22",
-      "retrieved_at": "2026-11-24T06:33:19Z",
+      "retrieved_at": "2026-11-24T09:36:18Z",
       "summary": "Ask HN: Is Apple's R1 a Discrete GPU? | Hacker News Hacker News new | past | comments | ask | show | jobs | submit login Ask HN: Is Apple's R1 a Discrete GPU? 77 points by toasterlovin on Jan 23, 2024 | hide | past | favorite | 55 comments I think the R1 in Apple's Vision Pro is a discrete GPU, which would be significant since it would be the first time Apple has shipped a discrete GPU of their own design and could be an indicator that discrete GPUs in Macs are imminent. But I'm asking here because I haven't been able to find any knowledgeable coverage or speculation about what the R1 chip actually is. The confirmed details of the R1 chip are scant: - It does a lot of image processing and sensor data integration: \"the brand-new R1 chip processes input from 12 cameras, five sensors, and six microphones to ensure that content feels like it is appearing right in front of the user's eyes, in real time. R1 streams new images to the displays within 12 milliseconds\"[0] - It has substantial memory bandwidth: \"256GB/s memory bandwidth\"[1] - It uses special, high bandwidth memory: \"To support R1’s high-speed processing, SK hynix has developed the custom 1-gigabit DRAM. The new DRAM is known ",
       "key_facts": [
         "R1 streams new images to the displays within 12 milliseconds\"[0] - It has substantial memory bandwidth: \"256GB/s memory bandwidth\"[1] - It uses special, high bandwidth memory: \"To support R1’s high-speed processing, SK hynix has developed the custom 1-gigabit DRAM.",
         "It is doing an enormous amount of image signal processing, which seems to explain the 256GB/s memory bandwidth."
       ]
+    },
+    {
+      "id": "S11",
+      "badge_label": "[S11] github.com (2026-03-27)",
+      "short_url": "github.com/jkool702/forkrun",
+      "title": "GitHub - jkool702/forkrun: NUMA-Aware Contention-Free Dynamically-Auto-Tuning Bash-Native Streaming Parallelization Engine · GitHub",
+      "publisher": "github.com",
+      "url": "https://github.com/jkool702/forkrun",
+      "date": "2026-03-27",
+      "retrieved_at": "2026-11-24T09:36:18Z",
+      "summary": "GitHub - jkool702/forkrun: NUMA-Aware Contention-Free Dynamically-Auto-Tuning Bash-Native Streaming Parallelization Engine · GitHub Skip to content You signed in with another tab or window. Reload to refresh your session. You signed out in another tab or window. Reload to refresh your session. You switched accounts on another tab or window. Reload to refresh your session. Dismiss alert {{ message }} main Branches Tags Go to file Code Open more actions menu Latest commit History 3,313 Commits 3,313 Commits Folders and files Name Name Last commit message Last commit date .github .github BENCHMARKS BENCHMARKS DOCS DOCS LEGACY LEGACY UNIT_TESTS UNIT_TESTS dev dev epyc epyc python python ring_loadables ring_loadables tools tools .gitignore .gitignore LICENSE LICENSE MANIFEST.in MANIFEST.in MEMORY.md MEMORY.md META META Makefile.substrate Makefile.substrate README.md README.md RELEASE_NOTES_v3.6.1.md RELEASE_NOTES_v3.6.1.md RELEASE_NOTES_v3.6.2.md RELEASE_NOTES_v3.6.2.md forkrun_callschema.h forkrun_callschema.h forkrun_cleanroom.c forkrun_cleanroom.c forkrun_ring.c forkrun_ring.c forkrun_shim.h forkrun_shim.h forkrun_substrate.h forkrun_substrate.h forkrun_trace.h forkrun_trace.h forkru",
+      "key_facts": [
+        "Under fast-draining pipe input, 2–13% of chunks may be stolen — by design (an idle node costs more than a remote chunk).",
+        "Top modes ( -s , -b , external-binary) are limited by a ~30 ms fixed pipeline bring-up cost; ≥1B-line runs remove this fixed cost and show 30–50% higher peak rates.",
+        "GNU Parallel: 9.6% total (2.68 / 28 cores), 6% useful work (1.68 / 28) — 1 full core used strictly for dispatching work; 1.68 cores doing actual work.",
+        "Python Frontend (forkrun 0.18.0 — python/ ) 10M lines (large), median of 5, same i9-7940X class hardware."
+      ]
     }
   ],
+  "shot_count": 92,
   "scene_citations": [
     {
-      "scene_id": "L01",
-      "animation_type": "character_walk_handoff",
-      "citation_fact": "SK Hynix produced the first HBM chip in 2013; AMD Fiji shipped first in 2015",
+      "scene_id": "L001",
+      "template": "exterior_hq_walk",
+      "citation_note": null,
       "sources": [
         {
           "id": "S1",
@@ -144,72 +167,61 @@
           "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
           "publisher": "Wikipedia",
           "date": "2026-11-18"
-        },
-        {
-          "id": "S8",
-          "badge_label": "[S8] Hacker News (2015-05-19)",
-          "short_url": "news.ycombinator.com/item",
-          "title": "AMD's high-bandwidth memory explained",
-          "url": "https://news.ycombinator.com/item?id=9569405",
-          "publisher": "Hacker News",
-          "date": "2015-05-19"
         }
       ]
     },
     {
-      "scene_id": "L02",
-      "animation_type": "dark_cross_section_meter",
-      "citation_fact": "2025-present global memory shortage driven by AI accelerator HBM demand",
+      "scene_id": "L002",
+      "template": "desk_deal_transfer",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        }
+      ]
+    },
+    {
+      "scene_id": "L003",
+      "template": "server_hall_waiting",
+      "citation_note": null,
       "sources": [
         {
           "id": "S3",
-          "badge_label": "[S3] Wikipedia (2026-11-24)",
-          "short_url": "en.wikipedia.org/wiki/2025%E2%80%93present_global_me",
-          "title": "Wikipedia — 2025–present global memory supply shortage",
-          "url": "https://en.wikipedia.org/wiki/2025%E2%80%93present_global_memory_supply_shortage",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
           "publisher": "Wikipedia",
-          "date": "2026-11-24"
-        },
-        {
-          "id": "S2",
-          "badge_label": "[S2] Wikipedia (2026-10-31)",
-          "short_url": "en.wikipedia.org/wiki/Memory_bandwidth",
-          "title": "Wikipedia — Memory bandwidth",
-          "url": "https://en.wikipedia.org/wiki/Memory_bandwidth",
-          "publisher": "Wikipedia",
-          "date": "2026-10-31"
+          "date": "2026-11-15"
         }
       ]
     },
     {
-      "scene_id": "L03",
-      "animation_type": "rain_buckets_analogy",
-      "citation_fact": "Memory bandwidth measures bytes/second delivered across the processor interface",
+      "scene_id": "L004",
+      "template": "cleanroom_microscope_zoom",
+      "citation_note": null,
       "sources": [
         {
-          "id": "S2",
-          "badge_label": "[S2] Wikipedia (2026-10-31)",
-          "short_url": "en.wikipedia.org/wiki/Memory_bandwidth",
-          "title": "Wikipedia — Memory bandwidth",
-          "url": "https://en.wikipedia.org/wiki/Memory_bandwidth",
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
           "publisher": "Wikipedia",
-          "date": "2026-10-31"
-        },
-        {
-          "id": "S9",
-          "badge_label": "[S9] semiengineering.com (2023-01-30)",
-          "short_url": "semiengineering.com/choosing-the-correct-high-bandwidth",
-          "title": "Choosing The Correct High-Bandwidth Memory",
-          "url": "https://semiengineering.com/choosing-the-correct-high-bandwidth-memory/",
-          "publisher": "semiengineering.com",
-          "date": "2023-01-30"
+          "date": "2026-11-18"
         }
       ]
     },
     {
-      "scene_id": "L04",
-      "animation_type": "chip_3d_flip_stack",
-      "citation_fact": "3D-stacked SDRAM connected vertically via Through-Silicon Vias",
+      "scene_id": "L005",
+      "template": "workbench_hbm_stack",
+      "citation_note": null,
       "sources": [
         {
           "id": "S1",
@@ -221,20 +233,36 @@
           "date": "2026-11-18"
         },
         {
-          "id": "S9",
-          "badge_label": "[S9] semiengineering.com (2023-01-30)",
-          "short_url": "semiengineering.com/choosing-the-correct-high-bandwidth",
-          "title": "Choosing The Correct High-Bandwidth Memory",
-          "url": "https://semiengineering.com/choosing-the-correct-high-bandwidth-memory/",
-          "publisher": "semiengineering.com",
-          "date": "2023-01-30"
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
         }
       ]
     },
     {
-      "scene_id": "L05",
-      "animation_type": "map_supply_chain_arcs",
-      "citation_fact": "2.5D packaging places HBM stacks and compute dies side-by-side on an interposer",
+      "scene_id": "L006",
+      "template": "studio_shutter_flash",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        }
+      ]
+    },
+    {
+      "scene_id": "L007",
+      "template": "waffle_100_dots",
+      "citation_note": "Wikipedia: SK Hynix & global HBM supply",
       "sources": [
         {
           "id": "S1",
@@ -246,70 +274,52 @@
           "date": "2026-11-18"
         },
         {
-          "id": "S8",
-          "badge_label": "[S8] Hacker News (2015-05-19)",
-          "short_url": "news.ycombinator.com/item",
-          "title": "AMD's high-bandwidth memory explained",
-          "url": "https://news.ycombinator.com/item?id=9569405",
-          "publisher": "Hacker News",
-          "date": "2015-05-19"
-        },
-        {
-          "id": "S9",
-          "badge_label": "[S9] semiengineering.com (2023-01-30)",
-          "short_url": "semiengineering.com/choosing-the-correct-high-bandwidth",
-          "title": "Choosing The Correct High-Bandwidth Memory",
-          "url": "https://semiengineering.com/choosing-the-correct-high-bandwidth-memory/",
-          "publisher": "semiengineering.com",
-          "date": "2023-01-30"
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
         }
       ]
     },
     {
-      "scene_id": "L06",
-      "animation_type": "whiteboard_systolic_sim",
-      "citation_fact": "arXiv Shuhai & FPGA+HBM benchmarks: 425 GB/s measured, up to 12.9x speedup",
+      "scene_id": "L008",
+      "template": "pedestal_rivalry",
+      "citation_note": null,
       "sources": [
         {
-          "id": "S4",
-          "badge_label": "[S4] arXiv (2020-05-09)",
-          "short_url": "arxiv.org/abs/2005.04324v1",
-          "title": "Benchmarking High Bandwidth Memory on FPGAs (Zeke Wang, Hongjing Huang, Jie Zhang)",
-          "url": "https://arxiv.org/abs/2005.04324v1",
-          "publisher": "arXiv",
-          "date": "2020-05-09"
-        },
-        {
-          "id": "S5",
-          "badge_label": "[S5] arXiv (2020-04-02)",
-          "short_url": "arxiv.org/abs/2004.01635v1",
-          "title": "High Bandwidth Memory on FPGAs: A Data Analytics Perspective (Kaan Kara, Christoph Hagleitner, Dionysios Diamantopoulos)",
-          "url": "https://arxiv.org/abs/2004.01635v1",
-          "publisher": "arXiv",
-          "date": "2020-04-02"
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
         }
       ]
     },
     {
-      "scene_id": "L07",
-      "animation_type": "dark_gpu_partition_split",
-      "citation_fact": "arXiv 2025: H100 HBM size limits force multi-GPU partitioning and sync overhead",
+      "scene_id": "L009",
+      "template": "exterior_hq_walk",
+      "citation_note": null,
       "sources": [
         {
-          "id": "S6",
-          "badge_label": "[S6] arXiv (2025-12-05)",
-          "short_url": "arxiv.org/abs/2512.05831v1",
-          "title": "Dissecting Embedding Bag Performance in DLRM Inference (Chandrish Ambati, Jing Ding, Trung Diep)",
-          "url": "https://arxiv.org/abs/2512.05831v1",
-          "publisher": "arXiv",
-          "date": "2025-12-05"
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
         }
       ]
     },
     {
-      "scene_id": "L08",
-      "animation_type": "character_walk_handoff",
-      "citation_fact": "Samsung HBM-PIM (2021) vs SK Hynix custom high-bandwidth DRAM (256 GB/s on R1)",
+      "scene_id": "L010",
+      "template": "copier_blueprint_action",
+      "citation_note": null,
       "sources": [
         {
           "id": "S1",
@@ -328,31 +338,678 @@
           "url": "https://news.ycombinator.com/item?id=26163655",
           "publisher": "Hacker News",
           "date": "2021-02-17"
-        },
-        {
-          "id": "S10",
-          "badge_label": "[S10] news.ycombinator.com (2024-01-22)",
-          "short_url": "news.ycombinator.com/item",
-          "title": "Ask HN: Is Apple's R1 a Discrete GPU? | Hacker News",
-          "url": "https://news.ycombinator.com/item?id=39094181",
-          "publisher": "news.ycombinator.com",
-          "date": "2024-01-22"
         }
       ]
     },
     {
-      "scene_id": "L09",
-      "animation_type": "wafer_conveyor_zoom_out",
-      "citation_fact": "HBM die size and stacking complexity consume far more fab capacity, fueling shortage",
+      "scene_id": "L011",
+      "template": "red_cross_stamp",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L012",
+      "template": "desk_deal_transfer",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        }
+      ]
+    },
+    {
+      "scene_id": "L013",
+      "template": "cleanroom_microscope_zoom",
+      "citation_note": "Wikipedia [S1]: First HBM produced by SK Hynix in 2013",
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        }
+      ]
+    },
+    {
+      "scene_id": "L014",
+      "template": "timeline_paradox_arc",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S8",
+          "badge_label": "[S8] Hacker News (2015-05-19)",
+          "short_url": "news.ycombinator.com/item",
+          "title": "AMD's high-bandwidth memory explained",
+          "url": "https://news.ycombinator.com/item?id=9569405",
+          "publisher": "Hacker News",
+          "date": "2015-05-19"
+        }
+      ]
+    },
+    {
+      "scene_id": "L015",
+      "template": "oven_conveyor_bottleneck",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S8",
+          "badge_label": "[S8] Hacker News (2015-05-19)",
+          "short_url": "news.ycombinator.com/item",
+          "title": "AMD's high-bandwidth memory explained",
+          "url": "https://news.ycombinator.com/item?id=9569405",
+          "publisher": "Hacker News",
+          "date": "2015-05-19"
+        }
+      ]
+    },
+    {
+      "scene_id": "L016",
+      "template": "split_screen_rivalry",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S2",
+          "badge_label": "[S2] Wikipedia (2026-10-31)",
+          "short_url": "en.wikipedia.org/wiki/Memory_bandwidth",
+          "title": "Wikipedia — Memory bandwidth",
+          "url": "https://en.wikipedia.org/wiki/Memory_bandwidth",
+          "publisher": "Wikipedia",
+          "date": "2026-10-31"
+        },
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L017",
+      "template": "desk_deal_transfer",
+      "citation_note": null,
       "sources": [
         {
           "id": "S3",
-          "badge_label": "[S3] Wikipedia (2026-11-24)",
-          "short_url": "en.wikipedia.org/wiki/2025%E2%80%93present_global_me",
-          "title": "Wikipedia — 2025–present global memory supply shortage",
-          "url": "https://en.wikipedia.org/wiki/2025%E2%80%93present_global_memory_supply_shortage",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
           "publisher": "Wikipedia",
-          "date": "2026-11-24"
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L018",
+      "template": "hydraulic_press_crush",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        },
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L019",
+      "template": "wafer_3x_cannibalization",
+      "citation_note": "Global memory shortage [S3]: HBM wafer capacity trade-off",
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L020",
+      "template": "server_hall_waiting",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L021",
+      "template": "cowos_silicon_bridge",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L022",
+      "template": "split_screen_rivalry",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S2",
+          "badge_label": "[S2] Wikipedia (2026-10-31)",
+          "short_url": "en.wikipedia.org/wiki/Memory_bandwidth",
+          "title": "Wikipedia — Memory bandwidth",
+          "url": "https://en.wikipedia.org/wiki/Memory_bandwidth",
+          "publisher": "Wikipedia",
+          "date": "2026-10-31"
+        }
+      ]
+    },
+    {
+      "scene_id": "L023",
+      "template": "thermal_mrmuf_vs_tcncf",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        },
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L024",
+      "template": "pedestal_rivalry",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L025",
+      "template": "exterior_hq_walk",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S8",
+          "badge_label": "[S8] Hacker News (2015-05-19)",
+          "short_url": "news.ycombinator.com/item",
+          "title": "AMD's high-bandwidth memory explained",
+          "url": "https://news.ycombinator.com/item?id=9569405",
+          "publisher": "Hacker News",
+          "date": "2015-05-19"
+        }
+      ]
+    },
+    {
+      "scene_id": "L026",
+      "template": "cleanroom_microscope_zoom",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S8",
+          "badge_label": "[S8] Hacker News (2015-05-19)",
+          "short_url": "news.ycombinator.com/item",
+          "title": "AMD's high-bandwidth memory explained",
+          "url": "https://news.ycombinator.com/item?id=9569405",
+          "publisher": "Hacker News",
+          "date": "2015-05-19"
+        }
+      ]
+    },
+    {
+      "scene_id": "L027",
+      "template": "workbench_hbm_stack",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S2",
+          "badge_label": "[S2] Wikipedia (2026-10-31)",
+          "short_url": "en.wikipedia.org/wiki/Memory_bandwidth",
+          "title": "Wikipedia — Memory bandwidth",
+          "url": "https://en.wikipedia.org/wiki/Memory_bandwidth",
+          "publisher": "Wikipedia",
+          "date": "2026-10-31"
+        },
+        {
+          "id": "S8",
+          "badge_label": "[S8] Hacker News (2015-05-19)",
+          "short_url": "news.ycombinator.com/item",
+          "title": "AMD's high-bandwidth memory explained",
+          "url": "https://news.ycombinator.com/item?id=9569405",
+          "publisher": "Hacker News",
+          "date": "2015-05-19"
+        }
+      ]
+    },
+    {
+      "scene_id": "L028",
+      "template": "red_cross_stamp",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S8",
+          "badge_label": "[S8] Hacker News (2015-05-19)",
+          "short_url": "news.ycombinator.com/item",
+          "title": "AMD's high-bandwidth memory explained",
+          "url": "https://news.ycombinator.com/item?id=9569405",
+          "publisher": "Hacker News",
+          "date": "2015-05-19"
+        }
+      ]
+    },
+    {
+      "scene_id": "L029",
+      "template": "oven_conveyor_bottleneck",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S2",
+          "badge_label": "[S2] Wikipedia (2026-10-31)",
+          "short_url": "en.wikipedia.org/wiki/Memory_bandwidth",
+          "title": "Wikipedia — Memory bandwidth",
+          "url": "https://en.wikipedia.org/wiki/Memory_bandwidth",
+          "publisher": "Wikipedia",
+          "date": "2026-10-31"
+        },
+        {
+          "id": "S8",
+          "badge_label": "[S8] Hacker News (2015-05-19)",
+          "short_url": "news.ycombinator.com/item",
+          "title": "AMD's high-bandwidth memory explained",
+          "url": "https://news.ycombinator.com/item?id=9569405",
+          "publisher": "Hacker News",
+          "date": "2015-05-19"
+        }
+      ]
+    },
+    {
+      "scene_id": "L030",
+      "template": "copier_blueprint_action",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S8",
+          "badge_label": "[S8] Hacker News (2015-05-19)",
+          "short_url": "news.ycombinator.com/item",
+          "title": "AMD's high-bandwidth memory explained",
+          "url": "https://news.ycombinator.com/item?id=9569405",
+          "publisher": "Hacker News",
+          "date": "2015-05-19"
+        }
+      ]
+    },
+    {
+      "scene_id": "L031",
+      "template": "desk_deal_transfer",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        }
+      ]
+    },
+    {
+      "scene_id": "L032",
+      "template": "split_screen_rivalry",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        }
+      ]
+    },
+    {
+      "scene_id": "L033",
+      "template": "exterior_hq_walk",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        }
+      ]
+    },
+    {
+      "scene_id": "L034",
+      "template": "studio_shutter_flash",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L035",
+      "template": "workbench_hbm_stack",
+      "citation_note": "Wikipedia [S1]: SK Hynix produced the first HBM chip in 2013",
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        }
+      ]
+    },
+    {
+      "scene_id": "L036",
+      "template": "desk_deal_transfer",
+      "citation_note": "Wikipedia [S1] & HN [S8]: AMD Fiji shipped first HBM in 2015",
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S8",
+          "badge_label": "[S8] Hacker News (2015-05-19)",
+          "short_url": "news.ycombinator.com/item",
+          "title": "AMD's high-bandwidth memory explained",
+          "url": "https://news.ycombinator.com/item?id=9569405",
+          "publisher": "Hacker News",
+          "date": "2015-05-19"
+        }
+      ]
+    },
+    {
+      "scene_id": "L037",
+      "template": "waffle_100_dots",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S8",
+          "badge_label": "[S8] Hacker News (2015-05-19)",
+          "short_url": "news.ycombinator.com/item",
+          "title": "AMD's high-bandwidth memory explained",
+          "url": "https://news.ycombinator.com/item?id=9569405",
+          "publisher": "Hacker News",
+          "date": "2015-05-19"
+        }
+      ]
+    },
+    {
+      "scene_id": "L038",
+      "template": "hydraulic_press_crush",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S8",
+          "badge_label": "[S8] Hacker News (2015-05-19)",
+          "short_url": "news.ycombinator.com/item",
+          "title": "AMD's high-bandwidth memory explained",
+          "url": "https://news.ycombinator.com/item?id=9569405",
+          "publisher": "Hacker News",
+          "date": "2015-05-19"
+        }
+      ]
+    },
+    {
+      "scene_id": "L039",
+      "template": "pedestal_rivalry",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S8",
+          "badge_label": "[S8] Hacker News (2015-05-19)",
+          "short_url": "news.ycombinator.com/item",
+          "title": "AMD's high-bandwidth memory explained",
+          "url": "https://news.ycombinator.com/item?id=9569405",
+          "publisher": "Hacker News",
+          "date": "2015-05-19"
+        }
+      ]
+    },
+    {
+      "scene_id": "L040",
+      "template": "desk_deal_transfer",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L041",
+      "template": "red_cross_stamp",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L042",
+      "template": "cleanroom_microscope_zoom",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L043",
+      "template": "timeline_paradox_arc",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
         },
         {
           "id": "S9",
@@ -366,9 +1023,321 @@
       ]
     },
     {
-      "scene_id": "L10",
-      "animation_type": "whiteboard_systolic_sim",
-      "citation_fact": "Specialized HBM ties memory fabs directly to hyperscaler AI accelerator cycles",
+      "scene_id": "L044",
+      "template": "server_hall_waiting",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        },
+        {
+          "id": "S6",
+          "badge_label": "[S6] arXiv (2020-04-02)",
+          "short_url": "arxiv.org/abs/2004.01635v1",
+          "title": "High Bandwidth Memory on FPGAs: A Data Analytics Perspective (Kaan Kara, Christoph Hagleitner, Dionysios Diamantopoulos)",
+          "url": "https://arxiv.org/abs/2004.01635v1",
+          "publisher": "arXiv",
+          "date": "2020-04-02"
+        }
+      ]
+    },
+    {
+      "scene_id": "L045",
+      "template": "split_screen_rivalry",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S2",
+          "badge_label": "[S2] Wikipedia (2026-10-31)",
+          "short_url": "en.wikipedia.org/wiki/Memory_bandwidth",
+          "title": "Wikipedia — Memory bandwidth",
+          "url": "https://en.wikipedia.org/wiki/Memory_bandwidth",
+          "publisher": "Wikipedia",
+          "date": "2026-10-31"
+        }
+      ]
+    },
+    {
+      "scene_id": "L046",
+      "template": "waffle_100_dots",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S2",
+          "badge_label": "[S2] Wikipedia (2026-10-31)",
+          "short_url": "en.wikipedia.org/wiki/Memory_bandwidth",
+          "title": "Wikipedia — Memory bandwidth",
+          "url": "https://en.wikipedia.org/wiki/Memory_bandwidth",
+          "publisher": "Wikipedia",
+          "date": "2026-10-31"
+        },
+        {
+          "id": "S5",
+          "badge_label": "[S5] arXiv (2020-05-09)",
+          "short_url": "arxiv.org/abs/2005.04324v1",
+          "title": "Benchmarking High Bandwidth Memory on FPGAs (Zeke Wang, Hongjing Huang, Jie Zhang)",
+          "url": "https://arxiv.org/abs/2005.04324v1",
+          "publisher": "arXiv",
+          "date": "2020-05-09"
+        }
+      ]
+    },
+    {
+      "scene_id": "L047",
+      "template": "rain_pipe_analogy",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S2",
+          "badge_label": "[S2] Wikipedia (2026-10-31)",
+          "short_url": "en.wikipedia.org/wiki/Memory_bandwidth",
+          "title": "Wikipedia — Memory bandwidth",
+          "url": "https://en.wikipedia.org/wiki/Memory_bandwidth",
+          "publisher": "Wikipedia",
+          "date": "2026-10-31"
+        }
+      ]
+    },
+    {
+      "scene_id": "L048",
+      "template": "rain_pipe_analogy",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S2",
+          "badge_label": "[S2] Wikipedia (2026-10-31)",
+          "short_url": "en.wikipedia.org/wiki/Memory_bandwidth",
+          "title": "Wikipedia — Memory bandwidth",
+          "url": "https://en.wikipedia.org/wiki/Memory_bandwidth",
+          "publisher": "Wikipedia",
+          "date": "2026-10-31"
+        }
+      ]
+    },
+    {
+      "scene_id": "L049",
+      "template": "oven_conveyor_bottleneck",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S2",
+          "badge_label": "[S2] Wikipedia (2026-10-31)",
+          "short_url": "en.wikipedia.org/wiki/Memory_bandwidth",
+          "title": "Wikipedia — Memory bandwidth",
+          "url": "https://en.wikipedia.org/wiki/Memory_bandwidth",
+          "publisher": "Wikipedia",
+          "date": "2026-10-31"
+        },
+        {
+          "id": "S6",
+          "badge_label": "[S6] arXiv (2020-04-02)",
+          "short_url": "arxiv.org/abs/2004.01635v1",
+          "title": "High Bandwidth Memory on FPGAs: A Data Analytics Perspective (Kaan Kara, Christoph Hagleitner, Dionysios Diamantopoulos)",
+          "url": "https://arxiv.org/abs/2004.01635v1",
+          "publisher": "arXiv",
+          "date": "2020-04-02"
+        }
+      ]
+    },
+    {
+      "scene_id": "L050",
+      "template": "copier_blueprint_action",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S2",
+          "badge_label": "[S2] Wikipedia (2026-10-31)",
+          "short_url": "en.wikipedia.org/wiki/Memory_bandwidth",
+          "title": "Wikipedia — Memory bandwidth",
+          "url": "https://en.wikipedia.org/wiki/Memory_bandwidth",
+          "publisher": "Wikipedia",
+          "date": "2026-10-31"
+        },
+        {
+          "id": "S6",
+          "badge_label": "[S6] arXiv (2020-04-02)",
+          "short_url": "arxiv.org/abs/2004.01635v1",
+          "title": "High Bandwidth Memory on FPGAs: A Data Analytics Perspective (Kaan Kara, Christoph Hagleitner, Dionysios Diamantopoulos)",
+          "url": "https://arxiv.org/abs/2004.01635v1",
+          "publisher": "arXiv",
+          "date": "2020-04-02"
+        }
+      ]
+    },
+    {
+      "scene_id": "L051",
+      "template": "red_cross_stamp",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S2",
+          "badge_label": "[S2] Wikipedia (2026-10-31)",
+          "short_url": "en.wikipedia.org/wiki/Memory_bandwidth",
+          "title": "Wikipedia — Memory bandwidth",
+          "url": "https://en.wikipedia.org/wiki/Memory_bandwidth",
+          "publisher": "Wikipedia",
+          "date": "2026-10-31"
+        }
+      ]
+    },
+    {
+      "scene_id": "L052",
+      "template": "workbench_hbm_stack",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S9",
+          "badge_label": "[S9] semiengineering.com (2023-01-30)",
+          "short_url": "semiengineering.com/choosing-the-correct-high-bandwidth",
+          "title": "Choosing The Correct High-Bandwidth Memory",
+          "url": "https://semiengineering.com/choosing-the-correct-high-bandwidth-memory/",
+          "publisher": "semiengineering.com",
+          "date": "2023-01-30"
+        }
+      ]
+    },
+    {
+      "scene_id": "L053",
+      "template": "cleanroom_microscope_zoom",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L054",
+      "template": "workbench_hbm_stack",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        }
+      ]
+    },
+    {
+      "scene_id": "L055",
+      "template": "workbench_hbm_stack",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L056",
+      "template": "cowos_silicon_bridge",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L057",
+      "template": "waffle_100_dots",
+      "citation_note": "arXiv [S5] Z. Wang et al.: 425 GB/s measured HBM bandwidth",
+      "sources": [
+        {
+          "id": "S5",
+          "badge_label": "[S5] arXiv (2020-05-09)",
+          "short_url": "arxiv.org/abs/2005.04324v1",
+          "title": "Benchmarking High Bandwidth Memory on FPGAs (Zeke Wang, Hongjing Huang, Jie Zhang)",
+          "url": "https://arxiv.org/abs/2005.04324v1",
+          "publisher": "arXiv",
+          "date": "2020-05-09"
+        }
+      ]
+    },
+    {
+      "scene_id": "L058",
+      "template": "pedestal_rivalry",
+      "citation_note": "arXiv [S6] K. Kara et al.: 12.9x join speedup with HBM",
+      "sources": [
+        {
+          "id": "S6",
+          "badge_label": "[S6] arXiv (2020-04-02)",
+          "short_url": "arxiv.org/abs/2004.01635v1",
+          "title": "High Bandwidth Memory on FPGAs: A Data Analytics Perspective (Kaan Kara, Christoph Hagleitner, Dionysios Diamantopoulos)",
+          "url": "https://arxiv.org/abs/2004.01635v1",
+          "publisher": "arXiv",
+          "date": "2020-04-02"
+        }
+      ]
+    },
+    {
+      "scene_id": "L059",
+      "template": "timeline_paradox_arc",
+      "citation_note": null,
       "sources": [
         {
           "id": "S1",
@@ -381,21 +1350,684 @@
         },
         {
           "id": "S3",
-          "badge_label": "[S3] Wikipedia (2026-11-24)",
-          "short_url": "en.wikipedia.org/wiki/2025%E2%80%93present_global_me",
-          "title": "Wikipedia — 2025–present global memory supply shortage",
-          "url": "https://en.wikipedia.org/wiki/2025%E2%80%93present_global_memory_supply_shortage",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
           "publisher": "Wikipedia",
-          "date": "2026-11-24"
-        },
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L060",
+      "template": "studio_shutter_flash",
+      "citation_note": "HN / Reports [S10]: SK Hynix custom DRAM for Apple R1 (256 GB/s)",
+      "sources": [
+        {
+          "id": "S10",
+          "badge_label": "[S10] news.ycombinator.com (2024-01-22)",
+          "short_url": "news.ycombinator.com/item",
+          "title": "Ask HN: Is Apple's R1 a Discrete GPU? | Hacker News",
+          "url": "https://news.ycombinator.com/item?id=39094181",
+          "publisher": "news.ycombinator.com",
+          "date": "2024-01-22"
+        }
+      ]
+    },
+    {
+      "scene_id": "L061",
+      "template": "server_hall_waiting",
+      "citation_note": null,
+      "sources": [
         {
           "id": "S6",
-          "badge_label": "[S6] arXiv (2025-12-05)",
-          "short_url": "arxiv.org/abs/2512.05831v1",
-          "title": "Dissecting Embedding Bag Performance in DLRM Inference (Chandrish Ambati, Jing Ding, Trung Diep)",
-          "url": "https://arxiv.org/abs/2512.05831v1",
+          "badge_label": "[S6] arXiv (2020-04-02)",
+          "short_url": "arxiv.org/abs/2004.01635v1",
+          "title": "High Bandwidth Memory on FPGAs: A Data Analytics Perspective (Kaan Kara, Christoph Hagleitner, Dionysios Diamantopoulos)",
+          "url": "https://arxiv.org/abs/2004.01635v1",
           "publisher": "arXiv",
-          "date": "2025-12-05"
+          "date": "2020-04-02"
+        }
+      ]
+    },
+    {
+      "scene_id": "L062",
+      "template": "cowos_silicon_bridge",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S6",
+          "badge_label": "[S6] arXiv (2020-04-02)",
+          "short_url": "arxiv.org/abs/2004.01635v1",
+          "title": "High Bandwidth Memory on FPGAs: A Data Analytics Perspective (Kaan Kara, Christoph Hagleitner, Dionysios Diamantopoulos)",
+          "url": "https://arxiv.org/abs/2004.01635v1",
+          "publisher": "arXiv",
+          "date": "2020-04-02"
+        }
+      ]
+    },
+    {
+      "scene_id": "L063",
+      "template": "desk_deal_transfer",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L064",
+      "template": "split_screen_rivalry",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L065",
+      "template": "thermal_mrmuf_vs_tcncf",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        },
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L066",
+      "template": "hydraulic_press_crush",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L067",
+      "template": "thermal_mrmuf_vs_tcncf",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        },
+        {
+          "id": "S9",
+          "badge_label": "[S9] semiengineering.com (2023-01-30)",
+          "short_url": "semiengineering.com/choosing-the-correct-high-bandwidth",
+          "title": "Choosing The Correct High-Bandwidth Memory",
+          "url": "https://semiengineering.com/choosing-the-correct-high-bandwidth-memory/",
+          "publisher": "semiengineering.com",
+          "date": "2023-01-30"
+        }
+      ]
+    },
+    {
+      "scene_id": "L068",
+      "template": "cleanroom_microscope_zoom",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        },
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L069",
+      "template": "thermal_mrmuf_vs_tcncf",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        },
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L070",
+      "template": "workbench_hbm_stack",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L071",
+      "template": "studio_shutter_flash",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        },
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L072",
+      "template": "pedestal_rivalry",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L073",
+      "template": "exterior_hq_walk",
+      "citation_note": "Wikipedia [S4]: TSMC CoWoS 2.5D advanced packaging",
+      "sources": [
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L074",
+      "template": "cowos_silicon_bridge",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L075",
+      "template": "oven_conveyor_bottleneck",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        },
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L076",
+      "template": "red_cross_stamp",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        },
+        {
+          "id": "S9",
+          "badge_label": "[S9] semiengineering.com (2023-01-30)",
+          "short_url": "semiengineering.com/choosing-the-correct-high-bandwidth",
+          "title": "Choosing The Correct High-Bandwidth Memory",
+          "url": "https://semiengineering.com/choosing-the-correct-high-bandwidth-memory/",
+          "publisher": "semiengineering.com",
+          "date": "2023-01-30"
+        }
+      ]
+    },
+    {
+      "scene_id": "L077",
+      "template": "desk_deal_transfer",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L078",
+      "template": "wafer_3x_cannibalization",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        },
+        {
+          "id": "S9",
+          "badge_label": "[S9] semiengineering.com (2023-01-30)",
+          "short_url": "semiengineering.com/choosing-the-correct-high-bandwidth",
+          "title": "Choosing The Correct High-Bandwidth Memory",
+          "url": "https://semiengineering.com/choosing-the-correct-high-bandwidth-memory/",
+          "publisher": "semiengineering.com",
+          "date": "2023-01-30"
+        }
+      ]
+    },
+    {
+      "scene_id": "L079",
+      "template": "wafer_3x_cannibalization",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L080",
+      "template": "waffle_100_dots",
+      "citation_note": "Wikipedia [S3]: HBM wafer allocation & global memory supply shortage",
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L081",
+      "template": "oven_conveyor_bottleneck",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L082",
+      "template": "desk_deal_transfer",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L083",
+      "template": "server_hall_waiting",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L084",
+      "template": "split_screen_rivalry",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L085",
+      "template": "workbench_hbm_stack",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        }
+      ]
+    },
+    {
+      "scene_id": "L086",
+      "template": "cowos_silicon_bridge",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L087",
+      "template": "desk_deal_transfer",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S4",
+          "badge_label": "[S4] Wikipedia (2026-10-25)",
+          "short_url": "en.wikipedia.org/wiki/Advanced_packaging",
+          "title": "Wikipedia — Advanced packaging",
+          "url": "https://en.wikipedia.org/wiki/Advanced_packaging",
+          "publisher": "Wikipedia",
+          "date": "2026-10-25"
+        }
+      ]
+    },
+    {
+      "scene_id": "L088",
+      "template": "pedestal_rivalry",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        },
+        {
+          "id": "S7",
+          "badge_label": "[S7] Hacker News (2021-02-17)",
+          "short_url": "news.ycombinator.com/item",
+          "title": "Samsung Develops Industry’s First High Bandwidth Memory with AI Processing Power",
+          "url": "https://news.ycombinator.com/item?id=26163655",
+          "publisher": "Hacker News",
+          "date": "2021-02-17"
+        }
+      ]
+    },
+    {
+      "scene_id": "L089",
+      "template": "hydraulic_press_crush",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        },
+        {
+          "id": "S9",
+          "badge_label": "[S9] semiengineering.com (2023-01-30)",
+          "short_url": "semiengineering.com/choosing-the-correct-high-bandwidth",
+          "title": "Choosing The Correct High-Bandwidth Memory",
+          "url": "https://semiengineering.com/choosing-the-correct-high-bandwidth-memory/",
+          "publisher": "semiengineering.com",
+          "date": "2023-01-30"
+        }
+      ]
+    },
+    {
+      "scene_id": "L090",
+      "template": "timeline_paradox_arc",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        }
+      ]
+    },
+    {
+      "scene_id": "L091",
+      "template": "studio_shutter_flash",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "scene_id": "L092",
+      "template": "exterior_hq_walk",
+      "citation_note": null,
+      "sources": [
+        {
+          "id": "S1",
+          "badge_label": "[S1] Wikipedia (2026-11-18)",
+          "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "title": "Wikipedia — High Bandwidth Memory",
+          "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+          "publisher": "Wikipedia",
+          "date": "2026-11-18"
+        },
+        {
+          "id": "S3",
+          "badge_label": "[S3] Wikipedia (2026-11-15)",
+          "short_url": "en.wikipedia.org/wiki/SK_Hynix",
+          "title": "Wikipedia — SK Hynix",
+          "url": "https://en.wikipedia.org/wiki/SK_Hynix",
+          "publisher": "Wikipedia",
+          "date": "2026-11-15"
         }
       ]
     }

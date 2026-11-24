@@ -136,6 +136,21 @@ def search_wikipedia(query: str, limit: int = 4) -> list[dict[str, Any]]:
             extract = sdata.get("extract") or ""
             canonical = sdata.get("content_urls", {}).get("desktop", {}).get("page") or f"https://en.wikipedia.org/wiki/{slug}"
             ts = (sdata.get("timestamp") or "")[:10]
+            # Also pull deeper plain-text sections (up to 4500 chars) for historical dates & engineering metrics
+            ext_params = urllib.parse.urlencode({
+                "action": "query",
+                "prop": "extracts",
+                "explaintext": "1",
+                "exchars": "4500",
+                "titles": page_title,
+                "format": "json",
+            })
+            ext_data = json.loads(_http_get(f"https://en.wikipedia.org/w/api.php?{ext_params}", accept="application/json").decode("utf-8"))
+            pages = ext_data.get("query", {}).get("pages", {})
+            for p_obj in pages.values():
+                long_ext = (p_obj.get("extract") or "").strip()
+                if len(long_ext) > len(extract):
+                    extract = re.sub(r"\s+", " ", long_ext)
         except Exception:
             extract = re.sub(r"<[^>]+>", "", item.get("snippet", ""))
             canonical = f"https://en.wikipedia.org/wiki/{slug}"

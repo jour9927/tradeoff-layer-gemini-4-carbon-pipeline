@@ -70,6 +70,8 @@ def _write_tts_manifests_from_plan(plan: dict[str, Any], manifests_dir: Path) ->
     out["long"] = lp
 
     for sh in plan.get("shorts", []):
+        if sh.get("mode") == "hook_prefix_excerpt":
+            continue
         sh_id = sh["id"]
         sh_manifest = {
             "variant": "short",
@@ -97,8 +99,8 @@ def run_pipeline(
     run_id: str = "",
     worker: str = "auto",
     preauthored_plan: Path | None = None,
-    long_scenes: int = 10,
-    nfe_step: int = 32,
+    long_scenes: int = 90,
+    nfe_step: int = 28,
     fps: int = 60,
 ) -> Path:
     t0 = time.time()
@@ -184,6 +186,8 @@ def run_pipeline(
             f"--nfe-step {nfe_step}"
         ]
         for sh in plan.get("shorts", []):
+            if sh.get("mode") == "hook_prefix_excerpt":
+                continue
             sh_id = sh["id"]
             tts_cmds.append(
                 f"PYTHONPATH=/content/tradeoff_layer_carbon/repo/src "
@@ -197,6 +201,8 @@ def run_pipeline(
         # Immediately pull cloned audio & word timestamps back to local host!
         client.download_dir(f"{remote_run}/tts_long", run_dir / "tts_long")
         for sh in plan.get("shorts", []):
+            if sh.get("mode") == "hook_prefix_excerpt":
+                continue
             sh_id = sh["id"]
             client.download_dir(f"{remote_run}/tts_shorts/{sh_id}", run_dir / "tts_shorts" / sh_id)
         print("[orchestrator] Pulled mastered cloned voice WAVs & word timestamps to local host.", flush=True)
@@ -295,8 +301,8 @@ def main() -> None:
     p_run.add_argument("--run-id", default="")
     p_run.add_argument("--worker", choices=["auto", "colab-rtx6000", "b850"], default="auto")
     p_run.add_argument("--plan", type=Path, default=None, help="Optional pre-generated production plan JSON")
-    p_run.add_argument("--long-scenes", type=int, default=10)
-    p_run.add_argument("--nfe-step", type=int, default=32)
+    p_run.add_argument("--long-scenes", type=int, default=90)
+    p_run.add_argument("--nfe-step", type=int, default=28)
     p_run.add_argument("--fps", type=int, default=60)
 
     args = ap.parse_args()

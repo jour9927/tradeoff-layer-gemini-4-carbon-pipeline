@@ -46,11 +46,21 @@ _ACRONYM_MAP = {
     r"\bASML\b": "A S M L",
     r"\bTSMC\b": "T S M C",
     r"\bCoWoS\b": "Co Wo S",
+    r"\bMR-MUF\b": "M R M U F",
+    r"\bTC-NCF\b": "T C N C F",
+    r"\bTSVs\b": "T S Vs",
+    r"\bTSV\b": "T S V",
+    r"\bDDR5\b": "D D R five",
+    r"\bDDR4\b": "D D R four",
+    r"\bGDDR6\b": "G D D R six",
+    r"\bJEDEC\b": "JEDEC",
     r"\bEUV\b": "E U V",
     r"\bHBM4\b": "H B M four",
     r"\bHBM3E\b": "H B M three E",
     r"\bHBM3e\b": "H B M three E",
     r"\bHBM3\b": "H B M three",
+    r"\bHBM2E\b": "H B M two E",
+    r"\bHBM2\b": "H B M two",
     r"\bHBM\b": "H B M",
     r"\bDRAM\b": "D RAM",
     r"\bSRAM\b": "S RAM",
@@ -88,11 +98,22 @@ def normalize_for_tts(text: str) -> str:
     return s
 
 
-def split_sentences_for_tts(text: str, max_chars: int = 215) -> list[str]:
+def split_sentences_for_tts(text: str, max_chars: int = 145) -> list[str]:
+    """
+    Splits into crisp conversational sentence beats (<=145 chars) so F5-TTS delivers natural
+    intonation with clean silent breathing pauses between sentences — never flat run-on prose.
+    """
     raw_sents = [p.strip() for p in re.split(r"(?<=[.?!])\s+", text.strip()) if p.strip()]
     chunks: list[str] = []
     cur = ""
     for sent in raw_sents:
+        # Keep short dramatic questions or contrast punches as standalone utterances for cadence!
+        if sent.endswith("?") or len(sent.split()) <= 6:
+            if cur:
+                chunks.append(cur)
+                cur = ""
+            chunks.append(sent)
+            continue
         if not cur:
             cur = sent
         elif len(cur) + 1 + len(sent) <= max_chars:
@@ -162,7 +183,14 @@ def _synth_scene_task(job: dict[str, Any]) -> dict[str, Any]:
 
     scene_id = job["id"]
     scenes_dir = Path(job["scenes_dir"])
-    sub_chunks = split_sentences_for_tts(job["spoken_text"], max_chars=215)
+    scene_wav_path = scenes_dir / f"{scene_id}.wav"
+    sig_path = scenes_dir / f"{scene_id}.sig"
+    import hashlib
+    sig = hashlib.sha1(f"{job['voice_style']}|{job['speed']}|{job['nfe_step']}|{job['spoken_text']}".encode("utf-8")).hexdigest()[:16]
+    if scene_wav_path.exists() and sig_path.exists() and sig_path.read_text().strip() == sig:
+        return {"id": scene_id, "wav_path": str(scene_wav_path), "sr": 24000}
+
+    sub_chunks = split_sentences_for_tts(job["spoken_text"], max_chars=145)
     sr_out = 24000
     parts: list[np.ndarray] = []
 
@@ -179,13 +207,17 @@ def _synth_scene_task(job: dict[str, Any]) -> dict[str, Any]:
         )
         sr_out = int(sr)
         tmp_chunk.unlink(missing_ok=True)
-        pad_ms = 230 if c_idx == len(sub_chunks) - 1 else 155
+        is_last = c_idx == len(sub_chunks) - 1
+        if is_last:
+            pad_ms = 340 if chunk_txt.endswith("?") else int(job.get("post_pause_ms", 220))
+        else:
+            pad_ms = 270 if chunk_txt.endswith("?") else 195
         parts.append(trim_and_pad_audio(np.asarray(wav_arr), sr_out, pad_end_ms=pad_ms))
 
     scene_audio = np.concatenate(parts) if parts else np.zeros(sr_out, dtype=np.float32)
-    scene_wav_path = scenes_dir / f"{scene_id}.wav"
     sf.write(str(scene_wav_path), scene_audio, sr_out, subtype="PCM_16")
     master_broadcast_wav(scene_wav_path, scene_wav_path, target_lufs=-14.0)
+    sig_path.write_text(sig, encoding="utf-8")
     return {"id": scene_id, "wav_path": str(scene_wav_path), "sr": sr_out}
 
 

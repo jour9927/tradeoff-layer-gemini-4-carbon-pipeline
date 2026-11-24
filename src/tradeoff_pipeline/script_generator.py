@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
 """
-Tradeoff Layer — AI Scriptwriter & Paired Shorts Traffic-Driver Generator.
-Reconstructs the exact narrative DNA of @TradeoffLayer:
-  - Immediate paradox / origin hook (zero channel-intro fluff)
-  - Tangible everyday analogy ("buckets in the rain", "cake factory", "toll booth")
-  - Quantitative engineering & economic breakdown grounded in scraped public sources [S1..Sn]
-  - Signature closing chapter: "The Tradeoff" (why their biggest strength is also their risk)
-  - Paired 60–75s vertical Short(s) engineered as a curiosity funnel back to the Long-Form video
+Tradeoff Layer v3 — Shot-by-Shot Industrial Thriller Scriptwriter & Native Hook-Excerpt Short Engine.
 
-Supports unattended execution via:
-  1. Google Gemini API (`GEMINI_API_KEY` / `GOOGLE_API_KEY`)
-  2. OpenAI-compatible API (`OPENAI_API_KEY` + optional `OPENAI_BASE_URL`)
-  3. Local/Remote HuggingFace `Qwen/Qwen2.5-7B-Instruct` on the GPU/48-vCPU worker (zero API keys needed)
+Matches @TradeoffLayer's authentic benchmark metrics:
+  - Duration: 8–10 minutes (~1,250–1,450 words)
+  - Shot density: 85–110 rapid 3.5s–5.2s bespoke visual shots (zero 20-second static holds)
+  - Visual grammar: Alternates illustrated multi-layer cartoon story/action shots with clean
+    cream (#F6EFE0) and midnight (#131C31) minimalist micro-infographics (18 shot templates)
+  - Paired Short: Authentic @TradeoffLayer traffic-driver (`hook_prefix_excerpt`) — natively
+    re-composes the first ~26–30 shots (~120–145s Cold Open + Act I cliffhanger) in 9:16 vertical
+    with zero burned-in KTV subtitle clutter, cutting cleanly on the cliffhanger question.
 """
 from __future__ import annotations
 
@@ -24,85 +22,85 @@ import urllib.request
 from pathlib import Path
 from typing import Any
 
+V3_TEMPLATES = [
+    "exterior_hq_walk",
+    "desk_deal_transfer",
+    "copier_blueprint_action",
+    "hydraulic_press_crush",
+    "studio_shutter_flash",
+    "split_screen_rivalry",
+    "cleanroom_microscope_zoom",
+    "server_hall_waiting",
+    "oven_conveyor_bottleneck",
+    "waffle_100_dots",
+    "pedestal_rivalry",
+    "red_cross_stamp",
+    "workbench_hbm_stack",
+    "thermal_mrmuf_vs_tcncf",
+    "rain_pipe_analogy",
+    "cowos_silicon_bridge",
+    "wafer_3x_cannibalization",
+    "timeline_paradox_arc",
+]
 
-SYSTEM_PROMPT = """You are the head writer and showrunner of the YouTube channel "Tradeoff Layer" (@TradeoffLayer), famous for 1M–2M view animated tech, semiconductor, AI infrastructure, and cybersecurity explainers (such as "Can Google Beat Nvidia? TPU vs GPU Explained", "Why No One Can Copy ASML?", "Why Every Phone Has a Sony Camera Sensor?", and "AI Costs Explained: Why Output Tokens Cost 5x More").
+SYSTEM_PROMPT = f"""You are the head showrunner and storyboard director of the YouTube channel "Tradeoff Layer" (@TradeoffLayer), famous for 1M–2M view animated semiconductor, AI infrastructure, and business-thriller explainers ("Why No One Can Copy ASML?", "Can Google Beat Nvidia? TPU vs GPU Explained", "Why Intel Couldn't Kill AMD?", "Why Every Phone Has a Sony Camera Sensor?").
 
-STRICT EDITORIAL & VOICE RULES OF @TradeoffLayer:
-1. NO YouTube clichés: NEVER say "Hey guys", "Welcome back", "Smash like", or "In today's video". Start sentence 1 directly inside a concrete paradox, historical moment, or surprising bill/number.
-2. Everyday physical analogy: Early in the script, explain the core technical mechanism using one vivid everyday analogy (like buckets catching rain, a cake factory, a hotel front desk, or an assembly line vs a master chef) before layering in the real engineering terms.
-3. Short, punchy spoken sentences: Write for spoken rhythm at ~165 words per minute. Mix 6–14 word sentences with crisp contrast ("Same tokens. Same chip. Five times the price.").
-4. Ground EVERY factual metric, date, dollar amount, or technical claim in the provided SCRAPED PUBLIC SOURCES [S1..Sn]. Attach `source_ids` (e.g. ["S1", "S3"]) and a concise `citation_fact` to scenes that use scraped facts so the video renderer displays live source badges on screen.
-5. Visual modes: Every scene MUST choose one of @TradeoffLayer's 3 signature visual modes:
-   - `"dark_metric_card"`: Matte black #0B0B0D canvas with sleek #1C1C1F cards, green/red/blue metrics, or token/pipeline flow boxes connected by smooth curves.
-   - `"vector_whiteboard_scene"`: Bright studio/campus/datacenter AI-illustrated background + Tradeoff Layer's signature flat-vector characters (expressive cel-shaded upper body + minimalist black stick arms/legs) beside a clean rounded whiteboard diagram.
-   - `"editorial_illustration"`: Full-bleed flat cel-shaded editorial illustration with crisp dark-navy ink outlines + animated kinetic callout labels and counters.
-6. Always end the Long-Form video with a final chapter titled around "The Tradeoff" — showing how the exact design or business choice that created dominance also creates a structural vulnerability or cost.
-7. Paired Short (`shorts` array): Create at least 1 vertical YouTube Short (60–75 seconds, 6–7 fast scenes, ~175–210 words total) that isolates the single sharpest counter-intuitive hook from the Long-Form video, cites `[S1]`/`[S2]`, and ends with a natural 1-sentence cliffhanger pointing viewers to the full breakdown on Tradeoff Layer.
+STRICT @TRADEOFFLAYER v3 PRODUCTION RULES:
+1. Length & Shot Density: Write an 8-to-9 minute chronological engineering & business thriller (~1,300–1,450 words) broken into 85 to 100 rapid shots (`long_scenes`), where EVERY shot is 1–2 punchy spoken sentences (11–18 words, ~3.8–5.2 seconds) with its OWN bespoke visual action. NEVER let one visual hold for 15+ seconds.
+2. Storytelling DNA:
+   - Cold Open (`0:00–2:05`, first ~26 shots): Start inside a shocking deal, paradox, or rivalry twist. End the Cold Open on a sharp cliffhanger question — because the first `short_excerpt_shots` (~26 shots) ALSO serve verbatim as the paired 9:16 traffic-driving YouTube Short!
+   - Chronological History + Concrete People/Companies: Use real years, contracts, engineering gambles, and rival miscalculations.
+   - Everyday Physical Analogy: Explain the core bottleneck with an intuitive physical metaphor before introducing technical acronyms.
+   - Final Act ("The Tradeoff"): Show why the exact architectural choice that created dominance also creates a painful cost or future vulnerability.
+3. Visual Templates (`template` field — rotate dynamically so consecutive shots never repeat the exact same static layout):
+   Choose from: {", ".join(V3_TEMPLATES)}.
+4. Clean Screen Policy + Scraped Source Citations:
+   - NEVER put long sentences on screen. `visual_label` / `prop_text` / `big_stat` must be 1–3 crisp words or a single bold metric (`53%`, `$15B`, `3x WAFER`, `1,024-BIT`).
+   - Ground factual claims in `[S1..Sn]` via `source_ids` and `citation_note` (rendered only as a subtle 2.4-second frameless micro-footnote on metric shots + full URLs in YouTube description).
 
-Return STRICTLY valid JSON (no markdown fences outside JSON) matching this schema:
-{
-  "title": "Compelling @TradeoffLayer question/paradox title (under 62 chars)",
-  "slug": "kebab-case-slug",
-  "core_paradox": "One sentence summarizing the central tradeoff",
-  "thumbnail": {
-    "headline": "2-4 BOLD WORDS",
-    "subbadge": "$XXB / 10x metric",
-    "visual_prompt": "Flat cel-shaded vector editorial illustration prompt (no text in image)"
-  },
-  "seo": {
-    "summary_hook": "2-paragraph YouTube description opening in @TradeoffLayer style",
-    "learning_bullets": ["4-5 bullet points under You'll learn:"],
-    "tags": ["20 multilingual + English SEO tags"]
-  },
+Return STRICTLY valid JSON matching:
+{{
+  "version": "v3",
+  "title": "Why ...? ... Explained",
+  "slug": "kebab-slug",
+  "core_paradox": "One sentence summary of the central tradeoff",
+  "thumbnail": {{
+    "headline": "2-3 GIANT COMIC WORDS (e.g. SOLD OUT / PAY UP / LOCKED IN)",
+    "accent_word": "Optional brand/tag (e.g. SK hynix)",
+    "visual_prompt": "2D flat cel-shaded comic close-up scene prompt"
+  }},
+  "seo": {{
+    "summary_hook": "2-paragraph YouTube description opening",
+    "learning_bullets": ["4-5 crisp takeaways"],
+    "tags": ["20 SEO tags"]
+  }},
+  "short_config": {{
+    "id": "short_01",
+    "mode": "hook_prefix_excerpt",
+    "excerpt_shot_count": 26,
+    "title": "Punchy Short title #ai #semiconductors #tech",
+    "hook_angle": "Counter-intuitive hook summary"
+  }},
   "long_scenes": [
-    {
-      "id": "L01",
-      "chapter_title": "Chapter title (set on first scene of each chapter, empty string if continuing same chapter)",
+    {{
+      "id": "L001",
+      "chapter_title": "Set on first shot of each chapter else empty string",
       "voice_style": "hook | narrative | analytical",
-      "animation_type": "character_walk_handoff | rain_buckets_analogy | chip_3d_flip_stack | whiteboard_systolic_sim | dark_cross_section_meter | dark_gpu_partition_split | map_supply_chain_arcs | wafer_conveyor_zoom_out",
-      "visual_mode": "dark_metric_card | vector_whiteboard_scene | editorial_illustration",
-      "narration": "45 to 75 words of spoken narration in exact @TradeoffLayer voice.",
-      "headline": "Short 2-6 word on-screen title",
-      "subheadline": "Concise subtitle or physical analogy tagline",
-      "metrics": [
-        {"label": "Metric name", "value": "$15 / 73x / 92%", "tone": "green | red | blue | amber | neutral"}
-      ],
-      "diagram_nodes": ["Step/Node 1", "Step/Node 2", "Step/Node 3"],
-      "characters": [
-        {"role": "engineer | ceo | analyst", "label": "Optional label", "accent": "#3B82F6"}
-      ],
-      "ai_image_prompt": "Clean flat cel-shaded 2D vector background/scene illustration prompt, crisp dark ink outlines, warm daylight or sleek datacenter palette, NO text or letters",
+      "speed": 1.02,
+      "template": "one of the 18 V3_TEMPLATES",
+      "bg_key": "set_nvidia_hq | set_sk_cleanroom | set_samsung_office | set_amd_2013_lab | set_tsmc_fab | set_datacenter_hall | set_sunny_office | set_courtyard_road",
+      "left_actor": "char_jensen_talk | char_jensen_shock | char_sk_eng_talk | char_sk_eng_proud | char_samsung_dismiss | char_samsung_sweat | char_amd_eng_talk | char_tsmc_eng_talk | none",
+      "right_actor": "actor key or none",
+      "prop_key": "prop_hbm_tower | prop_gpu_package | prop_silicon_wafer | prop_server_rack | none",
+      "narration": "11 to 18 words of crisp spoken narration.",
+      "big_stat": "Optional bold number like 53% or 3x or $30,000",
+      "visual_label": "1-3 word in-scene label (e.g. SK hynix / MR-MUF / 2019)",
+      "secondary_label": "Optional rival/comparison label (e.g. SAMSUNG / DDR5)",
       "source_ids": ["S1"],
-      "citation_fact": "Short factual note shown in the on-screen source citation badge"
-    }
-  ],
-  "shorts": [
-    {
-      "id": "short_01",
-      "title": "Punchy Short title with #ai #semiconductors #tech",
-      "hook_angle": "Single counter-intuitive question",
-      "cta_target_title": "Matches Long-Form title",
-      "scenes": [
-        {
-          "id": "S01",
-          "voice_style": "short_punchy",
-          "speed": 1.04,
-          "visual_mode": "dark_metric_card | vector_whiteboard_scene | editorial_illustration",
-          "narration": "22 to 34 words of crisp fast-paced Short narration.",
-          "headline": "2-5 word bold header",
-          "subheadline": "Punchy contrast line",
-          "metrics": [{"label": "Key stat", "value": "5x", "tone": "red"}],
-          "diagram_nodes": ["Node A", "Node B", "Node C"],
-          "characters": [{"role": "engineer", "label": "", "accent": "#10B981"}],
-          "ai_image_prompt": "Vertical 9:16 flat cel-shaded vector scene illustration prompt, clean outlines, no text",
-          "source_ids": ["S1"],
-          "citation_fact": "Verified metric from scraped source"
-        }
-      ]
-    }
+      "citation_note": "Optional brief factual citation note (only on data/metric shots, else empty)"
+    }}
   ]
-}
-Aim for 10 to 12 `long_scenes` (~550–750 words total, ~3.5 to 5 minutes of dense broadcast narration) and 1 paired Short of 6 to 7 `scenes` (~165–210 words, ~60–70 seconds).
+}}
 """
 
 
@@ -117,28 +115,27 @@ def _extract_json_object(raw: str) -> dict[str, Any]:
     return json.loads(cleaned[start : end + 1])
 
 
-def _build_user_prompt(dossier: dict[str, Any], target_long_scenes: int = 10) -> str:
+def _build_user_prompt(dossier: dict[str, Any], target_long_scenes: int = 90) -> str:
     sources_txt = []
     for s in dossier.get("sources", []):
         facts = "; ".join(s.get("key_facts") or [])
         sources_txt.append(
             f"[{s['id']}] Publisher: {s['publisher']} | Date: {s['date']} | Title: {s['title']}\n"
             f"    URL: {s['url']}\n"
-            f"    Summary: {s['summary'][:550]}\n"
+            f"    Summary: {s['summary'][:700]}\n"
             + (f"    Numeric Facts: {facts}\n" if facts else "")
         )
     joined_sources = "\n".join(sources_txt)
     return (
         f"TARGET TOPIC: {dossier['topic']}\n"
-        f"TARGET LONG-FORM SCENE COUNT: {target_long_scenes} scenes (each 50–70 words, crisp chapters, ending with 'The Tradeoff').\n"
-        f"PAIRED SHORTS: 1 vertical Short (6–7 scenes, ~60–70 seconds) driving viewers to the full Long-Form video.\n\n"
-        f"SCRAPED PUBLIC SOURCES (use ONLY verifiable facts from these sources and cite their IDs like S1, S2 in `source_ids`):\n"
-        f"{joined_sources}\n\n"
-        f"Output ONLY the valid JSON production plan."
+        f"TARGET SHOT COUNT: {target_long_scenes} rapid shots (~1,320–1,450 words total, ~8–9 minutes, ~4.5s per shot).\n"
+        f"PAIRED SHORT: First 26 shots (~125s) form the self-contained Cold Open + Act I cliffhanger hook for the 9:16 Short.\n\n"
+        f"SCRAPED PUBLIC SOURCES:\n{joined_sources}\n\n"
+        f"Output ONLY the valid v3 JSON production plan."
     )
 
 
-def call_gemini_api(system_prompt: str, user_prompt: str, api_key: str, model: str = "gemini-2.5-flash") -> dict[str, Any]:
+def call_gemini_api(system_prompt: str, user_prompt: str, api_key: str, model: str = "gemini-2.5-pro") -> dict[str, Any]:
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
     payload = {
         "systemInstruction": {"parts": [{"text": system_prompt}]},
@@ -146,7 +143,7 @@ def call_gemini_api(system_prompt: str, user_prompt: str, api_key: str, model: s
         "generationConfig": {
             "temperature": 0.55,
             "responseMimeType": "application/json",
-            "maxOutputTokens": 8192,
+            "maxOutputTokens": 32768,
         },
     }
     req = urllib.request.Request(
@@ -155,7 +152,7 @@ def call_gemini_api(system_prompt: str, user_prompt: str, api_key: str, model: s
         method="POST",
         headers={"Content-Type": "application/json"},
     )
-    with urllib.request.urlopen(req, timeout=180) as resp:
+    with urllib.request.urlopen(req, timeout=300) as resp:
         data = json.loads(resp.read().decode("utf-8"))
     text = data["candidates"][0]["content"]["parts"][0]["text"]
     return _extract_json_object(text)
@@ -176,7 +173,7 @@ def call_openai_compatible_api(
             {"role": "user", "content": user_prompt},
         ],
         "temperature": 0.55,
-        "max_tokens": 7500,
+        "max_tokens": 24000,
     }
     req = urllib.request.Request(
         url,
@@ -187,7 +184,7 @@ def call_openai_compatible_api(
             "Authorization": f"Bearer {api_key}",
         },
     )
-    with urllib.request.urlopen(req, timeout=240) as resp:
+    with urllib.request.urlopen(req, timeout=300) as resp:
         data = json.loads(resp.read().decode("utf-8"))
     text = data["choices"][0]["message"]["content"]
     return _extract_json_object(text)
@@ -196,26 +193,31 @@ def call_openai_compatible_api(
 def call_local_transformers_llm(
     system_prompt: str,
     user_prompt: str,
-    model_id: str = "Qwen/Qwen2.5-3B-Instruct",
+    model_id: str = "Qwen/Qwen2.5-14B-Instruct",
 ) -> dict[str, Any]:
-    """Zero-API-key fallback running directly on the remote RTX PRO 6000 / b850 worker."""
+    """Runs Qwen2.5-14B-Instruct BF16 directly on the 96GB RTX PRO 6000 worker when no cloud API key is set."""
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
     use_cuda = False
+    chosen_model = model_id
     if torch.cuda.is_available():
         free_b, _ = torch.cuda.mem_get_info(0)
-        if free_b / (1024**3) >= 16.0:
+        free_gib = free_b / (1024**3)
+        if free_gib >= 32.0:
             use_cuda = True
-
-    if not use_cuda:
+        elif free_gib >= 12.0:
+            use_cuda = True
+            if "14B" in chosen_model:
+                chosen_model = "Qwen/Qwen2.5-7B-Instruct"
+    if not use_cuda and "14B" in chosen_model:
+        chosen_model = "Qwen/Qwen2.5-3B-Instruct"
         torch.set_num_threads(min(36, max(4, (os.cpu_count() or 8) - 6)))
 
-    dtype = torch.bfloat16
-    tok = AutoTokenizer.from_pretrained(model_id)
+    tok = AutoTokenizer.from_pretrained(chosen_model)
     mdl = AutoModelForCausalLM.from_pretrained(
-        model_id,
-        torch_dtype=dtype,
+        chosen_model,
+        torch_dtype=torch.bfloat16,
         device_map={"": 0} if use_cuda else None,
         low_cpu_mem_usage=True,
     )
@@ -235,7 +237,7 @@ def call_local_transformers_llm(
     with torch.inference_mode():
         gen_ids = mdl.generate(
             **inputs,
-            max_new_tokens=5500,
+            max_new_tokens=18000,
             do_sample=True,
             temperature=0.45,
             top_p=0.9,
@@ -247,28 +249,49 @@ def call_local_transformers_llm(
 
 
 def enrich_plan_with_sources(plan: dict[str, Any], dossier: dict[str, Any]) -> dict[str, Any]:
-    """Attach full scraped source objects to every scene and build YouTube description + audit file."""
     src_map = {s["id"]: s for s in dossier.get("sources", [])}
     default_sid = dossier["sources"][0]["id"] if dossier.get("sources") else None
 
-    for collection in [plan.get("long_scenes", []), *[sh.get("scenes", []) for sh in plan.get("shorts", [])]]:
-        for sc in collection:
-            sids = [sid for sid in (sc.get("source_ids") or []) if sid in src_map]
-            if not sids and default_sid:
-                sids = [default_sid]
-            sc["source_ids"] = sids
-            sc["resolved_sources"] = [
-                {
-                    "id": sid,
-                    "badge_label": src_map[sid]["badge_label"],
-                    "short_url": src_map[sid]["short_url"],
-                    "title": src_map[sid]["title"],
-                    "url": src_map[sid]["url"],
-                    "publisher": src_map[sid]["publisher"],
-                    "date": src_map[sid]["date"],
-                }
-                for sid in sids
-            ]
+    for sc in plan.get("long_scenes", []):
+        sids = [sid for sid in (sc.get("source_ids") or []) if sid in src_map]
+        if not sids and default_sid:
+            sids = [default_sid]
+        sc["source_ids"] = sids
+        sc["resolved_sources"] = [
+            {
+                "id": sid,
+                "badge_label": src_map[sid]["badge_label"],
+                "short_url": src_map[sid]["short_url"],
+                "title": src_map[sid]["title"],
+                "url": src_map[sid]["url"],
+                "publisher": src_map[sid]["publisher"],
+                "date": src_map[sid]["date"],
+            }
+            for sid in sids
+        ]
+
+    # Ensure authentic `shorts` structure using `hook_prefix_excerpt` if not explicitly populated
+    short_cfg = plan.get("short_config") or {
+        "id": "short_01",
+        "mode": "hook_prefix_excerpt",
+        "excerpt_shot_count": min(26, len(plan.get("long_scenes", []))),
+        "title": f"{plan.get('title', 'The AI Bottleneck')} #ai #semiconductors #tech",
+        "hook_angle": plan.get("core_paradox", ""),
+    }
+    plan["short_config"] = short_cfg
+    if not plan.get("shorts"):
+        n_ex = min(int(short_cfg.get("excerpt_shot_count", 26)), len(plan.get("long_scenes", [])))
+        plan["shorts"] = [
+            {
+                "id": short_cfg.get("id", "short_01"),
+                "mode": "hook_prefix_excerpt",
+                "excerpt_shot_count": n_ex,
+                "title": short_cfg.get("title"),
+                "hook_angle": short_cfg.get("hook_angle"),
+                "cta_target_title": plan.get("title"),
+                "scenes": plan.get("long_scenes", [])[:n_ex],
+            }
+        ]
 
     plan["research_metadata"] = {
         "topic": dossier.get("topic"),
@@ -284,7 +307,7 @@ def generate_production_plan(
     output_path: Path,
     backend: str = "auto",
     model: str = "",
-    target_long_scenes: int = 10,
+    target_long_scenes: int = 90,
 ) -> dict[str, Any]:
     dossier = json.loads(dossier_path.read_text(encoding="utf-8"))
     user_prompt = _build_user_prompt(dossier, target_long_scenes=target_long_scenes)
@@ -294,14 +317,14 @@ def generate_production_plan(
     openai_base = os.environ.get("OPENAI_BASE_URL") or "https://api.openai.com/v1"
 
     if backend == "gemini" or (backend == "auto" and gemini_key):
-        plan = call_gemini_api(SYSTEM_PROMPT, user_prompt, api_key=gemini_key, model=model or "gemini-2.5-flash")
+        plan = call_gemini_api(SYSTEM_PROMPT, user_prompt, api_key=gemini_key, model=model or "gemini-2.5-pro")
     elif backend == "openai" or (backend == "auto" and openai_key):
         plan = call_openai_compatible_api(
             SYSTEM_PROMPT, user_prompt, api_key=openai_key, base_url=openai_base, model=model or "gpt-4.1"
         )
     else:
         plan = call_local_transformers_llm(
-            SYSTEM_PROMPT, user_prompt, model_id=model or "Qwen/Qwen2.5-3B-Instruct"
+            SYSTEM_PROMPT, user_prompt, model_id=model or "Qwen/Qwen2.5-14B-Instruct"
         )
 
     plan = enrich_plan_with_sources(plan, dossier)
@@ -311,12 +334,12 @@ def generate_production_plan(
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Tradeoff Layer AI Scriptwriter + Shorts Generator")
+    ap = argparse.ArgumentParser(description="Tradeoff Layer v3 Shot-by-Shot Thriller Scriptwriter")
     ap.add_argument("--dossier", required=True, type=Path)
     ap.add_argument("--output", required=True, type=Path)
     ap.add_argument("--backend", choices=["auto", "gemini", "openai", "transformers"], default="auto")
     ap.add_argument("--model", default="")
-    ap.add_argument("--long-scenes", type=int, default=10)
+    ap.add_argument("--long-scenes", type=int, default=90)
     args = ap.parse_args()
 
     plan = generate_production_plan(
@@ -327,8 +350,8 @@ def main() -> None:
         target_long_scenes=args.long_scenes,
     )
     print(
-        f"[script_generator] Generated '{plan.get('title')}' "
-        f"({len(plan.get('long_scenes', []))} long scenes, {len(plan.get('shorts', []))} shorts) -> {args.output}"
+        f"[script_generator] v3 plan '{plan.get('title')}' "
+        f"({len(plan.get('long_scenes', []))} rapid shots, Short excerpt={plan['short_config']['excerpt_shot_count']} shots) -> {args.output}"
     )
 
 

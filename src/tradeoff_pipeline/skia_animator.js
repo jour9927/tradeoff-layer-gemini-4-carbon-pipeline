@@ -1,60 +1,32 @@
 #!/usr/bin/env node
 /**
- * Tradeoff Layer (@TradeoffLayer) — True 60fps 2D Vector, Physics & Rigged Sprite Animation Engine.
- * Powered by Google Skia (`@napi-rs/canvas`) streaming raw RGBA frames directly into FFmpeg.
+ * Tradeoff Layer v3 — Multi-Layer Cartoon Rigging & Minimalist Micro-Infographic 60fps Engine.
+ * Powered by Google Skia (`@napi-rs/canvas`), streaming raw RGBA frames directly into FFmpeg.
  *
- * Forensic 1:1 recreation of @TradeoffLayer's real animation language (ZERO PowerPoint slide cards!):
- *   1. `character_walk_handoff`  — Full-color cartoon character cutouts on 2-bone IK walking stick legs
- *                                  walking across sunny vector campuses, carrying & handing over chip props (`yB9SC4HbH5o`).
- *   2. `rain_buckets_analogy`    — Everyday physical metaphor simulation: narrow clogged pipe vs wide parallel
- *                                  streams filling glass beakers with sine-wave rising water & pixel-to-crisp reveal (`2d883UK7p9E`).
- *   3. `chip_3d_flip_stack`      — Workbench tweezers 3D-flipping silicon dies (`scaleY(cos)`), 12 DRAM layers
- *                                  spring-stacking vertically onto a 2.5D interposer, copper TSV elevators drilling
- *                                  through with glowing data pulses (`2d883UK7p9E`).
- *   4. `whiteboard_systolic_sim` — Presenter pointing articulated stick arm at a clean rounded board running a live
- *                                  GPU memory-starved pause (`||`) -> HBM diagonal systolic wavefront simulation (`yB9SC4HbH5o`).
- *   5. `dark_cross_section_meter`— Matte #0B0B0E token/bandwidth Bezier orb meter ticking continuously + progressive
- *                                  stroke-drawn cross-section cable/interposer packet journey (`0vZCvW7IzmA`).
- *   6. `dark_gpu_partition_split`— Matrix weight tiles filling & overflowing 1 GPU perimeter in coral red, then
- *                                  spring-splitting across 4 GPUs with pulsing yellow NCCL sync lasers (`0vZCvW7IzmA`).
- *   7. `map_supply_chain_arcs`   — Warm cream vector supply-chain map with waving flags & flying HBM wafers along
- *                                  dashed parabolic trajectories (`KTY7TnGIVNY`).
- *   8. `wafer_conveyor_zoom_out` — 3-to-1 silicon wafer compression & smooth 2.4x->0.7x virtual camera zoom-out
- *                                  revealing fab squeeze / custom lock-in scale (`cER6uZO6gvA` / `2d883UK7p9E`).
+ * Implements all 18 bespoke @TradeoffLayer visual templates across:
+ *   - Illustrated flat-cartoon sets + neural BiRefNet multi-pose character cutouts + keyframed props
+ *   - Signature warm cream (#F6EFE0) and midnight navy (#141D35) minimalist data & physics animations
+ *   - Native 16:9 (1920x1080) Long-Form AND native 9:16 (1080x1920) Short layouts (zero KTV clutter)
+ *   - Subtle fade-in/out frameless typographic source footnotes on quantitative metric shots
  */
 
 const fs = require("fs");
 const path = require("path");
 const { spawn } = require("child_process");
+const { createCanvas, loadImage } = require("@napi-rs/canvas");
 
-// Resolve @napi-rs/canvas from either local node_modules or worker animator_env
-let canvasPkg;
-try {
-  canvasPkg = require("@napi-rs/canvas");
-} catch (_) {
-  canvasPkg = require("/content/tradeoff_layer_carbon/animator_env/node_modules/@napi-rs/canvas");
-}
-const { createCanvas, loadImage, GlobalFonts } = canvasPkg;
+const SANS = '"DejaVu Sans", "Liberation Sans", -apple-system, BlinkMacSystemFont, sans-serif';
+const SERIF = '"DejaVu Serif", "Liberation Serif", Georgia, serif';
+const MONO = '"DejaVu Sans Mono", "Liberation Mono", monospace';
 
-// Register clean system sans & mono fonts
-for (const fp of [
-  "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
-  "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
-  "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
-  "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf",
-]) {
-  if (fs.existsSync(fp)) {
-    try { GlobalFonts.registerFromPath(fp); } catch (_) {}
-  }
-}
+const INK = "#18202C";
+const CREAM = "#F6EFE0";
+const ICE = "#EDF2F7";
+const MIDNIGHT = "#141D35";
 
-const SANS = "Liberation Sans, DejaVu Sans, Arial, sans-serif";
-const MONO = "DejaVu Sans Mono, Liberation Mono, monospace";
-
-// --- Math & Physics Helpers ---
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 const lerp = (a, b, t) => a + (b - a) * clamp(t, 0, 1);
-const easeOutCubic = (t) => { const x = clamp(t, 0, 1); return 1 - Math.pow(1 - x, 3); };
+const easeOutCubic = (t) => 1 - Math.pow(1 - clamp(t, 0, 1), 3);
 const easeInOutCubic = (t) => {
   const x = clamp(t, 0, 1);
   return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
@@ -62,11 +34,11 @@ const easeInOutCubic = (t) => {
 const springOut = (t) => {
   const x = clamp(t, 0, 1);
   if (x === 0 || x === 1) return x;
-  return 1 - Math.exp(-6.5 * x) * Math.cos(9.5 * x);
+  return 1 - Math.pow(2, -9 * x) * Math.cos(x * Math.PI * 2.2);
 };
 
-function roundRectPath(ctx, x, y, w, h, r) {
-  const rad = Math.min(r, w / 2, h / 2);
+function roundRect(ctx, x, y, w, h, r) {
+  const rad = Math.min(r, Math.abs(w) / 2, Math.abs(h) / 2);
   ctx.beginPath();
   ctx.moveTo(x + rad, y);
   ctx.arcTo(x + w, y, x + w, y + h, rad);
@@ -76,1433 +48,1348 @@ function roundRectPath(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
-function drawCoverImage(ctx, img, w, h, zoom = 1.0, panX = 0.0, panY = 0.0) {
+function fillStrokeBox(ctx, x, y, w, h, r, fill, stroke = INK, lw = 3.5) {
+  roundRect(ctx, x, y, w, h, r);
+  if (fill) {
+    ctx.fillStyle = fill;
+    ctx.fill();
+  }
+  if (stroke && lw > 0) {
+    ctx.lineWidth = lw;
+    ctx.strokeStyle = stroke;
+    ctx.stroke();
+  }
+}
+
+function drawCover(ctx, img, w, h, zoom = 1.0, panX = 0, panY = 0, fallback = ICE) {
   if (!img) {
-    const g = ctx.createLinearGradient(0, 0, 0, h);
-    g.addColorStop(0, "#bae6fd");
-    g.addColorStop(0.72, "#e0f2fe");
-    g.addColorStop(0.721, "#e7c9a9");
-    g.addColorStop(1, "#d4ad84");
-    ctx.fillStyle = g;
+    ctx.fillStyle = fallback;
     ctx.fillRect(0, 0, w, h);
     return;
   }
   const scale = Math.max(w / img.width, h / img.height) * zoom;
   const dw = img.width * scale;
   const dh = img.height * scale;
-  const dx = (w - dw) * (0.5 + panX * 0.35);
-  const dy = (h - dh) * (0.5 + panY * 0.35);
+  const dx = (w - dw) * 0.5 + panX;
+  const dy = (h - dh) * 0.5 + panY;
   ctx.drawImage(img, dx, dy, dw, dh);
 }
 
-// --- 2-Bone IK Stick Limb + Full-Color Cartoon Torso Actor Rig (`yB9SC4HbH5o` style!) ---
-function drawRiggedActor(ctx, opts) {
-  const {
-    x, footY, scale = 1.0, bustImg = null,
-    walkSpeed = 0.0, t = 0.0, facing = 1,
-    speakingAmp = 0.0, reachTarget = null,
-    shirtColor = "#2563eb", hairColor = "#4b3621",
-    badgeText = "",
-  } = opts;
-
-  const legLen = 132 * scale;
-  const walkPhase = t * 7.5;
-  const isWalking = Math.abs(walkSpeed) > 0.05;
-  const stride = isWalking ? Math.sin(walkPhase) * 28 * scale : 0;
-  const bounce = isWalking ? Math.abs(Math.cos(walkPhase)) * 7 * scale : Math.sin(t * 2.4) * 2.5 * scale;
-  const hipY = footY - legLen + bounce;
-
-  ctx.save();
-  ctx.strokeStyle = "#141821";
-  ctx.fillStyle = "#141821";
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  const lw = Math.max(3, 4.5 * scale);
-  ctx.lineWidth = lw;
-
-  // 2-bone IK walking legs + half-moon shoes
-  for (const side of [-1, 1]) {
-    const hipX = x + side * 20 * scale;
-    const phase = walkPhase + (side === 1 ? 0 : Math.PI);
-    const footX = hipX + (isWalking ? Math.sin(phase) * 28 * scale : 0);
-    const lift = isWalking ? Math.max(0, -Math.cos(phase)) * 18 * scale : 0;
-    const curFootY = footY - lift;
-    const kneeX = (hipX + footX) * 0.5 + facing * (isWalking ? 11 * scale : 3 * scale);
-    const kneeY = (hipY + curFootY) * 0.52;
-
-    ctx.beginPath();
-    ctx.moveTo(hipX, hipY);
-    ctx.lineTo(kneeX, kneeY);
-    ctx.lineTo(footX, curFootY);
-    ctx.stroke();
-
-    // Half-circle black shoe
-    ctx.beginPath();
-    ctx.arc(footX + facing * 5 * scale, curFootY, 13 * scale, Math.PI, 0, false);
-    ctx.closePath();
-    ctx.fill();
-  }
-
-  const torsoH = 128 * scale;
-  const shoulderY = hipY - torsoH + 34 * scale;
-
-  // Back arm
-  const backShX = x - facing * 42 * scale;
-  const backSwing = isWalking ? -stride * 0.7 : Math.sin(t * 2.1) * 5 * scale;
-  ctx.beginPath();
-  ctx.moveTo(backShX, shoulderY);
-  ctx.lineTo(backShX - facing * 20 * scale + backSwing * 0.4, shoulderY + 42 * scale);
-  ctx.lineTo(backShX - facing * 10 * scale + backSwing, shoulderY + 78 * scale);
-  ctx.stroke();
-
-  // Upper body + head (AI full-color cutout sprite OR vibrant procedural cel-shaded vector character)
-  if (bustImg) {
-    const targetH = 215 * scale * (1 + 0.016 * speakingAmp);
-    const aspect = bustImg.width / Math.max(1, bustImg.height);
-    const targetW = clamp(targetH * aspect, 90 * scale, 220 * scale);
-    ctx.drawImage(bustImg, x - targetW / 2, hipY - targetH + 12 * scale, targetW, targetH);
-  } else {
-    // Vibrant full-color procedural cel-shaded character
-    const tw = 48 * scale;
-    const topY = hipY - torsoH;
-    roundRectPath(ctx, x - tw, topY, tw * 2, torsoH, 18 * scale);
-    ctx.fillStyle = shirtColor;
-    ctx.fill();
-    ctx.stroke();
-
-    // White collar V
-    ctx.beginPath();
-    ctx.moveTo(x - 16 * scale, topY + 2 * scale);
-    ctx.lineTo(x, topY + 28 * scale);
-    ctx.lineTo(x + 16 * scale, topY + 2 * scale);
-    ctx.fillStyle = "#f8fafc";
-    ctx.fill();
-    ctx.stroke();
-
-    // Head
-    const headY = topY - 48 * scale;
-    ctx.beginPath();
-    ctx.ellipse(x, headY, 40 * scale, 45 * scale, 0, 0, Math.PI * 2);
-    ctx.fillStyle = "#f7c59f";
-    ctx.fill();
-    ctx.stroke();
-
-    // Hair
-    ctx.beginPath();
-    ctx.arc(x, headY - 10 * scale, 42 * scale, Math.PI * 0.95, Math.PI * 2.05);
-    ctx.fillStyle = hairColor;
-    ctx.fill();
-    ctx.stroke();
-
-    // Glasses & eyes
-    const eyeY = headY - 3 * scale;
-    const blink = (t % 3.6) > 3.46;
-    ctx.fillStyle = "#141821";
-    for (const exOff of [-14, 14]) {
-      const ex = x + exOff * scale + facing * 4 * scale;
-      roundRectPath(ctx, ex - 10 * scale, eyeY - 7 * scale, 20 * scale, 14 * scale, 4 * scale);
-      ctx.stroke();
-      if (!blink) {
-        ctx.beginPath();
-        ctx.arc(ex, eyeY, 3.2 * scale, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-    // Mouth synced to voice
-    const my = headY + 19 * scale;
-    if (speakingAmp > 0.16) {
-      ctx.beginPath();
-      ctx.ellipse(x + facing * 3 * scale, my, 9 * scale, (3 + 7 * speakingAmp) * scale, 0, 0, Math.PI * 2);
-      ctx.fillStyle = "#be3b3b";
-      ctx.fill();
-      ctx.stroke();
-    } else {
-      ctx.beginPath();
-      ctx.arc(x + facing * 3 * scale, my - 3 * scale, 10 * scale, 0.15 * Math.PI, 0.85 * Math.PI);
-      ctx.stroke();
-    }
-  }
-
-  // Front gesturing / reaching stick arm (drawn over torso so prop handoffs & pointing read clearly!)
-  const frontShX = x + facing * 42 * scale;
-  let handX, handY;
-  if (reachTarget) {
-    handX = reachTarget.x;
-    handY = reachTarget.y;
-  } else {
-    handX = frontShX + facing * 56 * scale + (isWalking ? stride * 0.8 : Math.cos(t * 3.2) * 8 * scale);
-    handY = shoulderY + 8 * scale + Math.sin(t * 3.6) * 10 * scale;
-  }
-  const elbX = (frontShX + handX) * 0.5 - facing * 8 * scale;
-  const elbY = Math.max(shoulderY, handY) + 22 * scale;
-  ctx.beginPath();
-  ctx.moveTo(frontShX, shoulderY);
-  ctx.lineTo(elbX, elbY);
-  ctx.lineTo(handX, handY);
-  ctx.stroke();
-
-  // 3-finger cartoon stick hand
-  for (const ang of [-0.4, 0, 0.4]) {
-    ctx.beginPath();
-    ctx.moveTo(handX, handY);
-    ctx.lineTo(handX + Math.cos(ang) * facing * 10 * scale, handY + Math.sin(ang) * 10 * scale);
-    ctx.stroke();
-  }
-
-  // Minimalist floating name/role tag only if specified
-  if (badgeText) {
-    ctx.font = `bold ${Math.round(20 * scale)}px ${SANS}`;
-    const tw = ctx.measureText(badgeText).width + 24;
-    const bx = x - tw / 2;
-    const by = hipY - 238 * scale;
-    roundRectPath(ctx, bx, by, tw, 32 * scale, 10);
-    ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
-    ctx.fill();
-    ctx.fillStyle = "#f8fafc";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText(badgeText, x, by + 16 * scale);
-  }
-  ctx.restore();
-  return { handX, handY };
-}
-
-// --- Draw glowing isometric 3D HBM Chip Stack Prop (crisp vector so layers & TSVs animate!) ---
-function drawHbmChipModule(ctx, cx, cy, scale = 1.0, layers = 8, glowPhase = 0.0, label = "HBM") {
+// Crisp @TradeoffLayer Pinned Semiconductor Chip Vector Icon (Intel/AMD/SK/Samsung style!)
+function drawPinnedChip(ctx, cx, cy, size, bodyFill, labelText, textFill = "#FFFFFF", subText = "") {
   ctx.save();
   ctx.translate(cx, cy);
-  ctx.scale(scale, scale);
+  const hs = size * 0.5;
+  const pinLen = size * 0.11;
+  const pinW = Math.max(4, size * 0.065);
+  const pins = 6;
+  ctx.fillStyle = "#F59E0B";
+  ctx.strokeStyle = INK;
+  ctx.lineWidth = Math.max(2.2, size * 0.025);
 
-  // Green/gold substrate base
-  roundRectPath(ctx, -64, 18, 128, 22, 6);
-  ctx.fillStyle = "#0f766e";
-  ctx.fill();
-  ctx.strokeStyle = "#13202c";
-  ctx.lineWidth = 3;
-  ctx.stroke();
-
-  // Gold solder micro-bumps
-  ctx.fillStyle = "#fbbf24";
-  for (let i = -50; i <= 50; i += 14) {
-    ctx.beginPath();
-    ctx.arc(i, 42, 3.5, 0, Math.PI * 2);
-    ctx.fill();
+  for (let i = 0; i < pins; i++) {
+    const off = lerp(-hs * 0.72, hs * 0.72, i / (pins - 1));
+    // Top & bottom pins
+    fillStrokeBox(ctx, off - pinW / 2, -hs - pinLen + 2, pinW, pinLen, 2, "#FBBF24", INK, 2.2);
+    fillStrokeBox(ctx, off - pinW / 2, hs - 2, pinW, pinLen, 2, "#FBBF24", INK, 2.2);
+    // Left & right pins
+    fillStrokeBox(ctx, -hs - pinLen + 2, off - pinW / 2, pinLen, pinW, 2, "#FBBF24", INK, 2.2);
+    fillStrokeBox(ctx, hs - 2, off - pinW / 2, pinLen, pinW, 2, "#FBBF24", INK, 2.2);
   }
 
-  // Stacked sapphire silicon dies
-  for (let l = 0; l < layers; l++) {
-    const ly = 10 - l * 10;
-    const pulse = 0.5 + 0.5 * Math.sin(glowPhase * 5 - l * 0.6);
-    roundRectPath(ctx, -48, ly, 96, 9, 3);
-    ctx.fillStyle = l % 2 === 0 ? "#2563eb" : "#3b82f6";
-    ctx.fill();
-    ctx.strokeStyle = "#0f172a";
-    ctx.lineWidth = 2;
-    ctx.stroke();
+  fillStrokeBox(ctx, -hs, -hs, size, size, size * 0.13, bodyFill, INK, Math.max(3, size * 0.032));
+  roundRect(ctx, -hs * 0.78, -hs * 0.78, size * 0.78, size * 0.78, size * 0.08);
+  ctx.strokeStyle = "rgba(255,255,255,0.28)";
+  ctx.lineWidth = 2;
+  ctx.stroke();
 
-    // Glowing TSV vertical dots
-    ctx.fillStyle = pulse > 0.6 ? "#fde047" : "#38bdf8";
-    for (const vx of [-28, -10, 10, 28]) {
-      ctx.fillRect(vx - 1.5, ly + 2, 3, 5);
+  if (labelText) {
+    ctx.fillStyle = textFill;
+    let fSize = Math.round(size * 0.22);
+    ctx.font = `900 ${fSize}px ${SANS}`;
+    const maxTextW = size * 0.72;
+    const measured = ctx.measureText(labelText).width;
+    if (measured > maxTextW && measured > 0) {
+      fSize = Math.max(11, Math.floor(fSize * (maxTextW / measured)));
+      ctx.font = `900 ${fSize}px ${SANS}`;
     }
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(labelText, 0, subText ? -size * 0.08 : 0);
   }
-
-  // Top cap label
-  const topY = 10 - layers * 10 - 20;
-  roundRectPath(ctx, -50, topY, 100, 22, 5);
-  ctx.fillStyle = "#1e293b";
-  ctx.fill();
-  ctx.stroke();
-  ctx.fillStyle = "#38bdf8";
-  ctx.font = `bold 13px ${MONO}`;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText(label, 0, topY + 11);
+  if (subText) {
+    ctx.fillStyle = "rgba(255,255,255,0.88)";
+    let sfSize = Math.round(size * 0.125);
+    ctx.font = `700 ${sfSize}px ${MONO}`;
+    const sm = ctx.measureText(subText).width;
+    if (sm > size * 0.72 && sm > 0) {
+      sfSize = Math.max(10, Math.floor(sfSize * ((size * 0.72) / sm)));
+      ctx.font = `700 ${sfSize}px ${MONO}`;
+    }
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(subText, 0, size * 0.20);
+  }
   ctx.restore();
 }
 
-// ============================================================================
-// 8 PARAMETERIZED @TRADEOFFLAYER 2D ANIMATION CHOREOGRAPHIES (ZERO SLIDE BOXES)
-// ============================================================================
-
-// 1. `character_walk_handoff` — Rigged characters walking in, camera zoom, handing over HBM/GPU module (`tpu_intro`)
-function renderCharacterWalkHandoff(ctx, assets, scene, w, h, t, dur, amp, isShort) {
-  const u = t / Math.max(0.5, dur);
-  const camZoom = lerp(1.02, 1.14, easeInOutCubic(u));
-  const bg = assets.sceneBg || assets.stage_courtyard;
+// Waist-up cartoon character behind a desk/counter (natural hands/torso, gentle talk motion)
+function drawDeskActor(ctx, sprite, cx, bottomY, targetH, amp, t, flipX = false) {
+  if (!sprite) return;
+  const bob = Math.sin(t * 4.5) * 2.5 + amp * 5.0;
+  const stretch = 1.0 + amp * 0.022;
+  const aspect = sprite.width / Math.max(1, sprite.height);
+  const dh = targetH * stretch;
+  const dw = targetH * aspect;
 
   ctx.save();
-  ctx.translate(w / 2, h / 2);
-  ctx.scale(camZoom, camZoom);
-  ctx.translate(-w / 2, -h / 2);
-  drawCoverImage(ctx, bg, w, h, 1.0, (u - 0.5) * 0.15, 0);
+  ctx.translate(cx, bottomY - bob * 0.4);
+  if (flipX) ctx.scale(-1, 1);
+  ctx.rotate(Math.sin(t * 2.8) * 0.012);
+  ctx.drawImage(sprite, -dw * 0.5, -dh, dw, dh);
+  ctx.restore();
+}
 
-  // Subtle floor ground line
-  const floorY = isShort ? h * 0.69 : h * 0.86;
-  ctx.fillStyle = "rgba(15, 23, 42, 0.08)";
-  ctx.fillRect(0, floorY, w, h - floorY);
+// Full-body @TradeoffLayer character: crisp waist-up cartoon sprite + thin parallel twin black legs (`||`)
+function drawStandingActor(ctx, sprite, cx, groundY, torsoH, legH, walkSpeed, amp, t, flipX = false) {
+  const walking = Math.abs(walkSpeed) > 2.0;
+  const stride = walking ? Math.sin(t * 7.5) * 14 : 0;
+  const bounce = walking ? Math.abs(Math.cos(t * 7.5)) * 5 : amp * 3.5;
+  const hipY = groundY - legH - bounce;
+  const legGap = torsoH * 0.105;
 
-  const walkT = clamp(t / Math.min(3.2, dur * 0.42), 0, 1);
-  const handoffT = easeInOutCubic((t - dur * 0.42) / Math.max(0.8, dur * 0.25));
+  // Soft ground shadow
+  ctx.save();
+  ctx.fillStyle = "rgba(24,32,44,0.13)";
+  ctx.beginPath();
+  ctx.ellipse(cx, groundY + 3, torsoH * 0.24, 7, 0, 0, Math.PI * 2);
+  ctx.fill();
 
-  const leftStart = isShort ? -120 : 120;
-  const leftEnd = isShort ? w * 0.31 : w * 0.36;
-  const rightStart = isShort ? w + 120 : w - 120;
-  const rightEnd = isShort ? w * 0.70 : w * 0.64;
+  // Iconic thin twin black ink legs (`hi_amd_14s` & `short_ref_tpu` exact proportion!)
+  ctx.strokeStyle = INK;
+  ctx.lineWidth = 3.6;
+  ctx.lineCap = "round";
+  const lFootX = cx - legGap + stride;
+  const rFootX = cx + legGap - stride;
+  const lFootY = groundY - (walking ? Math.max(0, Math.sin(t * 7.5)) * 6 : 0);
+  const rFootY = groundY - (walking ? Math.max(0, -Math.sin(t * 7.5)) * 6 : 0);
 
-  const ax = lerp(leftStart, leftEnd, easeOutCubic(walkT));
-  const bx = lerp(rightStart, rightEnd, easeOutCubic(walkT));
-  const sc = isShort ? 0.88 : 1.08;
+  ctx.beginPath();
+  ctx.moveTo(cx - legGap, hipY - 12);
+  ctx.lineTo(lFootX, lFootY);
+  ctx.moveTo(cx + legGap, hipY - 12);
+  ctx.lineTo(rFootX, rFootY);
+  ctx.stroke();
 
-  const metrics = scene.metrics || [];
-  const tagA = (scene.diagram_nodes && scene.diagram_nodes[0]) || (metrics[0] && metrics[0].value) || "SK hynix";
-  const tagB = (scene.diagram_nodes && scene.diagram_nodes[2]) || (metrics[1] && metrics[1].value) || "AI GPU";
-  const propLabel = (metrics[0] && metrics[0].value) || "HBM3E";
+  // Minimalist flat black oval shoes
+  ctx.fillStyle = INK;
+  const shoeDir = flipX ? -1 : 1;
+  ctx.beginPath();
+  ctx.ellipse(lFootX + shoeDir * 5, lFootY, 11, 4.5, 0, Math.PI, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(rFootX + shoeDir * 5, rFootY, 11, 4.5, 0, Math.PI, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
 
-  const propX = lerp(ax + 78 * sc, bx - 78 * sc, handoffT);
-  const propY = floorY - 195 * sc + Math.sin(t * 3.5) * 4;
+  drawDeskActor(ctx, sprite, cx, hipY + 14, torsoH, amp, t, flipX);
+}
 
-  drawRiggedActor(ctx, {
-    x: ax,
-    footY: floorY,
-    scale: sc,
-    bustImg: assets.char_engineer,
-    walkSpeed: walkT < 0.98 ? 1.0 : 0.0,
-    t,
-    facing: 1,
-    speakingAmp: u < 0.55 ? amp : 0.05,
-    reachTarget: walkT > 0.85 ? { x: propX - 24 * sc, y: propY + 10 } : null,
-    shirtColor: "#2563eb",
-    badgeText: String(tagA).slice(0, 18),
-  });
-
-  drawRiggedActor(ctx, {
-    x: bx,
-    footY: floorY,
-    scale: sc,
-    bustImg: assets.char_ceo,
-    walkSpeed: walkT < 0.98 ? 1.0 : 0.0,
-    t: t + 0.4,
-    facing: -1,
-    speakingAmp: u >= 0.55 ? amp : 0.05,
-    reachTarget: handoffT > 0.15 ? { x: propX + 24 * sc, y: propY + 10 } : null,
-    shirtColor: "#059669",
-    hairColor: "#cbd5e1",
-    badgeText: String(tagB).slice(0, 18),
-  });
-
-  // Draw carried/handed-off prop (AI cutout prop OR animated glowing HBM tower)
-  const popS = springOut(t / 0.6);
-  if (assets.prop_chip_stack && u < 0.5) {
-    const pw = 135 * sc * popS;
-    ctx.drawImage(assets.prop_chip_stack, propX - pw / 2, propY - pw / 2, pw, pw);
+function drawPropSpriteOrChip(ctx, propImg, cx, cy, size, fallbackLabel = "HBM") {
+  if (propImg) {
+    const aspect = propImg.width / Math.max(1, propImg.height);
+    const dw = aspect >= 1 ? size : size * aspect;
+    const dh = aspect >= 1 ? size / aspect : size;
+    ctx.drawImage(propImg, cx - dw * 0.5, cy - dh * 0.5, dw, dh);
   } else {
-    drawHbmChipModule(ctx, propX, propY + 16, sc * 0.92 * popS, 8, t, String(propLabel).slice(0, 10));
+    drawPinnedChip(ctx, cx, cy, size * 0.82, "#2563EB", fallbackLabel);
   }
+}
 
-  // Crisp floating minimal stat bubble on handoff completion (like "$1 / 2025" coin in `2d883UK7p9E`)
-  if (handoffT > 0.4 && metrics.length > 0) {
-    const bs = springOut((handoffT - 0.4) / 0.5);
-    const statTxt = `${metrics[0].label}: ${metrics[0].value}`;
-    ctx.save();
-    ctx.translate((ax + bx) / 2, floorY - 355 * sc);
-    ctx.scale(bs, bs);
-    ctx.font = `bold 24px ${MONO}`;
-    const bw = ctx.measureText(statTxt).width + 36;
-    roundRectPath(ctx, -bw / 2, -24, bw, 48, 24);
-    ctx.fillStyle = "#ffffff";
-    ctx.fill();
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = "#0f172a";
-    ctx.stroke();
-    ctx.fillStyle = "#0f172a";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText(statTxt, 0, 0);
-    ctx.restore();
-  }
+// Subtle frameless typographic footnote ONLY on quantitative source-cited shots (zero black terminal bars!)
+function drawSubtleSourceFootnote(ctx, scene, w, h, u, onDark = false) {
+  const note = (scene.citation_note || "").trim();
+  if (!note) return;
+  const fadeIn = easeOutCubic((u - 0.10) / 0.14);
+  const fadeOut = 1.0 - easeInOutCubic((u - 0.84) / 0.14);
+  const alpha = clamp(fadeIn * fadeOut, 0, 1) * 0.62;
+  if (alpha <= 0.02) return;
+
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = onDark ? "#CBD5E1" : "#475569";
+  ctx.font = `600 15px ${SANS}`;
+  ctx.textAlign = "right";
+  ctx.textBaseline = "bottom";
+  ctx.fillText(`Source: ${note}`, w - 34, h - 22);
   ctx.restore();
 }
 
-// 2. `rain_buckets_analogy` — Physical droplets & rising sine-wave water in glass beakers (`sony_buckets`!)
-function renderRainBucketsAnalogy(ctx, assets, scene, w, h, t, dur, amp, isShort) {
-  const u = t / Math.max(0.5, dur);
-  const sky = ctx.createLinearGradient(0, 0, 0, h);
-  sky.addColorStop(0, "#bae6fd");
-  sky.addColorStop(0.74, "#e0f2fe");
-  sky.addColorStop(0.741, "#e6c39c");
-  sky.addColorStop(1, "#cfa06e");
-  ctx.fillStyle = sky;
-  ctx.fillRect(0, 0, w, h);
-
-  // Soft cartoon clouds & greenery silhouettes (`sony_buckets.jpg` exact backdrop!)
-  ctx.fillStyle = "rgba(255,255,255,0.82)";
-  for (const [cx, cy, r] of [[w * 0.22, h * 0.16, 48], [w * 0.72, h * 0.14, 56]]) {
-    const drift = Math.sin(t * 0.3 + cx) * 18;
-    ctx.beginPath();
-    ctx.arc(cx + drift, cy, r, 0, Math.PI * 2);
-    ctx.arc(cx + drift + r * 0.85, cy + 8, r * 0.78, 0, Math.PI * 2);
-    ctx.arc(cx + drift - r * 0.8, cy + 12, r * 0.7, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  ctx.fillStyle = "#4ade80";
-  for (let bx = 0; bx <= w + 120; bx += 130) {
-    ctx.beginPath();
-    ctx.arc(bx, h * 0.74, 88 + (bx % 3) * 18, Math.PI, 0);
-    ctx.fill();
-  }
-
-  // Phase 1 (first 45%): Narrow pipe -> slow single drips -> barely filling beakers ("Narrow Doorway")
-  // Phase 2 (last 55%): Wide parallel spouts -> heavy droplet rain -> rapidly rising cyan water ("HBM Parallel Lanes")
-  const wideMode = u >= 0.46;
-  const pipeY = isShort ? h * 0.22 : h * 0.15;
-  const deskY = isShort ? h * 0.67 : h * 0.76;
-
-  const beakerCount = 3;
-  const bW = isShort ? 175 : 210;
-  const bH = isShort ? 250 : 285;
-  const gap = isShort ? 58 : 110;
-  const startX = (w - (beakerCount * bW + (beakerCount - 1) * gap)) / 2;
-
-  // Overhead delivery pipe
-  ctx.fillStyle = "#334155";
-  ctx.strokeStyle = "#0f172a";
-  ctx.lineWidth = 3.5;
-  const pipeH = wideMode ? 30 : 12;
-  roundRectPath(ctx, startX - 40, pipeY, beakerCount * bW + (beakerCount - 1) * gap + 80, pipeH, 8);
-  ctx.fill();
-  ctx.stroke();
-
-  for (let i = 0; i < beakerCount; i++) {
-    const bx = startX + i * (bW + gap);
-    const by = deskY - bH;
-    const spoutX = bx + bW / 2;
-
-    // Nozzle
-    ctx.fillStyle = wideMode ? "#0284c7" : "#ef4444";
-    const nw = wideMode ? 44 : 10;
-    ctx.fillRect(spoutX - nw / 2, pipeY + pipeH, nw, 18);
-    ctx.strokeRect(spoutX - nw / 2, pipeY + pipeH, nw, 18);
-
-    // Animated falling droplets
-    const streams = wideMode ? 4 : 1;
-    const dropSpeed = wideMode ? 3.4 : 1.1;
-    ctx.fillStyle = wideMode ? "#0ea5e9" : "#60a5fa";
-    for (let s = 0; s < streams; s++) {
-      const sx = spoutX + (s - (streams - 1) / 2) * 11;
-      for (let d = 0; d < (wideMode ? 4 : 1); d++) {
-        const dp = ((t * dropSpeed + i * 0.31 + s * 0.19 + d * 0.25) % 1.0);
-        const dy = lerp(pipeY + pipeH + 22, deskY - 24, dp);
-        ctx.beginPath();
-        ctx.ellipse(sx, dy, 4.5, 8.5, 0, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    // Fill level inside beaker
-    const fillRatio = wideMode
-      ? lerp(0.14, 0.84 - i * 0.06, easeOutCubic((u - 0.46) / 0.48))
-      : lerp(0.03, 0.14, u / 0.46);
-
-    // Clip to glass beaker interior & draw animated sine-wave water!
-    ctx.save();
-    roundRectPath(ctx, bx + 6, by + 8, bW - 12, bH - 14, 16);
-    ctx.clip();
-    const waterTop = deskY - 8 - (bH - 24) * fillRatio;
-    ctx.beginPath();
-    ctx.moveTo(bx, deskY);
-    for (let wx = bx; wx <= bx + bW; wx += 8) {
-      const wy = waterTop + Math.sin(wx * 0.045 + t * 6.5 + i) * (wideMode ? 5.5 : 2.0);
-      ctx.lineTo(wx, wy);
-    }
-    ctx.lineTo(bx + bW, deskY);
-    ctx.closePath();
-    const wg = ctx.createLinearGradient(0, waterTop, 0, deskY);
-    wg.addColorStop(0, wideMode ? "rgba(56, 189, 248, 0.88)" : "rgba(251, 146, 60, 0.78)");
-    wg.addColorStop(1, wideMode ? "rgba(2, 132, 199, 0.92)" : "rgba(234, 88, 12, 0.88)");
-    ctx.fillStyle = wg;
-    ctx.fill();
-    ctx.restore();
-
-    // Glass beaker outline + measurement ticks (`sony_buckets.jpg`!)
-    roundRectPath(ctx, bx, by, bW, bH, 18);
-    ctx.strokeStyle = "#1e3a5f";
-    ctx.lineWidth = 4;
-    ctx.stroke();
-    for (let tk = 1; tk <= 4; tk++) {
-      const ty = deskY - (bH * tk) / 5;
-      ctx.beginPath();
-      ctx.moveTo(bx + bW - 24, ty);
-      ctx.lineTo(bx + bW - 6, ty);
-      ctx.stroke();
-    }
-
-    // Percentage tag on beaker
-    ctx.fillStyle = "#0f172a";
-    ctx.font = `bold 22px ${MONO}`;
-    ctx.textAlign = "center";
-    ctx.fillText(`${Math.round(fillRatio * 100)}%`, spoutX, deskY + 36);
-  }
-
-  // Minimalist floating status pill switching from Narrow Bus -> HBM Parallel Stack
-  const modeLabel = wideMode ? "HBM 1,024-Bit Parallel Flow" : "Standard Flat Bus: Cores Starved";
-  ctx.font = `bold ${isShort ? 28 : 30}px ${SANS}`;
-  const mw = ctx.measureText(modeLabel).width + 44;
-  roundRectPath(ctx, (w - mw) / 2, pipeY - 68, mw, 50, 25);
-  ctx.fillStyle = wideMode ? "#0284c7" : "#dc2626";
-  ctx.fill();
-  ctx.fillStyle = "#ffffff";
+// Clean architectural signplate integrated into scene (like `AMD`, `intel`, `SONY` building signs)
+function drawCleanSignplate(ctx, cx, cy, text, accent = "#1D4ED8", sc = 1.0) {
+  if (!text) return;
+  ctx.save();
+  ctx.font = `900 ${Math.round(26 * sc)}px ${SANS}`;
+  const tw = ctx.measureText(text).width;
+  const pw = tw + 44 * sc;
+  const ph = 48 * sc;
+  fillStrokeBox(ctx, cx - pw / 2, cy - ph / 2, pw, ph, 10 * sc, "#FFFFFF", INK, 3.2);
+  ctx.fillStyle = accent;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillText(modeLabel, w / 2, pipeY - 43);
+  ctx.fillText(text, cx, cy + 1);
+  ctx.restore();
 }
 
-// 3. `chip_3d_flip_stack` — Workbench tweezers, 3D cosine flip, 12-layer stack & TSV elevators (`sony_flip`!)
-function renderChip3dFlipStack(ctx, assets, scene, w, h, t, dur, amp, isShort) {
-  const u = t / Math.max(0.5, dur);
+// ============================================================================
+// 18 BESPOKE @TRADEOFFLAYER SHOT TEMPLATES
+// ============================================================================
 
-  // Warm wooden workbench surface (`sony_flip.jpg`!)
-  const wood = ctx.createLinearGradient(0, 0, w, h);
-  wood.addColorStop(0, "#f5d7b0");
-  wood.addColorStop(1, "#e3b982");
-  ctx.fillStyle = wood;
-  ctx.fillRect(0, 0, w, h);
-  ctx.strokeStyle = "rgba(161, 98, 7, 0.12)";
-  ctx.lineWidth = 2;
-  for (let wy = 40; wy < h; wy += 54) {
-    ctx.beginPath();
-    ctx.moveTo(0, wy);
-    ctx.bezierCurveTo(w * 0.3, wy + 8, w * 0.7, wy - 8, w, wy + 4);
-    ctx.stroke();
+// 1. `exterior_hq_walk`: Sunny HQ / cleanroom corridor walk-in with prop
+function tplExteriorHqWalk(ctx, A, sc, w, h, t, dur, amp, isShort) {
+  const u = t / dur;
+  drawCover(ctx, A.bg, w, h, lerp(1.0, 1.065, u), lerp(-12, 12, u), 0, "#DCEEFF");
+
+  const groundY = isShort ? h * 0.80 : h * 0.88;
+  const torsoH = isShort ? 330 : 340;
+  const legH = isShort ? 175 : 155;
+  const startX = isShort ? w * 0.24 : w * 0.30;
+  const endX = isShort ? w * 0.46 : w * 0.45;
+  const walkU = clamp(u / 0.58, 0, 1);
+  const actorX = lerp(startX, endX, easeOutCubic(walkU));
+  const speed = walkU < 0.98 ? 40 : 0;
+
+  if (sc.big_stat) {
+    const signY = isShort ? h * 0.15 : h * 0.12;
+    const pop = springOut(u / 0.25);
+    ctx.save();
+    ctx.translate(w * 0.5, signY);
+    ctx.scale(pop, pop);
+    drawCleanSignplate(ctx, 0, 0, `${sc.big_stat} · ${sc.visual_label || ""}`.replace(/ · $/, ""), "#0F172A", isShort ? 1.12 : 1.04);
+    ctx.restore();
   }
 
-  const cx = w / 2;
-  const cy = isShort ? h * 0.46 : h * 0.56;
-  const sc = isShort ? 0.92 : 1.15;
+  drawStandingActor(ctx, A.leftActor || A.fallbackActor, actorX, groundY, torsoH, legH, speed, amp, t, false);
 
-  // Cream ceramic interposer carrier tray
-  roundRectPath(ctx, cx - 355 * sc, cy - 190 * sc, 710 * sc, 360 * sc, 28 * sc);
-  ctx.fillStyle = "#f8f5eb";
-  ctx.fill();
-  ctx.lineWidth = 4;
-  ctx.strokeStyle = "#1e293b";
-  ctx.stroke();
+  if (A.prop || sc.big_stat) {
+    const px = actorX + (isShort ? 155 : 175);
+    const py = groundY - legH - torsoH * 0.38 + Math.sin(t * 4.0) * 5;
+    const pScale = springOut((u - 0.12) / 0.28);
+    ctx.save();
+    ctx.translate(px, py);
+    ctx.scale(pScale, pScale);
+    drawPropSpriteOrChip(ctx, A.prop, 0, 0, isShort ? 155 : 165, sc.big_stat || "HBM");
+    ctx.restore();
+  }
+  drawSubtleSourceFootnote(ctx, sc, w, h, u, false);
+}
 
-  // Silver 2.5D Silicon Interposer bridge inside tray
-  const bridgeP = easeOutCubic(u / 0.22);
+// 2. `desk_deal_transfer`: Two characters across foreground wooden desk sliding check/contract/chip
+function tplDeskDealTransfer(ctx, A, sc, w, h, t, dur, amp, isShort) {
+  const u = t / dur;
+  drawCover(ctx, A.bg, w, h, lerp(1.0, 1.05, u), 0, 0, "#E8F1F8");
+
+  const deskY = isShort ? h * 0.67 : h * 0.72;
+  const charH = isShort ? 355 : 410;
+  const lx = isShort ? w * 0.26 : w * 0.27;
+  const rx = isShort ? w * 0.74 : w * 0.73;
+
+  drawDeskActor(ctx, A.leftActor || A.fallbackActor, lx, deskY + 26, charH, amp, t, false);
+  drawDeskActor(ctx, A.rightActor || A.altActor, rx, deskY + 26, charH, amp * 0.7, t + 1.1, true);
+
+  // Bold-outlined foreground warm oak desk (`hi_amd_14s` / `hi_sony_38s` style!)
+  fillStrokeBox(ctx, -20, deskY, w + 40, h - deskY + 20, 0, "#D7A86E", INK, 4.5);
+  ctx.fillStyle = "#C39155";
+  ctx.fillRect(0, deskY + 22, w, 14);
+
+  // Deal document / check / HBM allocation sliding across desk!
+  const slideP = easeOutCubic((u - 0.16) / 0.46);
+  const docX = lerp(lx + 40, (lx + rx) * 0.5, slideP);
+  const docY = deskY - 26;
+  const cardW = isShort ? 330 : 370;
+  const cardH = isShort ? 115 : 122;
+
   ctx.save();
-  ctx.globalAlpha = bridgeP;
-  roundRectPath(ctx, cx - 295 * sc, cy + 45 * sc, 590 * sc, 52 * sc, 10 * sc);
-  ctx.fillStyle = "#cbd5e1";
-  ctx.fill();
-  ctx.stroke();
-  ctx.fillStyle = "#334155";
-  ctx.font = `bold ${Math.round(18 * sc)}px ${MONO}`;
-  ctx.textAlign = "center";
-  ctx.fillText("2.5D SILICON INTERPOSER", cx, cy + 77 * sc);
+  ctx.translate(docX, docY);
+  fillStrokeBox(ctx, -cardW / 2, -cardH / 2, cardW, cardH, 12, "#FFFBEB", INK, 3.6);
+  ctx.fillStyle = "#64748B";
+  ctx.font = `800 17px ${MONO}`;
+  ctx.textAlign = "left";
+  ctx.fillText(sc.visual_label || "ALLOCATION CONTRACT", -cardW / 2 + 22, -cardH / 2 + 34);
+  ctx.fillStyle = "#0F172A";
+  ctx.font = `900 ${isShort ? 38 : 42}px ${SANS}`;
+  ctx.fillText(sc.big_stat || sc.secondary_label || "APPROVED", -cardW / 2 + 22, cardH / 2 - 22);
+  if (A.prop) {
+    drawPropSpriteOrChip(ctx, A.prop, cardW / 2 - 58, 4, 86, "HBM");
+  }
   ctx.restore();
 
-  // Right side: Green GPU Die sitting on interposer
-  const gpuX = cx + 145 * sc;
-  const gpuY = cy - 18 * sc;
-  roundRectPath(ctx, gpuX - 115 * sc, gpuY, 230 * sc, 62 * sc, 10 * sc);
-  ctx.fillStyle = "#10b981";
-  ctx.fill();
-  ctx.stroke();
-  ctx.fillStyle = "#064e3b";
-  ctx.font = `bold ${Math.round(21 * sc)}px ${MONO}`;
-  ctx.fillText("AI GPU DIE", gpuX, gpuY + 37 * sc);
-
-  // Left side: 12 DRAM dies flying in & stacking vertically + 3D cosine flip on top die!
-  const stackX = cx - 135 * sc;
-  const baseStackY = cy + 32 * sc;
-  const totalLayers = 12;
-  const stackPhase = clamp((u - 0.08) / 0.52, 0, 1);
-
-  for (let l = 0; l < totalLayers; l++) {
-    const lp = clamp((stackPhase * totalLayers - l), 0, 1);
-    if (lp <= 0.01) continue;
-    const dropY = lerp(baseStackY - 260 * sc, baseStackY - l * 15 * sc, springOut(lp));
-    const flipScaleY = l === totalLayers - 1 && lp < 0.85 ? Math.abs(Math.cos((1 - lp) * Math.PI)) : 1.0;
-
-    ctx.save();
-    ctx.translate(stackX, dropY);
-    ctx.scale(1, Math.max(0.18, flipScaleY));
-    roundRectPath(ctx, -95 * sc, -7 * sc, 190 * sc, 13 * sc, 4 * sc);
-    ctx.fillStyle = l % 2 === 0 ? "#1d4ed8" : "#3b82f6";
-    ctx.fill();
-    ctx.lineWidth = 2.2;
-    ctx.strokeStyle = "#0f172a";
-    ctx.stroke();
-    ctx.restore();
-  }
-
-  // Precision Tweezers placing the top die (`sony_flip.jpg`!)
-  if (u < 0.62) {
-    const twOut = u > 0.50 ? easeInOutCubic((u - 0.50) / 0.12) : 0;
-    const tx = stackX + 90 * sc + twOut * 220 * sc;
-    const ty = baseStackY - Math.min(totalLayers, stackPhase * totalLayers) * 15 * sc - twOut * 140 * sc;
-    ctx.save();
-    ctx.strokeStyle = "#64748b";
-    ctx.lineWidth = 7 * sc;
-    ctx.beginPath();
-    ctx.moveTo(tx + 170 * sc, ty - 130 * sc);
-    ctx.lineTo(tx, ty - 4 * sc);
-    ctx.moveTo(tx + 182 * sc, ty - 115 * sc);
-    ctx.lineTo(tx + 4 * sc, ty + 8 * sc);
-    ctx.stroke();
-    ctx.restore();
-  }
-
-  // Phase 3 (u >= 0.55): Drill golden vertical TSV elevators straight through all 12 layers + fire glowing data pulses!
-  if (u >= 0.52) {
-    const drillP = easeOutCubic((u - 0.52) / 0.22);
-    const topOfTower = baseStackY - (totalLayers - 1) * 15 * sc;
-    const bottomOfTower = cy + 68 * sc;
-    const curBottom = lerp(topOfTower, bottomOfTower, drillP);
-
-    for (const vxOff of [-62, -31, 0, 31, 62]) {
-      const vx = stackX + vxOff * sc;
-      ctx.strokeStyle = "#fbbf24";
-      ctx.lineWidth = 4 * sc;
-      ctx.beginPath();
-      ctx.moveTo(vx, topOfTower);
-      ctx.lineTo(vx, curBottom);
-      ctx.stroke();
-
-      // Glowing packets shooting down TSVs & across 2.5D interposer into GPU!
-      if (drillP > 0.8) {
-        const pktP = ((t * 2.4 + (vxOff + 70) * 0.013) % 1.0);
-        let px, py;
-        if (pktP < 0.55) {
-          px = vx;
-          py = lerp(topOfTower, bottomOfTower, pktP / 0.55);
-        } else {
-          px = lerp(vx, gpuX, (pktP - 0.55) / 0.45);
-          py = bottomOfTower;
-        }
-        ctx.fillStyle = "#38bdf8";
-        ctx.beginPath();
-        ctx.arc(px, py, 5.5 * sc, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    // Crisp in-world callout tag
-    const tagAlpha = easeOutCubic((u - 0.58) / 0.2);
-    ctx.save();
-    ctx.globalAlpha = tagAlpha;
-    ctx.fillStyle = "#0f172a";
-    ctx.font = `bold ${Math.round(24 * sc)}px ${MONO}`;
-    ctx.textAlign = "center";
-    ctx.fillText("12-Hi DRAM + TSV Vertical Elevators", cx, cy - 218 * sc);
-    ctx.restore();
-  }
+  drawSubtleSourceFootnote(ctx, sc, w, h, u, false);
 }
 
-// 4. `whiteboard_systolic_sim` — Presenter + GPU Starved (`||`) -> HBM Diagonal Wavefront (`tpu_grid`!)
-function renderWhiteboardSystolicSim(ctx, assets, scene, w, h, t, dur, amp, isShort) {
-  const u = t / Math.max(0.5, dur);
-  drawCoverImage(ctx, assets.sceneBg || assets.stage_studio, w, h, lerp(1.0, 1.05, u), 0, 0);
+// 3. `copier_blueprint_action`: Exact `amd_micro_0s.jpg` homage (hand places chip -> lid closes -> scan beam!)
+function tplCopierBlueprintAction(ctx, A, sc, w, h, t, dur, amp, isShort) {
+  const u = t / dur;
+  drawCover(ctx, A.bg, w, h, lerp(1.0, 1.04, u), 0, 0, "#E2ECF5");
 
-  const wbX = isShort ? 64 : 108;
-  const wbY = isShort ? 185 : 88;
-  const wbW = isShort ? w - 128 : 1290;
-  const wbH = isShort ? 810 : 810;
+  const cx = w * 0.5;
+  const cy = isShort ? h * 0.58 : h * 0.64;
+  const scf = isShort ? 0.88 : 1.08;
 
-  // Stand legs
-  ctx.strokeStyle = "#64748b";
-  ctx.lineWidth = 8;
+  // Copier main body
+  fillStrokeBox(ctx, cx - 320 * scf, cy - 40 * scf, 640 * scf, 250 * scf, 18 * scf, "#E5E2DC", INK, 4);
+  // Cyan glass platen
+  fillStrokeBox(ctx, cx - 250 * scf, cy - 22 * scf, 500 * scf, 82 * scf, 8 * scf, "#BAE6FD", INK, 3);
+  // Control panel buttons
+  fillStrokeBox(ctx, cx - 180 * scf, cy + 90 * scf, 150 * scf, 52 * scf, 8 * scf, "#93C5FD", INK, 2.8);
+  ctx.fillStyle = "#10B981";
   ctx.beginPath();
-  ctx.moveTo(wbX + wbW * 0.26, wbY + wbH);
-  ctx.lineTo(wbX + wbW * 0.23, wbY + wbH + 80);
-  ctx.moveTo(wbX + wbW * 0.74, wbY + wbH);
-  ctx.lineTo(wbX + wbW * 0.77, wbY + wbH + 80);
-  ctx.stroke();
-
-  // Clean white rounded board
-  roundRectPath(ctx, wbX, wbY, wbW, wbH, 24);
-  ctx.fillStyle = "#f8fafc";
-  ctx.fill();
-  ctx.lineWidth = 4;
-  ctx.strokeStyle = "#94a3b8";
-  ctx.stroke();
-
-  // 4-color top accent strip (`tpu_grid.jpg`!)
-  const stripCols = ["#3b82f6", "#ef4444", "#f59e0b", "#10b981"];
-  const segW = (wbW - 80) / 4;
-  stripCols.forEach((col, i) => {
-    ctx.fillStyle = col;
-    ctx.fillRect(wbX + 40 + i * segW, wbY + 16, segW - 6, 9);
-  });
-
-  const fastMode = u >= 0.48;
-  // Top Memory Queue Bar (`tpu_grid.jpg` top slot bar!)
-  const qX = wbX + 68;
-  const qY = wbY + 58;
-  const qW = wbW - 136;
-  const qH = 64;
-  roundRectPath(ctx, qX, qY, qW, qH, 12);
-  ctx.fillStyle = "#e2e8f0";
-  ctx.fill();
-  ctx.strokeStyle = "#94a3b8";
-  ctx.lineWidth = 2;
-  ctx.stroke();
-
-  const slots = 24;
-  const slotW = (qW - 28) / slots;
-  for (let s = 0; s < slots; s++) {
-    const active = fastMode ? true : s < Math.floor(lerp(6, 22, (u / 0.48)));
-    ctx.fillStyle = !active ? "#cbd5e1" : fastMode ? "#10b981" : "#f59e0b";
-    roundRectPath(ctx, qX + 14 + s * slotW + 2, qY + 12, slotW - 5, qH - 24, 4);
-    ctx.fill();
-  }
-
-  // Compute Core Grid (`8x5` inside dark-green / clean silicon die frame)
-  const cols = isShort ? 6 : 8;
-  const rows = 5;
-  const dieX = wbX + 76;
-  const dieY = wbY + 195;
-  const dieW = wbW - 152;
-  const dieH = wbH - 305;
-
-  // Animated wire traces from queue bar into die
-  const laneCount = fastMode ? cols : 2;
-  for (let l = 0; l < laneCount; l++) {
-    const lx = dieX + ((l + 0.5) / laneCount) * dieW;
-    ctx.strokeStyle = fastMode ? "#3b82f6" : "#d97706";
-    ctx.lineWidth = fastMode ? 3.5 : 2;
-    ctx.beginPath();
-    ctx.moveTo(lx, qY + qH);
-    ctx.lineTo(lx, dieY);
-    ctx.stroke();
-
-    const dotP = ((t * (fastMode ? 4.2 : 0.9) + l * 0.21) % 1.0);
-    ctx.fillStyle = fastMode ? "#10b981" : "#f59e0b";
-    ctx.beginPath();
-    ctx.arc(lx, lerp(qY + qH + 4, dieY - 4, dotP), fastMode ? 5.5 : 4, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  roundRectPath(ctx, dieX, dieY, dieW, dieH, 18);
-  ctx.fillStyle = fastMode ? "#eff6ff" : "#1e3a2f";
+  ctx.arc(cx + 65 * scf, cy + 116 * scf, 18 * scf, 0, Math.PI * 2);
   ctx.fill();
   ctx.lineWidth = 3;
-  ctx.strokeStyle = fastMode ? "#60a5fa" : "#0f172a";
+  ctx.strokeStyle = INK;
   ctx.stroke();
 
-  const pad = 22;
-  const cellW = (dieW - pad * 2 - (cols - 1) * 14) / cols;
-  const cellH = (dieH - pad * 2 - (rows - 1) * 14) / rows;
-  const wavePos = (t * 5.2) % (cols + rows + 2);
-  const wavePalette = ["#3b82f6", "#f59e0b", "#ef4444", "#10b981"];
+  // Chip / blueprint placed onto glass platen (`0..0.30`)
+  const placeP = easeOutCubic(u / 0.28);
+  const chipX = lerp(cx - 380 * scf, cx, placeP);
+  const chipY = cy + 18 * scf;
+  drawPinnedChip(ctx, chipX, chipY, 108 * scf, "#1D4ED8", (sc.visual_label || "HBM").slice(0, 10));
 
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      const cx = dieX + pad + c * (cellW + 14);
-      const cy = dieY + pad + r * (cellH + 14);
-      let cellCol = "#f1f5f9";
-      if (fastMode) {
-        const dist = Math.abs((r + c) - wavePos);
-        if (dist < 1.6) {
-          cellCol = wavePalette[(r + c) % wavePalette.length];
-        }
-      } else {
-        cellCol = (r === 1 && c === 2) || (r === 3 && c === cols - 2) ? "#4ade80" : "#e2e8f0";
-      }
-      roundRectPath(ctx, cx, cy, cellW, cellH, 9);
-      ctx.fillStyle = cellCol;
-      ctx.fill();
-      ctx.strokeStyle = "rgba(15,23,42,0.18)";
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-
-      // Tiny register lines inside each core tile (`tpu_grid.jpg`!)
-      ctx.fillStyle = cellCol === "#e2e8f0" || cellCol === "#f1f5f9" ? "#94a3b8" : "rgba(255,255,255,0.85)";
-      ctx.fillRect(cx + 10, cy + cellH * 0.34, cellW * 0.55, 4);
-      ctx.fillRect(cx + 10, cy + cellH * 0.58, cellW * 0.38, 4);
-    }
-  }
-
-  // Pulsing Pause `||` icon when memory-starved (`tpu_grid.jpg` exact detail!)
-  if (!fastMode) {
-    const pulse = 1 + 0.08 * Math.sin(t * 7);
+  // Cartoon sleeved arm sliding chip in (`0..0.28`) then retracting (`0.28..0.46`)
+  if (u < 0.48) {
+    const outP = u < 0.28 ? placeP : 1.0 - easeInOutCubic((u - 0.28) / 0.20);
+    const hx = lerp(-240 * scf, chipX - 52 * scf, outP);
     ctx.save();
-    ctx.translate(dieX + dieW / 2, dieY + dieH / 2);
-    ctx.scale(pulse, pulse);
-    ctx.beginPath();
-    ctx.arc(0, 0, 38, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(255,255,255,0.95)";
-    ctx.fill();
-    ctx.fillStyle = "#dc2626";
-    ctx.fillRect(-12, -16, 8, 32);
-    ctx.fillRect(4, -16, 8, 32);
+    fillStrokeBox(ctx, hx - 260 * scf, chipY - 30 * scf, 210 * scf, 58 * scf, 10 * scf, "#1E40AF", INK, 3.5);
+    fillStrokeBox(ctx, hx - 55 * scf, chipY - 24 * scf, 68 * scf, 46 * scf, 18 * scf, "#F6C39B", INK, 3.5);
     ctx.restore();
   }
 
-  // Bottom in-board live bandwidth counter
-  const bwVal = fastMode ? Math.round(lerp(64, 425, easeOutCubic((u - 0.48) / 0.4))) : 38;
-  ctx.fillStyle = fastMode ? "#0f172a" : "#b91c1c";
-  ctx.font = `bold 28px ${MONO}`;
-  ctx.textAlign = "left";
-  ctx.fillText(
-    fastMode ? `HBM Systolic Feed: ${bwVal} GB/s (All Cores Active)` : `Narrow Bus Queue Jammed: ${bwVal} GB/s (Cores Waiting)`,
-    dieX,
-    wbY + wbH - 36
-  );
-
-  // Rigged Presenter pointing at the active area of the board!
-  const pointTarget = {
-    x: wbX + wbW - 35,
-    y: fastMode ? dieY + dieH * 0.5 : qY + qH * 0.5,
-  };
-  drawRiggedActor(ctx, {
-    x: isShort ? w * 0.80 : 1650,
-    footY: isShort ? 1365 : 965,
-    scale: isShort ? 0.92 : 1.16,
-    bustImg: assets.char_analyst || assets.char_engineer,
-    walkSpeed: 0,
-    t,
-    facing: -1,
-    speakingAmp: amp,
-    reachTarget: isShort ? null : pointTarget,
-    shirtColor: "#0284c7",
-  });
-}
-
-// 5. `dark_cross_section_meter` — Matte #0B0B0E Bezier orb meter + progressive cross-section cable/fab packet run (`aicost_packet`!)
-function renderDarkCrossSectionMeter(ctx, assets, scene, w, h, t, dur, amp, isShort) {
-  const u = t / Math.max(0.5, dur);
-  ctx.fillStyle = "#0b0b0e";
-  ctx.fillRect(0, 0, w, h);
-
-  // Subtle starfield micro-dots (`aicost_packet.jpg`!)
-  ctx.fillStyle = "rgba(148, 163, 184, 0.22)";
-  for (let i = 0; i < 48; i++) {
-    const sx = ((i * 197) % w);
-    const sy = ((i * 311) % h);
-    ctx.fillRect(sx, sy, 2, 2);
+  // Green optical scan bar sweeping across glass (`0.66..0.98`)
+  if (u > 0.64) {
+    const scanP = easeInOutCubic((u - 0.64) / 0.32);
+    const sx = lerp(cx - 235 * scf, cx + 235 * scf, scanP);
+    ctx.save();
+    ctx.fillStyle = "rgba(16, 185, 129, 0.55)";
+    ctx.fillRect(sx - 12 * scf, cy - 20 * scf, 24 * scf, 78 * scf);
+    ctx.restore();
   }
 
-  const nodes = (scene.diagram_nodes && scene.diagram_nodes.length ? scene.diagram_nodes : ["Prompt", "HBM Stack", "TSV", "2.5D", "Cores"]).slice(0, 5);
-  const metrics = scene.metrics || [];
-  const mainMetric = metrics[0] || { label: "Bandwidth", value: "425 GB/s", tone: "green" };
-  const numMatch = String(mainMetric.value).match(/(\d+(?:\.\d+)?)/);
-  const targetNum = numMatch ? parseFloat(numMatch[1]) : 425;
-  const suffix = numMatch ? String(mainMetric.value).replace(numMatch[1], "") : "";
-  const curNum = (targetNum * easeOutCubic(clamp(t / (dur * 0.72), 0, 1)));
-  const formattedVal = (targetNum % 1 !== 0 ? curNum.toFixed(1) : Math.round(curNum)) + suffix;
+  // Hinged top scanner lid rotating closed (`0.44..0.68`)!
+  const closeP = easeInOutCubic((u - 0.44) / 0.24);
+  const lidH = lerp(175 * scf, 22 * scf, closeP);
+  const lidY = (cy - 24 * scf) - lidH;
+  fillStrokeBox(ctx, cx - 265 * scf, lidY, 530 * scf, lidH, 10 * scf, "#F1EFEA", INK, 3.8);
 
-  // Top token/node pills + Bezier curves + sliding orbs into "The meter"
-  const pillY = isShort ? 235 : 95;
-  const gap = isShort ? 12 : 22;
-  const pillW = Math.min(isShort ? 175 : 220, (w - 140 - gap * (nodes.length - 1)) / nodes.length);
-  const rowW = nodes.length * pillW + (nodes.length - 1) * gap;
-  const startX = (w - rowW) / 2;
+  if (sc.visual_label) {
+    drawCleanSignplate(ctx, cx, isShort ? h * 0.20 : h * 0.15, sc.visual_label, "#1E3A8A", scf);
+  }
+  drawSubtleSourceFootnote(ctx, sc, w, h, u, false);
+}
 
-  const meterW = isShort ? 420 : 440;
-  const meterH = 155;
-  const meterX = (w - meterW) / 2;
-  const meterY = pillY + (isShort ? 185 : 165);
+// 4. `hydraulic_press_crush`: Industrial press slamming down onto chip (`first32s_amd_gXhr` row 4!)
+function tplHydraulicPressCrush(ctx, A, sc, w, h, t, dur, amp, isShort) {
+  const u = t / dur;
+  const impact = u >= 0.52 ? Math.exp(-(u - 0.52) * 18) * Math.sin((u - 0.52) * 90) * 10 : 0;
+  drawCover(ctx, A.bg, w, h, 1.03, impact * 0.5, impact, "#E5ECF2");
 
-  nodes.forEach((nd, i) => {
-    const px = startX + i * (pillW + gap);
-    const pEnter = springOut((t - i * 0.1) / 0.45);
-    roundRectPath(ctx, px, pillY, pillW, 56, 10);
-    ctx.fillStyle = "#1c1d24";
-    ctx.fill();
-    ctx.strokeStyle = "#333644";
-    ctx.lineWidth = 2;
-    ctx.stroke();
+  const pressX = isShort ? w * 0.42 : w * 0.37;
+  const anvilY = isShort ? h * 0.66 : h * 0.74;
+  const scf = isShort ? 0.90 : 1.05;
 
-    ctx.fillStyle = "#38bdf8";
-    ctx.font = `bold ${isShort ? 20 : 22}px ${MONO}`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText(String(nd).slice(0, 14), px + pillW / 2, pillY + 28);
+  // Actor watching anxiously on right
+  drawDeskActor(ctx, A.leftActor || A.fallbackActor, isShort ? w * 0.78 : w * 0.78, h, isShort ? 380 : 420, amp, t, true);
 
-    // Bezier curve down into meter
-    const x0 = px + pillW / 2, y0 = pillY + 56;
-    const x3 = meterX + meterW * (0.2 + 0.6 * (i / Math.max(1, nodes.length - 1))), y3 = meterY;
-    ctx.strokeStyle = "rgba(148, 163, 184, 0.45)";
-    ctx.lineWidth = 2.5;
-    ctx.beginPath();
-    ctx.moveTo(x0, y0);
-    ctx.bezierCurveTo(x0, y0 + 55, x3, y3 - 55, x3, y3);
-    ctx.stroke();
+  // Steel guide columns & base anvil
+  fillStrokeBox(ctx, pressX - 210 * scf, 80, 34 * scf, anvilY - 60, 4, "#64748B", INK, 3.5);
+  fillStrokeBox(ctx, pressX + 176 * scf, 80, 34 * scf, anvilY - 60, 4, "#64748B", INK, 3.5);
+  fillStrokeBox(ctx, pressX - 240 * scf, anvilY, 480 * scf, 95 * scf, 10, "#94A3B8", INK, 4);
 
-    // Animated glowing orb sliding down Bezier wire!
-    if (pEnter > 0.3) {
-      const bu = ((t * 1.35 + i * 0.22) % 1.0);
-      const om = 1 - bu;
-      const ox = om * om * om * x0 + 3 * om * om * bu * x0 + 3 * om * bu * bu * x3 + bu * bu * bu * x3;
-      const oy = om * om * om * y0 + 3 * om * om * bu * (y0 + 55) + 3 * om * bu * bu * (y3 - 55) + bu * bu * bu * y3;
-      ctx.fillStyle = "#38bdf8";
-      ctx.beginPath();
-      ctx.arc(ox, oy, 5, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  });
+  // Target chip on anvil (squashes slightly after impact!)
+  const crushP = easeInOutCubic((u - 0.28) / 0.26);
+  const sqY = crushP > 0.9 ? 0.72 : 1.0;
+  ctx.save();
+  ctx.translate(pressX, anvilY - 46 * scf * sqY);
+  ctx.scale(1.0 + (1.0 - sqY) * 0.25, sqY);
+  drawPinnedChip(ctx, 0, 0, 118 * scf, "#DC2626", (sc.secondary_label || "12-Hi").slice(0, 9));
+  ctx.restore();
 
-  // "The meter" central rounded box (`aicost_packet.jpg` exact look!)
-  roundRectPath(ctx, meterX, meterY, meterW, meterH, 20);
-  ctx.fillStyle = "#181920";
-  ctx.fill();
-  ctx.strokeStyle = "#64748b";
-  ctx.lineWidth = 2;
-  ctx.stroke();
-
-  ctx.fillStyle = "#e2e8f0";
-  ctx.font = `bold 26px ${SANS}`;
+  // Descending hydraulic head
+  const headY = lerp(anvilY - 310 * scf, anvilY - 152 * scf, crushP);
+  fillStrokeBox(ctx, pressX - 42 * scf, 40, 84 * scf, headY - 30, 0, "#475569", INK, 3.5);
+  fillStrokeBox(ctx, pressX - 195 * scf, headY, 390 * scf, 86 * scf, 12, "#334155", INK, 4);
+  ctx.fillStyle = "#FFFFFF";
+  ctx.font = `900 ${Math.round(28 * scf)}px ${SANS}`;
   ctx.textAlign = "center";
-  ctx.fillText(mainMetric.label || "The meter", w / 2, meterY + 42);
+  ctx.textBaseline = "middle";
+  ctx.fillText(sc.visual_label || "BOTTLENECK", pressX, headY + 43 * scf);
 
-  ctx.fillStyle = mainMetric.tone === "green" ? "#4ade80" : mainMetric.tone === "blue" ? "#60a5fa" : "#f87171";
-  ctx.font = `bold 52px ${MONO}`;
-  ctx.fillText(formattedVal || String(mainMetric.value), w / 2, meterY + 106);
+  drawSubtleSourceFootnote(ctx, sc, w, h, u, false);
+}
 
-  // Bottom half: Progressive white-line architectural cross-section + subsea/interposer trench (`aicost_packet.jpg`!)
-  const groundY = isShort ? h * 0.66 : h * 0.77;
-  const drawProg = easeOutCubic((u - 0.12) / 0.55);
-  const maxX = lerp(80, w - 80, drawProg);
+// 5. `studio_shutter_flash`: Duo presenting prop + crisp white camera shutter flash & zoom cut (`Sony` 35s!)
+function tplStudioShutterFlash(ctx, A, sc, w, h, t, dur, amp, isShort) {
+  const u = t / dur;
+  const flashed = u >= 0.46;
+  const camZoom = flashed ? 1.11 : lerp(1.0, 1.03, u / 0.46);
 
   ctx.save();
-  ctx.beginPath();
-  ctx.rect(0, meterY + meterH + 20, maxX, h);
-  ctx.clip();
+  ctx.translate(w * 0.5, h * 0.5);
+  ctx.scale(camZoom, camZoom);
+  ctx.translate(-w * 0.5, -h * 0.5);
 
-  // Ocean / Silicon Trench dip in the middle
-  const trenchL = w * 0.44, trenchR = w * 0.66, trenchDepth = 92;
-  ctx.fillStyle = "rgba(30, 64, 175, 0.28)";
+  drawCover(ctx, A.bg, w, h, 1.02, 0, 0, CREAM);
+  const deskY = isShort ? h * 0.70 : h * 0.78;
+  const charH = isShort ? 360 : 420;
+  drawDeskActor(ctx, A.leftActor || A.fallbackActor, w * 0.29, deskY + 24, charH, amp, t, false);
+  drawDeskActor(ctx, A.rightActor || A.altActor, w * 0.71, deskY + 24, charH, amp * 0.8, t + 0.8, true);
+
+  // Floating hero prop between characters
+  const propY = deskY - charH * 0.48 + Math.sin(t * 3.6) * 7;
+  drawPropSpriteOrChip(ctx, A.prop, w * 0.5, propY, isShort ? 165 : 185, sc.big_stat || sc.visual_label || "HBM");
+
+  fillStrokeBox(ctx, -30, deskY, w + 60, h - deskY + 40, 0, "#E6BE8A", INK, 4.2);
+  if (sc.visual_label) {
+    drawCleanSignplate(ctx, w * 0.5, deskY + (isShort ? 78 : 68), sc.big_stat ? `${sc.visual_label} · ${sc.big_stat}` : sc.visual_label, "#0F172A", 1.0);
+  }
+  ctx.restore();
+
+  // Crisp studio shutter white flash around u=0.46
+  const flashAlpha = Math.max(0, 1.0 - Math.abs(u - 0.46) / 0.045) * 0.82;
+  if (flashAlpha > 0.01) {
+    ctx.fillStyle = `rgba(255,255,255,${flashAlpha.toFixed(3)})`;
+    ctx.fillRect(0, 0, w, h);
+  }
+  drawSubtleSourceFootnote(ctx, sc, w, h, u, false);
+}
+
+// 6. `split_screen_rivalry`: Diagonal comic panel split (`ARM` / `TPU vs GPU` style!)
+function tplSplitScreenRivalry(ctx, A, sc, w, h, t, dur, amp, isShort) {
+  const u = t / dur;
+  const p1 = easeOutCubic(u / 0.25);
+  const p2 = easeOutCubic((u - 0.14) / 0.28);
+
+  // Panel 1 (Left / Top)
+  ctx.save();
   ctx.beginPath();
-  ctx.moveTo(trenchL, groundY);
-  ctx.quadraticCurveTo((trenchL + trenchR) / 2, groundY + trenchDepth, trenchR, groundY);
+  if (isShort) {
+    ctx.moveTo(0, 0);
+    ctx.lineTo(w, 0);
+    ctx.lineTo(w, h * 0.48);
+    ctx.lineTo(0, h * 0.54);
+  } else {
+    ctx.moveTo(0, 0);
+    ctx.lineTo(w * 0.54, 0);
+    ctx.lineTo(w * 0.46, h);
+    ctx.lineTo(0, h);
+  }
   ctx.closePath();
-  ctx.fill();
+  ctx.clip();
+  ctx.fillStyle = "#DBEAFE";
+  ctx.fillRect(0, 0, w, h);
+  drawCover(ctx, A.bg, w, h, 1.04, lerp(-40, 0, p1), 0, "#DBEAFE");
+  drawDeskActor(
+    ctx,
+    A.leftActor || A.fallbackActor,
+    isShort ? w * 0.5 : w * 0.25,
+    isShort ? h * 0.52 : h * 0.94,
+    isShort ? 390 : 450,
+    amp,
+    t,
+    false
+  );
+  if (sc.visual_label) {
+    drawCleanSignplate(ctx, isShort ? w * 0.5 : w * 0.24, isShort ? h * 0.11 : h * 0.13, sc.visual_label, "#1E40AF", 0.96);
+  }
+  ctx.restore();
 
-  ctx.strokeStyle = "#cbd5e1";
-  ctx.lineWidth = 2;
+  // Panel 2 (Right / Bottom)
+  ctx.save();
+  ctx.globalAlpha = p2;
   ctx.beginPath();
-  ctx.moveTo(70, groundY);
-  ctx.lineTo(trenchL, groundY);
-  ctx.quadraticCurveTo((trenchL + trenchR) / 2, groundY + trenchDepth, trenchR, groundY);
-  ctx.lineTo(w - 70, groundY);
+  if (isShort) {
+    ctx.moveTo(0, h * 0.54);
+    ctx.lineTo(w, h * 0.48);
+    ctx.lineTo(w, h);
+    ctx.lineTo(0, h);
+  } else {
+    ctx.moveTo(w * 0.54, 0);
+    ctx.lineTo(w, 0);
+    ctx.lineTo(w, h);
+    ctx.lineTo(w * 0.46, h);
+  }
+  ctx.closePath();
+  ctx.clip();
+  ctx.fillStyle = "#FEF3C7";
+  ctx.fillRect(0, 0, w, h);
+  drawDeskActor(
+    ctx,
+    A.rightActor || A.altActor,
+    isShort ? w * 0.5 : w * 0.75,
+    isShort ? h * 0.96 : h * 0.94,
+    isShort ? 390 : 450,
+    amp * 0.85,
+    t + 1.2,
+    true
+  );
+  if (sc.secondary_label) {
+    drawCleanSignplate(ctx, isShort ? w * 0.5 : w * 0.76, isShort ? h * 0.59 : h * 0.13, sc.secondary_label, "#B45309", 0.96);
+  }
+  ctx.restore();
+
+  // Bold comic diagonal divider
+  ctx.strokeStyle = INK;
+  ctx.lineWidth = 9;
+  ctx.beginPath();
+  if (isShort) {
+    ctx.moveTo(0, h * 0.54);
+    ctx.lineTo(w, h * 0.48);
+  } else {
+    ctx.moveTo(w * 0.54, 0);
+    ctx.lineTo(w * 0.46, h);
+  }
   ctx.stroke();
 
-  // Left minimalist vector buildings (Fab & Packaging)
-  const drawBuilding = (bx, bw, bh, label) => {
-    ctx.strokeStyle = "#cbd5e1";
-    ctx.fillStyle = "#12141c";
-    ctx.fillRect(bx, groundY - bh, bw, bh);
-    ctx.strokeRect(bx, groundY - bh, bw, bh);
-    ctx.fillStyle = "#475569";
-    for (let wy = groundY - bh + 14; wy < groundY - 14; wy += 18) {
-      for (let wx = bx + 10; wx < bx + bw - 12; wx += 16) {
-        ctx.fillRect(wx, wy, 8, 9);
-      }
+  drawSubtleSourceFootnote(ctx, sc, w, h, u, false);
+}
+
+// 7. `cleanroom_microscope_zoom`: Lab bench + expanding optical loupe revealing thinned silicon die
+function tplCleanroomMicroscopeZoom(ctx, A, sc, w, h, t, dur, amp, isShort) {
+  const u = t / dur;
+  drawCover(ctx, A.bg, w, h, lerp(1.0, 1.06, u), 0, 0, "#E0F2FE");
+
+  const charX = isShort ? w * 0.30 : w * 0.26;
+  drawDeskActor(ctx, A.leftActor || A.fallbackActor, charX, h * 0.95, isShort ? 380 : 450, amp, t, false);
+
+  // Expanding circular magnifying loupe inspecting silicon wafer/die
+  const loupeP = springOut((u - 0.12) / 0.38);
+  const lx = isShort ? w * 0.56 : w * 0.65;
+  const ly = isShort ? h * 0.42 : h * 0.48;
+  const rad = (isShort ? 220 : 250) * loupeP;
+
+  if (rad > 10) {
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(lx, ly, rad, 0, Math.PI * 2);
+    ctx.fillStyle = "#0F172A";
+    ctx.fill();
+    ctx.clip();
+
+    // Glowing microscopic wafer die grid inside loupe
+    const step = 36;
+    ctx.strokeStyle = "rgba(56, 189, 248, 0.38)";
+    ctx.lineWidth = 2;
+    const shift = (t * 28) % step;
+    for (let gx = lx - rad - step; gx <= lx + rad + step; gx += step) {
+      ctx.beginPath();
+      ctx.moveTo(gx + shift, ly - rad);
+      ctx.lineTo(gx + shift, ly + rad);
+      ctx.stroke();
     }
-    ctx.fillStyle = "#94a3b8";
-    ctx.font = `bold 16px ${MONO}`;
+    for (let gy = ly - rad - step; gy <= ly + rad + step; gy += step) {
+      ctx.beginPath();
+      ctx.moveTo(lx - rad, gy);
+      ctx.lineTo(lx + rad, gy);
+      ctx.stroke();
+    }
+    drawPropSpriteOrChip(ctx, A.prop, lx, ly - 18, rad * 1.05, sc.visual_label || "DIE");
+
+    ctx.fillStyle = "#38BDF8";
+    ctx.font = `900 ${isShort ? 32 : 36}px ${MONO}`;
     ctx.textAlign = "center";
-    ctx.fillText(label, bx + bw / 2, groundY + 26);
-  };
+    ctx.fillText(sc.big_stat || sc.visual_label || "SILICON DIE", lx, ly + rad * 0.62);
+    ctx.restore();
 
-  drawBuilding(w * 0.11, 76, 95, "SK hynix");
-  drawBuilding(w * 0.26, 86, 125, "2.5D Pack");
-  drawBuilding(w * 0.74, 125, 118, "AI Cluster");
+    ctx.beginPath();
+    ctx.arc(lx, ly, rad, 0, Math.PI * 2);
+    ctx.lineWidth = 10;
+    ctx.strokeStyle = "#F8FAFC";
+    ctx.stroke();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = INK;
+    ctx.stroke();
+  }
+  drawSubtleSourceFootnote(ctx, sc, w, h, u, false);
+}
 
-  // Glowing blue cable + racing packet across the trench!
-  ctx.strokeStyle = "#0ea5e9";
+// 8. `server_hall_waiting`: AI Data Center server racks pulsing amber (`WAITING`)
+function tplServerHallWaiting(ctx, A, sc, w, h, t, dur, amp, isShort) {
+  const u = t / dur;
+  drawCover(ctx, A.bg, w, h, lerp(1.0, 1.05, u), 0, 0, "#1E293B");
+  ctx.fillStyle = "rgba(15, 23, 42, 0.35)";
+  ctx.fillRect(0, 0, w, h);
+
+  const nRacks = isShort ? 3 : 4;
+  const rackW = isShort ? 240 : 250;
+  const rackH = isShort ? 520 : 540;
+  const gap = isShort ? 44 : 68;
+  const totalW = nRacks * rackW + (nRacks - 1) * gap;
+  const startX = (w - totalW) * 0.5;
+  const rackY = isShort ? h * 0.33 : h * 0.25;
+
+  for (let r = 0; r < nRacks; r++) {
+    const rx = startX + r * (rackW + gap);
+    const pop = springOut((u - r * 0.06) / 0.30);
+    ctx.save();
+    ctx.translate(rx + rackW / 2, rackY + rackH);
+    ctx.scale(pop, pop);
+    ctx.translate(-(rx + rackW / 2), -(rackY + rackH));
+
+    fillStrokeBox(ctx, rx, rackY, rackW, rackH, 14, "#1E293B", INK, 4);
+    for (let b = 0; b < 8; b++) {
+      const by = rackY + 26 + b * 60;
+      fillStrokeBox(ctx, rx + 20, by, rackW - 40, 44, 6, "#0F172A", "#334155", 2);
+      // Blinking amber/red status LEDs showing starved GPU blades
+      const blink = Math.sin(t * 6.0 + r + b * 0.5) > 0;
+      ctx.fillStyle = blink ? "#F59E0B" : "#EF4444";
+      ctx.beginPath();
+      ctx.arc(rx + 42, by + 22, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#334155";
+      ctx.fillRect(rx + 64, by + 17, rackW - 104, 10);
+    }
+    ctx.restore();
+  }
+
+  if (sc.visual_label || sc.big_stat) {
+    drawCleanSignplate(
+      ctx,
+      w * 0.5,
+      isShort ? h * 0.18 : h * 0.13,
+      sc.big_stat ? `${sc.big_stat} · ${sc.visual_label}` : sc.visual_label,
+      "#DC2626",
+      1.08
+    );
+  }
+  drawSubtleSourceFootnote(ctx, sc, w, h, u, true);
+}
+
+// 9. `oven_conveyor_bottleneck`: Industrial oven conveyor + swinging pendulum price/cost tag (`short_ref_aicost`!)
+function tplOvenConveyorBottleneck(ctx, A, sc, w, h, t, dur, amp, isShort) {
+  const u = t / dur;
+  ctx.fillStyle = CREAM;
+  ctx.fillRect(0, 0, w, h);
+
+  const beltY = isShort ? h * 0.62 : h * 0.68;
+  const ovenX = isShort ? w * 0.08 : w * 0.10;
+  const ovenW = isShort ? 320 : 380;
+  const ovenH = isShort ? 320 : 350;
+
+  // Conveyor belt & rollers
+  fillStrokeBox(ctx, ovenX + ovenW - 20, beltY, w - ovenX - ovenW + 40, 46, 20, "#64748B", INK, 3.8);
+  for (let k = 0; k < 8; k++) {
+    const rx = ovenX + ovenW + 30 + k * 145;
+    if (rx > w - 30) break;
+    ctx.save();
+    ctx.translate(rx, beltY + 23);
+    ctx.rotate(t * 4.5);
+    ctx.fillStyle = "#CBD5E1";
+    ctx.beginPath();
+    ctx.arc(0, 0, 14, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = INK;
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // Chips moving on belt & bunching up at narrow gate
+  const gateX = w * 0.78;
+  for (let c = 0; c < 5; c++) {
+    const rawX = ovenX + ovenW + 40 + ((u * 520 + c * 115) % (gateX - ovenX - ovenW - 30));
+    const cx = Math.min(rawX, gateX - 55 - c * 22);
+    drawPinnedChip(ctx, cx, beltY - 42, 74, c % 2 === 0 ? "#2563EB" : "#10B981", "HBM");
+  }
+
+  // Industrial Packaging Oven on left
+  fillStrokeBox(ctx, ovenX, beltY - ovenH + 30, ovenW, ovenH, 18, "#334155", INK, 4.2);
+  fillStrokeBox(ctx, ovenX + 36, beltY - ovenH + 95, ovenW - 72, 130, 10, "#FEF08A", INK, 3.2);
+  ctx.fillStyle = "#F97316";
+  ctx.fillRect(ovenX + 42, beltY - ovenH + 185, ovenW - 84, 34);
+  ctx.fillStyle = "#FFFFFF";
+  ctx.font = `900 24px ${SANS}`;
+  ctx.textAlign = "center";
+  ctx.fillText(sc.visual_label || "HBM LINE", ovenX + ovenW / 2, beltY - ovenH + 66);
+
+  // Swinging hanging tag on wire (`40,000$` homage from `short_ref_aicost.jpg`!)
+  if (sc.big_stat) {
+    const anchorX = w * 0.68;
+    const swing = Math.sin(t * 3.4) * 0.11 * Math.exp(-u * 1.1);
+    ctx.save();
+    ctx.translate(anchorX, 0);
+    ctx.rotate(swing);
+    ctx.strokeStyle = INK;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, isShort ? 260 : 190);
+    ctx.stroke();
+
+    const tagY = isShort ? 250 : 180;
+    fillStrokeBox(ctx, -145, tagY, 290, 118, 16, "#FEF9C3", INK, 3.8);
+    ctx.fillStyle = "#DC2626";
+    ctx.font = `900 44px ${SANS}`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(sc.big_stat, 0, tagY + 62);
+    ctx.restore();
+  }
+  drawSubtleSourceFootnote(ctx, sc, w, h, u, false);
+}
+
+// 10. `waffle_100_dots`: Exact `sony_micro_35s` (`50¢ / $1`) cream minimalist 100-dot matrix + giant bold stat!
+function tplWaffle100Dots(ctx, A, sc, w, h, t, dur, amp, isShort) {
+  const u = t / dur;
+  ctx.fillStyle = CREAM;
+  ctx.fillRect(0, 0, w, h);
+
+  // Parse percentage if present, else default 53
+  const m = (sc.big_stat || "").match(/(\d+)/);
+  const targetCount = m ? clamp(parseInt(m[1], 10), 12, 92) : 53;
+  const revealCount = Math.round(lerp(0, 100, easeOutCubic(u / 0.58)));
+
+  const gridSize = isShort ? 520 : 470;
+  const gx = isShort ? (w - gridSize) * 0.5 : w * 0.14;
+  const gy = isShort ? h * 0.22 : (h - gridSize) * 0.5;
+  const step = gridSize / 10;
+  const r = step * 0.34;
+
+  for (let idx = 0; idx < 100; idx++) {
+    if (idx >= revealCount) break;
+    const row = Math.floor(idx / 10);
+    const col = idx % 10;
+    const dx = gx + col * step + step * 0.5;
+    const dy = gy + row * step + step * 0.5;
+    ctx.fillStyle = idx < targetCount ? "#2563EB" : "#F59E0B";
+    ctx.beginPath();
+    ctx.arc(dx, dy, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Right / Bottom clean editorial typography (zero ugly boxes!)
+  const tx = isShort ? w * 0.5 : w * 0.69;
+  const ty = isShort ? h * 0.68 : h * 0.44;
+  const pop = springOut((u - 0.16) / 0.34);
+
+  ctx.save();
+  ctx.translate(tx, ty);
+  ctx.scale(pop, pop);
+  ctx.textAlign = "center";
+  ctx.fillStyle = INK;
+  ctx.font = `900 ${isShort ? 46 : 48}px ${SERIF}`;
+  ctx.fillText(sc.visual_label || "SK hynix", 0, -90);
+
+  ctx.fillStyle = "#1D4ED8";
+  ctx.font = `900 ${isShort ? 108 : 118}px ${SANS}`;
+  ctx.fillText(sc.big_stat || "53%", 0, 22);
+
+  if (sc.secondary_label) {
+    ctx.fillStyle = "#475569";
+    ctx.font = `800 26px ${SANS}`;
+    ctx.fillText(sc.secondary_label, 0, 86);
+  }
+  ctx.restore();
+
+  drawSubtleSourceFootnote(ctx, sc, w, h, u, false);
+}
+
+// 11. `pedestal_rivalry`: Exact `first32s_amd_gXhr` row 3 rising/shrinking stone pedestals + pinned chips!
+function tplPedestalRivalry(ctx, A, sc, w, h, t, dur, amp, isShort) {
+  const u = t / dur;
+  ctx.fillStyle = ICE;
+  ctx.fillRect(0, 0, w, h);
+
+  const floorY = isShort ? h * 0.78 : h * 0.84;
+  ctx.fillStyle = "#E2E8F0";
+  ctx.fillRect(0, floorY, w, h - floorY);
+  ctx.strokeStyle = "#CBD5E1";
   ctx.lineWidth = 3;
   ctx.beginPath();
-  ctx.moveTo(w * 0.15, groundY - 16);
-  ctx.lineTo(trenchL, groundY - 4);
-  ctx.quadraticCurveTo((trenchL + trenchR) / 2, groundY + trenchDepth - 10, trenchR, groundY - 4);
-  ctx.lineTo(w * 0.80, groundY - 22);
+  ctx.moveTo(0, floorY);
+  ctx.lineTo(w, floorY);
   ctx.stroke();
 
-  const pktU = (t * 0.55) % 1.0;
-  const pktX = lerp(w * 0.15, w * 0.80, pktU);
-  let pktY = groundY - 12;
-  if (pktX > trenchL && pktX < trenchR) {
-    const tu = (pktX - trenchL) / (trenchR - trenchL);
-    pktY = groundY + 4 * tu * (1 - tu) * (trenchDepth - 12);
+  const shift = easeInOutCubic((u - 0.14) / 0.52);
+  const p1H = lerp(isShort ? 320 : 300, isShort ? 140 : 130, shift);
+  const p2H = lerp(isShort ? 110 : 100, isShort ? 350 : 330, shift);
+  const c1Size = lerp(180, 125, shift);
+  const c2Size = lerp(115, 205, shift);
+
+  const x1 = isShort ? w * 0.28 : w * 0.24;
+  const x2 = isShort ? w * 0.68 : w * 0.52;
+  const pedW = isShort ? 210 : 240;
+
+  // Pedestal 1
+  fillStrokeBox(ctx, x1 - pedW / 2, floorY - p1H, pedW, p1H, 6, "#E5E7EB", INK, 3.2);
+  drawPinnedChip(ctx, x1, floorY - p1H - c1Size * 0.58, c1Size, "#1D4ED8", sc.visual_label || "RIVAL");
+
+  // Pedestal 2
+  fillStrokeBox(ctx, x2 - pedW / 2, floorY - p2H, pedW, p2H, 6, "#E5E7EB", INK, 3.2);
+  drawPinnedChip(ctx, x2, floorY - p2H - c2Size * 0.58, c2Size, "#DC2626", sc.secondary_label || "SK hynix");
+
+  if (!isShort) {
+    drawStandingActor(ctx, A.leftActor || A.fallbackActor, w * 0.82, floorY + 12, 330, 145, 0, amp, t, true);
   }
-  ctx.fillStyle = "#38bdf8";
+  if (sc.big_stat) {
+    drawCleanSignplate(ctx, isShort ? w * 0.5 : w * 0.38, isShort ? h * 0.14 : h * 0.12, sc.big_stat, "#0F172A", 1.05);
+  }
+  drawSubtleSourceFootnote(ctx, sc, w, h, u, false);
+}
+
+// 12. `red_cross_stamp`: Exact `first32s_sony_2d88` row 3 midnight navy + bold crimson X cross-out!
+function tplRedCrossStamp(ctx, A, sc, w, h, t, dur, amp, isShort) {
+  const u = t / dur;
+  ctx.fillStyle = MIDNIGHT;
+  ctx.fillRect(0, 0, w, h);
+
+  const cx1 = isShort ? w * 0.5 : w * 0.28;
+  const cy1 = isShort ? h * 0.28 : h * 0.52;
+  const cx2 = isShort ? w * 0.5 : w * 0.68;
+  const cy2 = isShort ? h * 0.64 : h * 0.52;
+
+  // Connecting thin cyan trace
+  ctx.strokeStyle = "#38BDF8";
+  ctx.lineWidth = 3.5;
   ctx.beginPath();
-  ctx.arc(pktX, pktY, 7, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-}
+  ctx.moveTo(cx1, cy1);
+  ctx.lineTo(cx2, cy2);
+  ctx.stroke();
 
-// 6. `dark_gpu_partition_split` — Matrix cells overflowing 1 GPU -> spring-splitting across 4 GPUs (`aicost_gpu`!)
-function renderDarkGpuPartitionSplit(ctx, assets, scene, w, h, t, dur, amp, isShort) {
-  const u = t / Math.max(0.5, dur);
-  ctx.fillStyle = "#0b0b0e";
-  ctx.fillRect(0, 0, w, h);
+  drawPinnedChip(ctx, cx1, cy1, isShort ? 190 : 210, "#0EA5E9", sc.secondary_label || "CORE");
+  drawPinnedChip(ctx, cx2, cy2, isShort ? 240 : 265, "#15803D", sc.visual_label || "BLOCKED", "#FFFFFF", sc.big_stat || "");
 
-  const splitT = easeInOutCubic((u - 0.46) / 0.28);
-  const cx = w / 2;
-  const cy = isShort ? h * 0.44 : h * 0.50;
-  const boxSize = isShort ? 210 : 250;
-
-  const offsets = [
-    [-1, -1], [1, -1],
-    [-1, 1],  [1, 1],
-  ];
-  const spreadX = isShort ? 145 : 230;
-  const spreadY = isShort ? 145 : 155;
-
-  // Draw pulsing yellow NCCL sync lasers between the 4 split GPUs once split!
-  if (splitT > 0.25) {
+  // Bold crimson X stamp slamming onto second module at u=0.50!
+  if (u >= 0.48) {
+    const sp = springOut((u - 0.48) / 0.22);
+    const arm = (isShort ? 135 : 150) * sp;
     ctx.save();
-    ctx.globalAlpha = clamp((splitT - 0.25) / 0.5, 0, 1);
-    const pts = offsets.map(([ox, oy]) => [cx + ox * spreadX * splitT, cy + oy * spreadY * splitT]);
-    const pairs = [[0, 1], [2, 3], [0, 2], [1, 3], [0, 3], [1, 2]];
-    pairs.forEach(([a, b], idx) => {
-      ctx.strokeStyle = "rgba(251, 191, 36, 0.45)";
-      ctx.lineWidth = 2.5;
-      ctx.setLineDash([8, 8]);
-      ctx.lineDashOffset = -t * 48;
-      ctx.beginPath();
-      ctx.moveTo(pts[a][0], pts[a][1]);
-      ctx.lineTo(pts[b][0], pts[b][1]);
-      ctx.stroke();
-
-      const pu = (t * 1.8 + idx * 0.17) % 1.0;
-      ctx.setLineDash([]);
-      ctx.fillStyle = "#fbbf24";
-      ctx.beginPath();
-      ctx.arc(lerp(pts[a][0], pts[b][0], pu), lerp(pts[a][1], pts[b][1], pu), 5, 0, Math.PI * 2);
-      ctx.fill();
-    });
+    ctx.translate(cx2, cy2);
+    ctx.strokeStyle = "#EF4444";
+    ctx.lineWidth = 18;
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(-arm, -arm);
+    ctx.lineTo(arm, arm);
+    ctx.moveTo(arm, -arm);
+    ctx.lineTo(-arm, arm);
+    ctx.stroke();
     ctx.restore();
   }
-
-  // Draw the 1 -> 4 GPU packages with glowing blue/gold HBM matrix tiles (`aicost_gpu.jpg`!)
-  const count = splitT > 0.02 ? 4 : 1;
-  for (let g = 0; g < count; g++) {
-    const [ox, oy] = offsets[g];
-    const gx = cx + ox * spreadX * splitT - boxSize / 2;
-    const gy = cy + oy * spreadY * splitT - boxSize / 2;
-    const overloaded = splitT <= 0.05 && u > 0.28;
-
-    roundRectPath(ctx, gx, gy, boxSize, boxSize, 18);
-    ctx.fillStyle = "#161821";
-    ctx.fill();
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = overloaded ? "#ef4444" : splitT > 0.4 ? "#38bdf8" : "#475569";
-    ctx.stroke();
-
-    const gridN = 6;
-    const pad = 20;
-    const cellS = (boxSize - pad * 2 - (gridN - 1) * 6) / gridN;
-    const fillCells = splitT > 0.05 ? 20 : Math.floor(lerp(4, 36, clamp(u / 0.36, 0, 1)));
-
-    for (let i = 0; i < gridN * gridN; i++) {
-      if (i >= fillCells) break;
-      const r = Math.floor(i / gridN), c = i % gridN;
-      roundRectPath(ctx, gx + pad + c * (cellS + 6), gy + pad + r * (cellS + 6), cellS, cellS, 4);
-      ctx.fillStyle = overloaded ? "#f87171" : g % 2 === 0 ? "#60a5fa" : "#eab308";
-      ctx.fill();
-    }
-
-    ctx.fillStyle = "#e2e8f0";
-    ctx.font = `bold 18px ${MONO}`;
-    ctx.textAlign = "center";
-    ctx.fillText(splitT > 0.1 ? `GPU #${g + 1} HBM` : overloaded ? "1 GPU HBM: OVERFLOW!" : "Single GPU HBM", gx + boxSize / 2, gy - 14);
-  }
-
-  // Minimalist bottom caption label (just like "The prompt / The weights" in `aicost_gpu.jpg`)
-  ctx.fillStyle = splitT > 0.3 ? "#fbbf24" : "#94a3b8";
-  ctx.font = `bold ${isShort ? 24 : 26}px ${MONO}`;
-  ctx.textAlign = "center";
-  ctx.fillText(
-    splitT > 0.3 ? "Partitioned Across GPUs -> NCCL Sync Overhead" : "Model Weights Exceed Single-Package HBM Perimeter",
-    cx,
-    isShort ? h * 0.72 : h * 0.87
-  );
+  drawSubtleSourceFootnote(ctx, sc, w, h, u, true);
 }
 
-// 7. `map_supply_chain_arcs` — Warm cream vector map + waving flags + flying chip arcs (`asml_intro`!)
-function renderMapSupplyChainArcs(ctx, assets, scene, w, h, t, dur, amp, isShort) {
-  const u = t / Math.max(0.5, dur);
-  ctx.fillStyle = "#f8f5ed";
+// 13. `workbench_hbm_stack`: Warm oak desk + cream mat + corner screwdriver + 12-layer DRAM & TSV drilling!
+function tplWorkbenchHbmStack(ctx, A, sc, w, h, t, dur, amp, isShort) {
+  const u = t / dur;
+  // Warm light-oak wood grain surface (`overview_sony_2d88` exact desk!)
+  ctx.fillStyle = "#E4BA82";
   ctx.fillRect(0, 0, w, h);
-
-  // Subtle world map grid lines
-  ctx.strokeStyle = "rgba(148, 163, 184, 0.18)";
-  ctx.lineWidth = 1.5;
-  for (let x = 120; x < w; x += 160) {
-    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
-  }
-  for (let y = 120; y < h; y += 160) {
-    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+  ctx.strokeStyle = "rgba(161, 108, 48, 0.18)";
+  ctx.lineWidth = 3;
+  for (let y = 40; y < h; y += 72) {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(w, y);
+    ctx.stroke();
   }
 
-  const stops = isShort
-    ? [
-        { x: w * 0.24, y: h * 0.28, name: "SK hynix", sub: "12-Hi HBM", col: "#93c5fd", flag: ["#ffffff", "#dc2626", "#1d4ed8"] },
-        { x: w * 0.76, y: h * 0.44, name: "TSMC", sub: "2.5D CoWoS", col: "#86efac", flag: ["#dc2626", "#1d4ed8", "#ffffff"] },
-        { x: w * 0.38, y: h * 0.62, name: "US Cloud", sub: "AI Clusters", col: "#fda4af", flag: ["#1d4ed8", "#ffffff", "#dc2626"] },
-      ]
-    : [
-        { x: w * 0.20, y: h * 0.52, name: "SK hynix (Korea)", sub: "HBM3E Stacks", col: "#93c5fd", flag: ["#ffffff", "#dc2626", "#1d4ed8"] },
-        { x: w * 0.50, y: h * 0.62, name: "TSMC (Taiwan)", sub: "2.5D Packaging", col: "#86efac", flag: ["#dc2626", "#1d4ed8", "#ffffff"] },
-        { x: w * 0.80, y: h * 0.46, name: "US Hyperscalers", sub: "Nvidia & Apple", col: "#c4b5fd", flag: ["#1d4ed8", "#ffffff", "#dc2626"] },
-      ];
-
-  // Draw stylized vector island/region polygons + waving flags (`asml_intro.jpg`!)
-  stops.forEach((st, idx) => {
-    const sPop = springOut((t - idx * 0.25) / 0.55);
-    ctx.save();
-    ctx.translate(st.x, st.y);
-    ctx.scale(sPop, sPop);
-
-    // Organic landmass silhouette
-    ctx.beginPath();
-    for (let a = 0; a < Math.PI * 2; a += Math.PI / 7) {
-      const rad = 78 + Math.sin(a * 3 + idx * 2) * 18;
-      const px = Math.cos(a) * rad * 1.15;
-      const py = Math.sin(a) * rad * 0.82;
-      if (a === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-    }
-    ctx.closePath();
-    ctx.fillStyle = st.col;
-    ctx.fill();
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = "#1e293b";
-    ctx.stroke();
-
-    // Flagpole + waving 3-band flag
-    ctx.beginPath();
-    ctx.moveTo(-24, -18);
-    ctx.lineTo(-24, -108);
-    ctx.stroke();
-    const fw = 56, fh = 36;
-    for (let b = 0; b < 3; b++) {
-      ctx.fillStyle = st.flag[b];
-      const waveY = Math.sin(t * 5 + b) * 2.5;
-      ctx.fillRect(-24, -108 + b * (fh / 3) + waveY, fw, fh / 3);
-    }
-    ctx.strokeRect(-24, -108, fw, fh);
-
-    ctx.fillStyle = "#0f172a";
-    ctx.font = `bold 24px ${SANS}`;
-    ctx.textAlign = "center";
-    ctx.fillText(st.name, 0, 108);
-    ctx.fillStyle = "#475569";
-    ctx.font = `bold 18px ${MONO}`;
-    ctx.fillText(st.sub, 0, 136);
-    ctx.restore();
-  });
-
-  // Animated dashed Bezier arcs + flying HBM chip module along each leg!
-  for (let leg = 0; leg < stops.length - 1; leg++) {
-    const a = stops[leg], b = stops[leg + 1];
-    const legStart = 0.12 + leg * 0.36;
-    const legU = clamp((u - legStart) / 0.36, 0, 1);
-    if (legU <= 0.01) continue;
-
-    const midX = (a.x + b.x) / 2;
-    const midY = Math.min(a.y, b.y) - 145;
-
-    ctx.save();
-    ctx.strokeStyle = "#475569";
-    ctx.lineWidth = 3;
-    ctx.setLineDash([10, 10]);
-    ctx.beginPath();
-    ctx.moveTo(a.x, a.y - 20);
-    ctx.quadraticCurveTo(midX, midY, b.x, b.y - 20);
-    ctx.stroke();
-    ctx.restore();
-
-    const fu = easeInOutCubic(legU);
-    const om = 1 - fu;
-    const fx = om * om * a.x + 2 * om * fu * midX + fu * fu * b.x;
-    const fy = om * om * (a.y - 20) + 2 * om * fu * midY + fu * fu * (b.y - 20);
-    drawHbmChipModule(ctx, fx, fy, 0.58, 6, t, leg === 0 ? "HBM" : "CoWoS");
-  }
-}
-
-// 8. `wafer_conveyor_zoom_out` — 3x Wafer Compression & Smooth Virtual Camera Zoom-Out (`hf_agents` / `2d883UK7p9E`!)
-function renderWaferConveyorZoomOut(ctx, assets, scene, w, h, t, dur, amp, isShort) {
-  const u = t / Math.max(0.5, dur);
-  ctx.fillStyle = "#f4f6fa";
-  ctx.fillRect(0, 0, w, h);
-
-  // Smooth 2.1x -> 0.72x camera zoom-out revealing dozens of fab slots (`hf_agents.jpg` camera pull-back!)
-  const camScale = lerp(1.95, isShort ? 0.72 : 0.78, easeInOutCubic(clamp(u * 1.15, 0, 1)));
+  // Screwdriver & brass screws on wood desk corners
   ctx.save();
-  ctx.translate(w / 2, h * (isShort ? 0.44 : 0.50));
-  ctx.scale(camScale, camScale);
+  ctx.translate(70, 95);
+  ctx.rotate(-0.65);
+  fillStrokeBox(ctx, -90, -16, 120, 32, 12, "#2563EB", INK, 3.2);
+  fillStrokeBox(ctx, 30, -5, 95, 10, 3, "#CBD5E1", INK, 2.5);
+  ctx.restore();
 
-  const cols = isShort ? 3 : 5;
-  const rows = 3;
-  const cellW = 285, cellH = 215;
-  const ox0 = -((cols - 1) * cellW) / 2;
-  const oy0 = -((rows - 1) * cellH) / 2;
+  // Cream silicone work mat in center
+  const matW = isShort ? w * 0.86 : 1120;
+  const matH = isShort ? 780 : 690;
+  const mx = (w - matW) * 0.5;
+  const my = (h - matH) * 0.5;
+  fillStrokeBox(ctx, mx, my, matW, matH, 26, "#FAF6EB", INK, 4);
 
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      const idx = r * cols + c;
-      const cx = ox0 + c * cellW;
-      const cy = oy0 + r * cellH;
-      const appear = springOut((t - idx * 0.08) / 0.45);
-      if (appear <= 0.01) continue;
+  const cx = w * 0.5;
+  const baseY = my + matH * 0.72;
+  const scf = isShort ? 0.90 : 1.08;
 
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.scale(appear, appear);
+  // 2.5D Silicon Interposer
+  fillStrokeBox(ctx, cx - 320 * scf, baseY, 640 * scf, 54 * scf, 10, "#CBD5E1", INK, 3.4);
+  ctx.fillStyle = "#1E293B";
+  ctx.font = `800 ${Math.round(19 * scf)}px ${MONO}`;
+  ctx.textAlign = "center";
+  ctx.fillText("SILICON INTERPOSER", cx, baseY + 34 * scf);
 
-      // Clean fab bay card
-      roundRectPath(ctx, -118, -82, 236, 164, 16);
-      ctx.fillStyle = "#ffffff";
-      ctx.fill();
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = "#1e293b";
+  // Right: Green AI GPU Die
+  const gpuX = cx + 155 * scf;
+  fillStrokeBox(ctx, gpuX - 118 * scf, baseY - 68 * scf, 236 * scf, 64 * scf, 10, "#10B981", INK, 3.4);
+  ctx.fillStyle = "#064E3B";
+  ctx.font = `900 ${Math.round(21 * scf)}px ${MONO}`;
+  ctx.fillText(sc.secondary_label || "AI GPU DIE", gpuX, baseY - 29 * scf);
+
+  // Left: 12 DRAM layers dropping in with spring + golden TSV vertical shafts!
+  const stackX = cx - 145 * scf;
+  const layers = 12;
+  const stackU = clamp(u / 0.55, 0, 1);
+  for (let l = 0; l < layers; l++) {
+    const lp = clamp(stackU * layers - l, 0, 1);
+    if (lp <= 0.01) continue;
+    const ly = lerp(my + 60, baseY - 16 * scf - l * 18 * scf, springOut(lp));
+    fillStrokeBox(ctx, stackX - 105 * scf, ly, 210 * scf, 15 * scf, 4, l % 2 === 0 ? "#1D4ED8" : "#3B82F6", INK, 2.4);
+  }
+
+  // TSV golden vertical shafts (`u >= 0.48`)
+  if (u >= 0.46) {
+    const dp = easeOutCubic((u - 0.46) / 0.25);
+    const topY = baseY - 16 * scf - (layers - 1) * 18 * scf;
+    const botY = baseY + 24 * scf;
+    for (const off of [-66, -33, 0, 33, 66]) {
+      const vx = stackX + off * scf;
+      ctx.strokeStyle = "#FBBF24";
+      ctx.lineWidth = 4.2 * scf;
+      ctx.beginPath();
+      ctx.moveTo(vx, topY);
+      ctx.lineTo(vx, lerp(topY, botY, dp));
       ctx.stroke();
+    }
+  }
 
-      // 3 iridescent silicon wafers compressing into 1 HBM tower!
-      const mergeP = easeInOutCubic((t * 0.8 + idx * 0.15) % 1.0);
-      for (const wOff of [-46, 0, 46]) {
-        const wx = lerp(wOff, 0, mergeP);
+  ctx.fillStyle = INK;
+  ctx.font = `900 ${Math.round(32 * scf)}px ${SANS}`;
+  ctx.textAlign = "center";
+  ctx.fillText(sc.big_stat ? `${sc.big_stat} · ${sc.visual_label}` : (sc.visual_label || "3D HBM STACK"), cx, my + 68);
+  drawSubtleSourceFootnote(ctx, sc, w, h, u, false);
+}
+
+// 14. `thermal_mrmuf_vs_tcncf`: Split physics diagram — TC-NCF trapped heat vs MR-MUF liquid epoxy flow!
+function tplThermalMrmufVsTcncf(ctx, A, sc, w, h, t, dur, amp, isShort) {
+  const u = t / dur;
+  ctx.fillStyle = CREAM;
+  ctx.fillRect(0, 0, w, h);
+
+  const panels = isShort
+    ? [{ cx: w * 0.5, cy: h * 0.31, hot: true }, { cx: w * 0.5, cy: h * 0.72, hot: false }]
+    : [{ cx: w * 0.28, cy: h * 0.54, hot: true }, { cx: w * 0.72, cy: h * 0.54, hot: false }];
+
+  panels.forEach((p) => {
+    const pw = isShort ? 760 : 680;
+    const ph = isShort ? 560 : 660;
+    fillStrokeBox(ctx, p.cx - pw / 2, p.cy - ph / 2, pw, ph, 24, "#FFFFFF", INK, 3.8);
+
+    // 8 stacked DRAM dies with gap channels
+    const baseY = p.cy + ph * 0.30;
+    for (let l = 0; l < 8; l++) {
+      const dy = baseY - l * 46;
+      if (!p.hot) {
+        // Liquid cyan MR-MUF resin smoothly filling gaps from bottom up!
+        const fillP = clamp((u * 1.4) - l * 0.09, 0, 1);
+        ctx.fillStyle = `rgba(14, 165, 233, ${(0.82 * fillP).toFixed(2)})`;
+        ctx.fillRect(p.cx - 210, dy + 16, 420 * fillP, 30);
+      } else {
+        // Solid grey TC-NCF film + glowing red hot voids!
+        ctx.fillStyle = "#94A3B8";
+        ctx.fillRect(p.cx - 200, dy + 20, 400, 18);
+        const pulse = 0.55 + 0.45 * Math.sin(t * 8.0 + l);
+        ctx.fillStyle = `rgba(239, 68, 68, ${pulse.toFixed(2)})`;
         ctx.beginPath();
-        ctx.arc(wx - 28, 0, 26, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(56, 189, 248, 0.55)";
+        ctx.arc(p.cx + ((l % 3) - 1) * 85, dy + 29, 10, 0, Math.PI * 2);
         ctx.fill();
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = "#0284c7";
-        ctx.stroke();
       }
-      drawHbmChipModule(ctx, 52, 8, 0.52, 6, t + idx, "1x HBM");
-      ctx.restore();
+      fillStrokeBox(ctx, p.cx - 195, dy, 390, 20, 4, p.hot ? "#DC2626" : "#2563EB", INK, 2.6);
     }
-  }
-  ctx.restore();
 
-  // Minimalist floating badge at top
-  const metrics = scene.metrics || [];
-  const pillTxt = metrics[0] ? `${metrics[0].label}: ${metrics[0].value}` : "1 GB HBM = 3x Wafer Area";
-  ctx.font = `bold ${isShort ? 26 : 28}px ${MONO}`;
-  const pw = ctx.measureText(pillTxt).width + 44;
-  roundRectPath(ctx, (w - pw) / 2, isShort ? 185 : 44, pw, 50, 25);
-  ctx.fillStyle = "#0f172a";
-  ctx.fill();
-  ctx.fillStyle = "#fbbf24";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText(pillTxt, w / 2, (isShort ? 185 : 44) + 25);
-}
-
-// --- Subtle Unobtrusive Corner Source Citation Watermark (`融合公開資訊 + 附上來源`) ---
-function drawSubtleSourcePill(ctx, sources, w, h, t, isShort) {
-  if (!sources || !sources.length) return;
-  const enter = easeOutCubic((t - 0.2) / 0.4);
-  if (enter <= 0.02) return;
-
-  const src = sources[0];
-  const label = `Source ${src.badge_label} • ${src.short_url || ""}`.slice(0, 68);
-  ctx.save();
-  ctx.globalAlpha = 0.86 * enter;
-  ctx.font = `bold ${isShort ? 20 : 18}px ${MONO}`;
-  const tw = Math.min(w - 64, ctx.measureText(label).width + 34);
-  const bx = isShort ? (w - tw) / 2 : 32;
-  const by = isShort ? 78 : h - 48;
-
-  roundRectPath(ctx, bx, by, tw, 34, 17);
-  ctx.fillStyle = "rgba(15, 23, 42, 0.78)";
-  ctx.fill();
-  ctx.strokeStyle = "rgba(74, 222, 128, 0.75)";
-  ctx.lineWidth = 1.5;
-  ctx.stroke();
-
-  ctx.fillStyle = "#4ade80";
-  ctx.beginPath();
-  ctx.arc(bx + 15, by + 17, 4.5, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.fillStyle = "#f1f5f9";
-  ctx.textAlign = "left";
-  ctx.textBaseline = "middle";
-  ctx.fillText(label, bx + 26, by + 18);
-  ctx.restore();
-}
-
-// --- Exact @TradeoffLayer Shorts Progressive Word-Highlighted Captions (`bmFUEo6A_1U`) ---
-function drawShortsKaraokeCaptions(ctx, words, t, w, h) {
-  if (!words || !words.length) return;
-  const groupSize = 5;
-  let active = null;
-  for (let i = 0; i < words.length; i += groupSize) {
-    const g = words.slice(i, i + groupSize);
-    if (t >= g[0].start - 0.08 && t <= g[g.length - 1].end + 0.25) {
-      active = g;
-      break;
-    }
-  }
-  if (!active) return;
-
-  ctx.save();
-  ctx.font = `bold 50px ${SANS}`;
-  const lines = [[]];
-  let curW = 0;
-  for (const wd of active) {
-    const ww = ctx.measureText(wd.word + " ").width;
-    if (lines[lines.length - 1].length > 0 && curW + ww > w - 150 && lines.length < 2) {
-      lines.push([wd]);
-      curW = ww;
-    } else {
-      lines[lines.length - 1].push(wd);
-      curW += ww;
-    }
-  }
-
-  const baseY = h - 385;
-  const boxH = lines.length * 66 + 32;
-  roundRectPath(ctx, 52, baseY - 18, w - 104, boxH, 22);
-  ctx.fillStyle = "rgba(10, 11, 15, 0.84)";
-  ctx.fill();
-
-  ctx.textAlign = "left";
-  ctx.textBaseline = "top";
-  lines.forEach((ln, lIdx) => {
-    const full = ln.map((x) => x.word).join(" ");
-    let cursorX = (w - ctx.measureText(full).width) / 2;
-    const ly = baseY + lIdx * 66;
-    ln.forEach((wd, wIdx) => {
-      const tok = wd.word + (wIdx < ln.length - 1 ? " " : "");
-      ctx.fillStyle = t >= wd.start - 0.03 ? "#ffffff" : "#71717a";
-      ctx.fillText(tok, cursorX, ly);
-      cursorX += ctx.measureText(tok).width;
-    });
+    ctx.fillStyle = p.hot ? "#B91C1C" : "#0369A1";
+    ctx.font = `900 30px ${SANS}`;
+    ctx.textAlign = "center";
+    ctx.fillText(
+      p.hot ? (sc.visual_label || "TC-NCF SOLID FILM") : (sc.secondary_label || "MR-MUF LIQUID EPOXY"),
+      p.cx,
+      p.cy - ph * 0.37
+    );
   });
-  ctx.restore();
+
+  drawSubtleSourceFootnote(ctx, sc, w, h, u, false);
 }
 
-function chooseAnimationType(scene, index) {
-  if (scene.animation_type) return scene.animation_type;
-  const cycle = [
-    "character_walk_handoff",
-    "dark_cross_section_meter",
-    "rain_buckets_analogy",
-    "chip_3d_flip_stack",
-    "map_supply_chain_arcs",
-    "whiteboard_systolic_sim",
-    "dark_gpu_partition_split",
-    "character_walk_handoff",
-    "wafer_conveyor_zoom_out",
-    "whiteboard_systolic_sim",
+// 15. `rain_pipe_analogy`: Narrow 64-bit trickle vs 1,024-bit parallel aqueduct filling glass reservoirs!
+function tplRainPipeAnalogy(ctx, A, sc, w, h, t, dur, amp, isShort) {
+  const u = t / dur;
+  ctx.fillStyle = "#E0F2FE";
+  ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = "#86EFAC";
+  ctx.fillRect(0, h * 0.82, w, h * 0.18);
+
+  const leftX = isShort ? w * 0.27 : w * 0.27;
+  const rightX = isShort ? w * 0.73 : w * 0.73;
+  const topPipeY = isShort ? h * 0.20 : h * 0.18;
+  const tankBotY = h * 0.80;
+  const tankW = isShort ? 340 : 460;
+  const tankH = isShort ? 520 : 450;
+
+  // Left: Tiny single nozzle dripping slowly (starved!)
+  fillStrokeBox(ctx, leftX - 90, topPipeY, 180, 26, 8, "#475569", INK, 3.2);
+  const dropY = topPipeY + 35 + ((t * 210) % (tankH - 40));
+  ctx.fillStyle = "#0284C7";
+  ctx.beginPath();
+  ctx.arc(leftX, dropY, 8, 0, Math.PI * 2);
+  ctx.fill();
+
+  fillStrokeBox(ctx, leftX - tankW / 2, tankBotY - tankH, tankW, tankH, 18, "rgba(255,255,255,0.65)", INK, 3.8);
+  const lowH = tankH * lerp(0.06, 0.12, u);
+  fillStrokeBox(ctx, leftX - tankW / 2 + 6, tankBotY - lowH, tankW - 12, lowH - 4, 12, "#F97316", null, 0);
+
+  // Right: Wide 8-stream parallel aqueduct rapidly filling reservoir!
+  fillStrokeBox(ctx, rightX - tankW / 2, topPipeY, tankW, 34, 10, "#1D4ED8", INK, 3.5);
+  const highH = tankH * lerp(0.18, 0.86, easeOutCubic(u));
+  for (let s = 0; s < 7; s++) {
+    const sx = lerp(rightX - tankW * 0.36, rightX + tankW * 0.36, s / 6);
+    ctx.strokeStyle = "#38BDF8";
+    ctx.lineWidth = 8;
+    ctx.setLineDash([18, 12]);
+    ctx.lineDashOffset = -t * 260;
+    ctx.beginPath();
+    ctx.moveTo(sx, topPipeY + 34);
+    ctx.lineTo(sx, tankBotY - highH + 10);
+    ctx.stroke();
+  }
+  ctx.setLineDash([]);
+
+  fillStrokeBox(ctx, rightX - tankW / 2, tankBotY - tankH, tankW, tankH, 18, "rgba(255,255,255,0.65)", INK, 3.8);
+  fillStrokeBox(ctx, rightX - tankW / 2 + 6, tankBotY - highH, tankW - 12, highH - 4, 12, "#0EA5E9", null, 0);
+
+  drawCleanSignplate(ctx, leftX, topPipeY - 48, sc.visual_label || "64-BIT BUS", "#B91C1C", isShort ? 0.86 : 0.95);
+  drawCleanSignplate(ctx, rightX, topPipeY - 48, sc.secondary_label || "1,024-BIT HBM", "#1D4ED8", isShort ? 0.86 : 0.95);
+  drawSubtleSourceFootnote(ctx, sc, w, h, u, false);
+}
+
+// 16. `cowos_silicon_bridge`: Midnight top-down TSMC CoWoS interposer + central GPU + 8 HBM3E stacks!
+function tplCowosSiliconBridge(ctx, A, sc, w, h, t, dur, amp, isShort) {
+  const u = t / dur;
+  ctx.fillStyle = MIDNIGHT;
+  ctx.fillRect(0, 0, w, h);
+
+  const cx = w * 0.5;
+  const cy = h * 0.53;
+  const scf = isShort ? 0.82 : 1.05;
+
+  // Silver Silicon Interposer package substrate
+  const boardW = 860 * scf;
+  const boardH = 620 * scf;
+  fillStrokeBox(ctx, cx - boardW / 2, cy - boardH / 2, boardW, boardH, 28 * scf, "#334155", "#94A3B8", 4);
+
+  // Central NVIDIA GPU Die
+  const gpuW = 290 * scf;
+  const gpuH = 380 * scf;
+  fillStrokeBox(ctx, cx - gpuW / 2, cy - gpuH / 2, gpuW, gpuH, 16 * scf, "#10B981", INK, 4);
+  ctx.fillStyle = "#064E3B";
+  ctx.font = `900 ${Math.round(28 * scf)}px ${SANS}`;
+  ctx.textAlign = "center";
+  ctx.fillText(sc.secondary_label || "AI GPU", cx, cy + 8);
+
+  // 8 surrounding HBM3E cubes (4 left, 4 right) + streaming cyan micron data pulses!
+  for (const side of [-1, 1]) {
+    for (let i = 0; i < 4; i++) {
+      const hx = cx + side * 275 * scf;
+      const hy = cy + (i - 1.5) * 112 * scf;
+
+      // High-density silicon trace lines + animated pulse dot
+      ctx.strokeStyle = "#38BDF8";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(hx, hy);
+      ctx.lineTo(cx + side * (gpuW / 2), hy);
+      ctx.stroke();
+
+      const p = (t * 2.6 + i * 0.23 + (side > 0 ? 0.5 : 0)) % 1.0;
+      const px = lerp(hx, cx + side * (gpuW / 2), p);
+      ctx.fillStyle = "#FDE047";
+      ctx.beginPath();
+      ctx.arc(px, hy, 6 * scf, 0, Math.PI * 2);
+      ctx.fill();
+
+      fillStrokeBox(ctx, hx - 68 * scf, hy - 40 * scf, 136 * scf, 80 * scf, 10 * scf, "#2563EB", INK, 3.2);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.font = `800 ${Math.round(18 * scf)}px ${MONO}`;
+      ctx.fillText("HBM3E", hx, hy + 6);
+    }
+  }
+
+  ctx.fillStyle = "#F8FAFC";
+  ctx.font = `900 ${isShort ? 38 : 42}px ${SANS}`;
+  ctx.textAlign = "center";
+  ctx.fillText(sc.big_stat ? `${sc.big_stat} · ${sc.visual_label}` : (sc.visual_label || "TSMC CoWoS 2.5D"), cx, cy - boardH / 2 - 42);
+  drawSubtleSourceFootnote(ctx, sc, w, h, u, true);
+}
+
+// 17. `wafer_3x_cannibalization`: Side-by-side 300mm silicon wafers showing 3x HBM die-area hunger!
+function tplWafer3xCannibalization(ctx, A, sc, w, h, t, dur, amp, isShort) {
+  const u = t / dur;
+  ctx.fillStyle = CREAM;
+  ctx.fillRect(0, 0, w, h);
+
+  const wafers = isShort
+    ? [{ cx: w * 0.5, cy: h * 0.30, step: 26, col: "#60A5FA", title: sc.secondary_label || "STANDARD DDR5" },
+       { cx: w * 0.5, cy: h * 0.71, step: 48, col: "#F59E0B", title: sc.visual_label || "HBM (3x AREA / GB)" }]
+    : [{ cx: w * 0.29, cy: h * 0.54, step: 28, col: "#60A5FA", title: sc.secondary_label || "STANDARD DDR5" },
+       { cx: w * 0.71, cy: h * 0.54, step: 52, col: "#F59E0B", title: sc.visual_label || "HBM (3x AREA / GB)" }];
+
+  const rad = isShort ? 225 : 255;
+  wafers.forEach((wf, idx) => {
+    const pop = springOut((u - idx * 0.14) / 0.36);
+    ctx.save();
+    ctx.translate(wf.cx, wf.cy);
+    ctx.scale(pop, pop);
+
+    ctx.beginPath();
+    ctx.arc(0, 0, rad, 0, Math.PI * 2);
+    ctx.fillStyle = "#E2E8F0";
+    ctx.fill();
+    ctx.clip();
+
+    for (let x = -rad; x < rad; x += wf.step) {
+      for (let y = -rad; y < rad; y += wf.step) {
+        if (Math.hypot(x + wf.step / 2, y + wf.step / 2) < rad - 8) {
+          fillStrokeBox(ctx, x + 2, y + 2, wf.step - 4, wf.step - 4, 3, wf.col, "#1E293B", 1.5);
+        }
+      }
+    }
+    ctx.restore();
+
+    ctx.save();
+    ctx.translate(wf.cx, wf.cy);
+    ctx.scale(pop, pop);
+    ctx.beginPath();
+    ctx.arc(0, 0, rad, 0, Math.PI * 2);
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = INK;
+    ctx.stroke();
+
+    ctx.fillStyle = INK;
+    ctx.font = `900 28px ${SANS}`;
+    ctx.textAlign = "center";
+    ctx.fillText(wf.title, 0, -rad - 28);
+    ctx.restore();
+  });
+
+  if (sc.big_stat) {
+    drawCleanSignplate(ctx, w * 0.5, isShort ? h * 0.505 : h * 0.12, sc.big_stat, "#DC2626", 1.12);
+  }
+  drawSubtleSourceFootnote(ctx, sc, w, h, u, false);
+}
+
+// 18. `timeline_paradox_arc`: Clean cream milestone track (`2013 -> 2015 -> 2019 -> 2023 -> 2026`)
+function tplTimelineParadoxArc(ctx, A, sc, w, h, t, dur, amp, isShort) {
+  const u = t / dur;
+  ctx.fillStyle = CREAM;
+  ctx.fillRect(0, 0, w, h);
+
+  const nodes = [
+    { yr: "2013", tag: "1st HBM", col: "#2563EB" },
+    { yr: "2015", tag: "AMD Fiji", col: "#3B82F6" },
+    { yr: "2019", tag: "Rival Quits", col: "#EF4444" },
+    { yr: "2023", tag: "AI Explosion", col: "#F59E0B" },
+    { yr: "2026", tag: "HBM3E / HBM4", col: "#10B981" },
   ];
-  return cycle[index % cycle.length];
+
+  const prog = easeOutCubic(u / 0.72);
+  if (isShort) {
+    const x = w * 0.32;
+    const y1 = h * 0.18;
+    const y2 = h * 0.82;
+    ctx.strokeStyle = "#CBD5E1";
+    ctx.lineWidth = 8;
+    ctx.beginPath();
+    ctx.moveTo(x, y1);
+    ctx.lineTo(x, y2);
+    ctx.stroke();
+
+    ctx.strokeStyle = INK;
+    ctx.beginPath();
+    ctx.moveTo(x, y1);
+    ctx.lineTo(x, lerp(y1, y2, prog));
+    ctx.stroke();
+
+    nodes.forEach((nd, i) => {
+      const ny = lerp(y1, y2, i / (nodes.length - 1));
+      const np = springOut((prog * nodes.length - i));
+      if (np <= 0.02) return;
+      ctx.save();
+      ctx.translate(x, ny);
+      ctx.scale(np, np);
+      ctx.fillStyle = nd.col;
+      ctx.beginPath();
+      ctx.arc(0, 0, 22, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = INK;
+      ctx.stroke();
+
+      fillStrokeBox(ctx, 46, -38, 420, 76, 14, "#FFFFFF", INK, 3.2);
+      ctx.fillStyle = INK;
+      ctx.font = `900 28px ${SANS}`;
+      ctx.textAlign = "left";
+      ctx.fillText(`${nd.yr} · ${nd.tag}`, 68, 10);
+      ctx.restore();
+    });
+  } else {
+    const y = h * 0.55;
+    const x1 = w * 0.13;
+    const x2 = w * 0.87;
+    ctx.strokeStyle = "#CBD5E1";
+    ctx.lineWidth = 8;
+    ctx.beginPath();
+    ctx.moveTo(x1, y);
+    ctx.lineTo(x2, y);
+    ctx.stroke();
+
+    ctx.strokeStyle = INK;
+    ctx.beginPath();
+    ctx.moveTo(x1, y);
+    ctx.lineTo(lerp(x1, x2, prog), y);
+    ctx.stroke();
+
+    nodes.forEach((nd, i) => {
+      const nx = lerp(x1, x2, i / (nodes.length - 1));
+      const np = springOut((prog * nodes.length - i));
+      if (np <= 0.02) return;
+      const up = i % 2 === 0;
+      ctx.save();
+      ctx.translate(nx, y);
+      ctx.scale(np, np);
+      ctx.fillStyle = nd.col;
+      ctx.beginPath();
+      ctx.arc(0, 0, 22, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = INK;
+      ctx.stroke();
+
+      const cardY = up ? -145 : 55;
+      fillStrokeBox(ctx, -125, cardY, 250, 90, 14, "#FFFFFF", INK, 3.2);
+      ctx.fillStyle = nd.col;
+      ctx.font = `900 28px ${SANS}`;
+      ctx.textAlign = "center";
+      ctx.fillText(nd.yr, 0, cardY + 38);
+      ctx.fillStyle = "#334155";
+      ctx.font = `800 20px ${SANS}`;
+      ctx.fillText(nd.tag, 0, cardY + 68);
+      ctx.restore();
+    });
+  }
+
+  if (sc.big_stat) {
+    drawCleanSignplate(ctx, w * 0.5, isShort ? h * 0.09 : h * 0.14, `${sc.big_stat} · ${sc.visual_label || ""}`.replace(/ · $/, ""), "#0F172A", 1.08);
+  }
+  drawSubtleSourceFootnote(ctx, sc, w, h, u, false);
 }
 
-async function renderSceneVideo(job) {
-  const { scene, index = 0, ttsMeta, wavPath, visualDir, outMp4, w, h, fps, isShort } = job;
+const DISPATCH = {
+  exterior_hq_walk: tplExteriorHqWalk,
+  desk_deal_transfer: tplDeskDealTransfer,
+  copier_blueprint_action: tplCopierBlueprintAction,
+  hydraulic_press_crush: tplHydraulicPressCrush,
+  studio_shutter_flash: tplStudioShutterFlash,
+  split_screen_rivalry: tplSplitScreenRivalry,
+  cleanroom_microscope_zoom: tplCleanroomMicroscopeZoom,
+  server_hall_waiting: tplServerHallWaiting,
+  oven_conveyor_bottleneck: tplOvenConveyorBottleneck,
+  waffle_100_dots: tplWaffle100Dots,
+  pedestal_rivalry: tplPedestalRivalry,
+  red_cross_stamp: tplRedCrossStamp,
+  workbench_hbm_stack: tplWorkbenchHbmStack,
+  thermal_mrmuf_vs_tcncf: tplThermalMrmufVsTcncf,
+  rain_pipe_analogy: tplRainPipeAnalogy,
+  cowos_silicon_bridge: tplCowosSiliconBridge,
+  wafer_3x_cannibalization: tplWafer3xCannibalization,
+  timeline_paradox_arc: tplTimelineParadoxArc,
+};
+
+async function safeLoad(filePath) {
+  try {
+    if (filePath && fs.existsSync(filePath)) {
+      return await loadImage(filePath);
+    }
+  } catch (_) {}
+  return null;
+}
+
+async function main() {
+  const jobJsonPath = process.argv[2];
+  const job = JSON.parse(fs.readFileSync(jobJsonPath, "utf-8"));
+  const { scene, wavPath, visualDir, outMp4, w, h, fps, isShort, envelope } = job;
+
+  const bgBase = scene.bg_key || "set_sunny_office";
+  const bgCandidate = isShort
+    ? path.join(visualDir, `${bgBase}_9x16.png`)
+    : path.join(visualDir, `${bgBase}.png`);
+  const bgFallback = path.join(visualDir, `${bgBase}.png`);
+
+  const A = {
+    bg: (await safeLoad(bgCandidate)) || (await safeLoad(bgFallback)),
+    leftActor: scene.left_actor && scene.left_actor !== "none" ? await safeLoad(path.join(visualDir, `${scene.left_actor}.png`)) : null,
+    rightActor: scene.right_actor && scene.right_actor !== "none" ? await safeLoad(path.join(visualDir, `${scene.right_actor}.png`)) : null,
+    fallbackActor: await safeLoad(path.join(visualDir, "char_sk_eng_talk.png")),
+    altActor: await safeLoad(path.join(visualDir, "char_jensen_talk.png")),
+    prop: scene.prop_key && scene.prop_key !== "none" ? await safeLoad(path.join(visualDir, `${scene.prop_key}.png`)) : null,
+  };
+
+  const totalFrames = Math.max(1, envelope.length);
+  const dur = totalFrames / fps;
+  const tplName = scene.template || scene.animation_type || "exterior_hq_walk";
+  const fn = DISPATCH[tplName] || tplExteriorHqWalk;
+
   const canvas = createCanvas(w, h);
   const ctx = canvas.getContext("2d");
 
-  const tryLoad = async (name) => {
-    if (!name) return null;
-    const p = path.isAbsolute(name) ? name : path.join(visualDir, name);
-    if (fs.existsSync(p)) {
-      try { return await loadImage(p); } catch (_) { return null; }
-    }
-    return null;
-  };
+  const ff = spawn(
+    "ffmpeg",
+    [
+      "-y",
+      "-loglevel", "error",
+      "-f", "rawvideo",
+      "-pix_fmt", "rgba",
+      "-s", `${w}x${h}`,
+      "-r", String(fps),
+      "-i", "pipe:0",
+      "-i", wavPath,
+      "-c:v", "libx264",
+      "-preset", "veryfast",
+      "-crf", "18",
+      "-pix_fmt", "yuv420p",
+      "-c:a", "aac",
+      "-b:a", "192k",
+      "-shortest",
+      outMp4,
+    ],
+    { stdio: ["pipe", "inherit", "inherit"] }
+  );
 
-  const assets = {
-    sceneBg: await tryLoad(job.bgFile),
-    stage_courtyard: await tryLoad("stage_courtyard.png"),
-    stage_cleanroom: await tryLoad("stage_cleanroom.png"),
-    stage_datacenter: await tryLoad("stage_datacenter.png"),
-    stage_studio: await tryLoad("stage_studio.png"),
-    char_engineer: await tryLoad("char_engineer.png"),
-    char_ceo: await tryLoad("char_ceo.png"),
-    char_analyst: await tryLoad("char_analyst.png"),
-    prop_chip_stack: await tryLoad("prop_chip_stack.png"),
-    prop_gpu_board: await tryLoad("prop_gpu_board.png"),
-    prop_wafer: await tryLoad("prop_wafer.png"),
-  };
-
-  const envelope = job.envelope || [];
-  const nFrames = Math.max(1, envelope.length);
-  const dur = nFrames / fps;
-  const animType = chooseAnimationType(scene, index);
-  const words = ttsMeta.words || [];
-  const sources = scene.resolved_sources || [];
-
-  const ff = spawn("ffmpeg", [
-    "-y", "-loglevel", "error",
-    "-f", "rawvideo", "-vcodec", "rawvideo",
-    "-pix_fmt", "rgba", "-s", `${w}x${h}`, "-r", String(fps),
-    "-i", "-",
-    "-i", wavPath,
-    "-c:v", "libx264", "-preset", "veryfast", "-crf", "18",
-    "-pix_fmt", "yuv420p",
-    "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
-    "-shortest",
-    outMp4,
-  ], { stdio: ["pipe", "inherit", "inherit"] });
-
-  const renderFnMap = {
-    character_walk_handoff: renderCharacterWalkHandoff,
-    rain_buckets_analogy: renderRainBucketsAnalogy,
-    chip_3d_flip_stack: renderChip3dFlipStack,
-    whiteboard_systolic_sim: renderWhiteboardSystolicSim,
-    dark_cross_section_meter: renderDarkCrossSectionMeter,
-    dark_gpu_partition_split: renderDarkGpuPartitionSplit,
-    map_supply_chain_arcs: renderMapSupplyChainArcs,
-    wafer_conveyor_zoom_out: renderWaferConveyorZoomOut,
-  };
-  const fn = renderFnMap[animType] || renderWhiteboardSystolicSim;
-  const fadeFrames = 6;
-
-  for (let f = 0; f < nFrames; f++) {
+  for (let f = 0; f < totalFrames; f++) {
     const t = f / fps;
     const amp = envelope[f] || 0;
     ctx.clearRect(0, 0, w, h);
+    fn(ctx, A, scene, w, h, t, Math.max(0.4, dur), amp, isShort);
 
-    fn(ctx, assets, scene, w, h, t, dur, amp, isShort);
-    drawSubtleSourcePill(ctx, sources, w, h, t, isShort);
-
-    if (isShort) {
-      drawShortsKaraokeCaptions(ctx, words, t, w, h);
-    }
-
-    // Crisp 0.1s cross-fade at scene edges
-    if (f < fadeFrames || f >= nFrames - fadeFrames) {
-      const fadeAlpha = f < fadeFrames
-        ? 1 - (f + 1) / fadeFrames
-        : 1 - Math.max(0, (nFrames - f) / fadeFrames);
-      ctx.fillStyle = `rgba(11, 11, 14, ${fadeAlpha.toFixed(3)})`;
+    // Subtle 4-frame fade-in on chapter openings only (crisp hard cuts everywhere else, just like @TradeoffLayer!)
+    if (scene.chapter_title && f < 8) {
+      ctx.fillStyle = `rgba(15,23,42,${((8 - f) / 8 * 0.35).toFixed(3)})`;
       ctx.fillRect(0, 0, w, h);
     }
 
-    const rawBuf = canvas.data();
-    if (!ff.stdin.write(rawBuf)) {
-      await new Promise((resolve) => ff.stdin.once("drain", resolve));
+    const buf = canvas.data();
+    if (!ff.stdin.write(buf)) {
+      await new Promise((res) => ff.stdin.once("drain", res));
     }
   }
 
   ff.stdin.end();
-  const rc = await new Promise((resolve) => ff.on("close", resolve));
-  if (rc !== 0) {
-    throw new Error(`ffmpeg exited with code ${rc} on scene ${scene.id}`);
-  }
-}
-
-async function main() {
-  const jobPath = process.argv[2];
-  if (!jobPath) {
-    console.error("Usage: node skia_animator.js <job.json>");
-    process.exit(1);
-  }
-  const job = JSON.parse(fs.readFileSync(jobPath, "utf-8"));
-  await renderSceneVideo(job);
+  await new Promise((resolve, reject) => {
+    ff.on("close", (code) => (code === 0 ? resolve() : reject(new Error(`FFmpeg exited with ${code}`))));
+    ff.on("error", reject);
+  });
 }
 
 main().catch((err) => {
-  console.error(err);
+  console.error("[skia_animator v3 fatal]", err);
   process.exit(1);
 });

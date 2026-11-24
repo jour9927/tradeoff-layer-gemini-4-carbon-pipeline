@@ -1,39 +1,33 @@
-Every flagship AI accelerator Nvidia ships has a secret bottleneck: the math cores are so fast that they spend most of their time waiting for data to arrive. In 2013, SK Hynix built the first High Bandwidth Memory chip for a graphics card market that barely wanted it. Today, that vertical stack of silicon has triggered a global memory shortage from 2025 onward, and made one South Korean memory maker indispensable to the AI boom.
+Nvidia builds the fastest AI GPUs on earth, yet thirty-thousand-dollar racks still wait on tiny vertical memory cubes from South Korea's SK Hynix. Even crazier: rival memory giant Samsung helped pioneer HBM — then disbanded its core HBM team in 2019 right before AI changed computing forever.
 
-Using a simple kitchen-and-skyscraper analogy, we break down how HBM stacks thin DRAM dies vertically, why 2.5D silicon interposers and Through-Silicon Vias beat flat circuit boards, how capacity limits force massive AI models across multiple GPUs, and why SK Hynix's biggest triumph is also its sharpest vulnerability.
+Here is the 13-year story of how AMD's 2013 skyscraper gamble, liquid MR-MUF underfill, and TSMC CoWoS turned SK Hynix into AI's kingmaker — and why every gigabyte of HBM eats 3x the silicon wafer of normal RAM.
 
 You'll learn:
-- Why compute got thousands of times faster while memory bandwidth lagged behind.
-- How SK Hynix and AMD shipped the first High Bandwidth Memory in 2013 and 2015.
-- How vertical DRAM towers, TSVs, and 2.5D silicon interposers move hundreds of gigabytes per second.
-- Why limited HBM capacity forces hyperscalers to split models across multi-GPU clusters.
-- The Tradeoff: why custom pre-sold HBM towers lock memory makers into extreme cyclical risk.
+- Why AMD & SK Hynix built the first 3D-stacked HBM chip in 2013 — and why Samsung walked away in 2019
+- The Memory Wall: why 10,000 GPU cores starve behind a 64-bit bus vs. HBM's 1,024-bit vertical TSV elevators
+- The Glue War: how SK Hynix's liquid MR-MUF beat TC-NCF film on 12-layer HBM3E heat and yields
+- The 3x Wafer Tradeoff: how HBM cannibalized DDR5 capacity and why HBM4 binds SK Hynix to TSMC
 
 CHAPTERS
-0:00 The chip nobody waited for
-0:18 The 2025–2026 memory crunch
-0:36 Master chef, narrow doorway
-0:53 Build a tower, drill elevators
-1:10 The 2.5D bridge
-1:28 What the numbers show
-1:43 Why capacity still hurts
-2:00 How SK Hynix pulled ahead
-2:18 Every wafer steals from phones
-2:36 The tradeoff
+0:00 The $30,000 bottleneck
+2:00 The 2013 gamble
+3:36 The memory wall
+5:16 The glue war
+6:27 The tradeoff
 
 SOURCES & PUBLIC DATA REFERENCES
 [S1] Wikipedia (2026-11-18) — Wikipedia — High Bandwidth Memory
     https://en.wikipedia.org/wiki/High_Bandwidth_Memory
 [S2] Wikipedia (2026-10-31) — Wikipedia — Memory bandwidth
     https://en.wikipedia.org/wiki/Memory_bandwidth
-[S3] Wikipedia (2026-11-24) — Wikipedia — 2025–present global memory supply shortage
-    https://en.wikipedia.org/wiki/2025%E2%80%93present_global_memory_supply_shortage
-[S4] arXiv (2020-05-09) — Benchmarking High Bandwidth Memory on FPGAs (Zeke Wang, Hongjing Huang, Jie Zhang)
+[S3] Wikipedia (2026-11-15) — Wikipedia — SK Hynix
+    https://en.wikipedia.org/wiki/SK_Hynix
+[S4] Wikipedia (2026-10-25) — Wikipedia — Advanced packaging
+    https://en.wikipedia.org/wiki/Advanced_packaging
+[S5] arXiv (2020-05-09) — Benchmarking High Bandwidth Memory on FPGAs (Zeke Wang, Hongjing Huang, Jie Zhang)
     https://arxiv.org/abs/2005.04324v1
-[S5] arXiv (2020-04-02) — High Bandwidth Memory on FPGAs: A Data Analytics Perspective (Kaan Kara, Christoph Hagleitner, Dionysios Diamantopoulos)
+[S6] arXiv (2020-04-02) — High Bandwidth Memory on FPGAs: A Data Analytics Perspective (Kaan Kara, Christoph Hagleitner, Dionysios Diamantopoulos)
     https://arxiv.org/abs/2004.01635v1
-[S6] arXiv (2025-12-05) — Dissecting Embedding Bag Performance in DLRM Inference (Chandrish Ambati, Jing Ding, Trung Diep)
-    https://arxiv.org/abs/2512.05831v1
 [S7] Hacker News (2021-02-17) — Samsung Develops Industry’s First High Bandwidth Memory with AI Processing Power
     https://news.ycombinator.com/item?id=26163655
 [S8] Hacker News (2015-05-19) — AMD's high-bandwidth memory explained
@@ -42,3 +36,5 @@ SOURCES & PUBLIC DATA REFERENCES
     https://semiengineering.com/choosing-the-correct-high-bandwidth-memory/
 [S10] news.ycombinator.com (2024-01-22) — Ask HN: Is Apple's R1 a Discrete GPU? | Hacker News
     https://news.ycombinator.com/item?id=39094181
+[S11] github.com (2026-03-27) — GitHub - jkool702/forkrun: NUMA-Aware Contention-Free Dynamically-Auto-Tuning Bash-Native Streaming Parallelization Engine · GitHub
+    https://github.com/jkool702/forkrun

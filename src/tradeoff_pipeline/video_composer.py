@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """
-Tradeoff Layer — True 60fps 2D Vector, Physics & Rigged Sprite Video Compositor (`v2`).
-Delegates per-scene 60fps frame synthesis to `skia_animator.js` (Google Skia `@napi-rs/canvas`
-streaming raw RGBA buffers directly into FFmpeg) across parallel multi-core workers on the
-dedicated RTX PRO 6000 node (`Untitled10.ipynb`) or `b850` Tailscale SSH worker.
+Tradeoff Layer v3 — Multi-Layer 60fps Video, Hook-Excerpt Vertical Short, Foley & Comic Thumbnail Compositor.
 
-Strictly enforces the `alan-hub` anti-rendering hardware guard.
+Key v3 Upgrades:
+  1. Uses `sfx_engine.mix_foley_with_voice` for frame-accurate Foley transients with clean <-66 dB speech pauses
+     (zero muddy synthetic drone).
+  2. Supports @TradeoffLayer's authentic `hook_prefix_excerpt` Short pipeline: natively re-composes the
+     Cold Open + Act I cliffhanger (`L001..L025`, ~120–145s) at 1080x1920 @ 60fps using the exact mastered
+     studio voiceover WAVs from the Long-Form video, with zero burned-in KTV subtitle clutter.
+  3. Generates @TradeoffLayer-style comic thumbnails (angled giant bold comic-outlined display headline +
+     brand badge + neural-matted comic hero artwork).
+  4. Strictly enforces the `alan-hub` anti-rendering hardware guard.
 """
 from __future__ import annotations
 
@@ -25,6 +30,8 @@ from typing import Any
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
+from tradeoff_pipeline.sfx_engine import mix_foley_with_voice
+
 SKIA_SCRIPT = Path(__file__).resolve().parent / "skia_animator.js"
 
 
@@ -39,6 +46,7 @@ def _guard_not_alan_hub(allow_override: bool = False) -> None:
 
 def _find_node_binary() -> str:
     for cand in [
+        "/content/tradeoff_layer_carbon/node22/bin/node",
         shutil.which("node"),
         "/content/tradeoff_layer_carbon/opt/node/bin/node",
         "/usr/local/bin/node",
@@ -57,8 +65,8 @@ def _find_font(bold: bool = False, mono: bool = False, size: int = 36) -> ImageF
         ]
         if mono
         else [
-            "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
-            "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+            "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+            "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
         ]
     )
     for p in candidates:
@@ -68,21 +76,6 @@ def _find_font(bold: bool = False, mono: bool = False, size: int = 36) -> ImageF
             except Exception:
                 continue
     return ImageFont.load_default()
-
-
-def _wrap_text(draw: ImageDraw.ImageDraw, text: str, font: ImageFont.FreeTypeFont, max_w: int) -> list[str]:
-    words = text.split()
-    if not words:
-        return []
-    lines = [words[0]]
-    for w in words[1:]:
-        cand = f"{lines[-1]} {w}"
-        bb = draw.textbbox((0, 0), cand, font=font)
-        if (bb[2] - bb[0]) <= max_w:
-            lines[-1] = cand
-        else:
-            lines.append(w)
-    return lines
 
 
 def _compute_audio_envelope(wav_path: Path, fps: int) -> list[float]:
@@ -95,33 +88,19 @@ def _compute_audio_envelope(wav_path: Path, fps: int) -> list[float]:
     env: list[float] = []
     for f in range(total_frames):
         chunk = samples[f * hop : (f + 1) * hop]
-        val = min(1.0, float(np.sqrt(np.mean(chunk**2))) * 4.5) if len(chunk) > 0 else 0.0
+        val = min(1.0, float(np.sqrt(np.mean(chunk**2))) * 4.2) if len(chunk) > 0 else 0.0
         env.append(round(val, 4))
     return env
 
 
-def _add_subtle_sound_design(voice_wav: Path, out_wav: Path, is_short: bool = False) -> Path:
+def _write_foley_scored_wav(voice_wav: Path, out_wav: Path, scene: dict[str, Any], index: int) -> Path:
     with wave.open(str(voice_wav), "rb") as wf:
         sr = wf.getframerate()
         n = wf.getnframes()
         voice = np.frombuffer(wf.readframes(n), dtype=np.int16).astype(np.float32) / 32768.0
 
-    t = np.arange(n, dtype=np.float32) / sr
-    f0 = 110.0 if not is_short else 130.81
-    pad = (
-        0.55 * np.sin(2 * np.pi * f0 * t)
-        + 0.30 * np.sin(2 * np.pi * (f0 * 1.5) * t)
-        + 0.15 * np.sin(2 * np.pi * (f0 * 2.0) * t)
-    ) * (0.012 * (0.75 + 0.25 * np.sin(2 * np.pi * 0.12 * t)))
-
-    sw_len = min(n, int(sr * 0.18))
-    if sw_len > 10:
-        st = np.linspace(0.0, 1.0, sw_len, dtype=np.float32)
-        whoosh = np.sin(2 * np.pi * (190 + 240 * st) * (st * 0.18)) * np.hanning(sw_len) * 0.038
-        pad[:sw_len] += whoosh
-
-    mixed = np.clip(voice + pad, -0.98, 0.98)
-    pcm = (mixed * 32767.0).astype(np.int16)
+    mixed = mix_foley_with_voice(voice, sr=sr, scene=scene, index=index)
+    pcm = (np.clip(mixed, -0.98, 0.98) * 32767.0).astype(np.int16)
     with wave.open(str(out_wav), "wb") as out_wf:
         out_wf.setnchannels(1)
         out_wf.setsampwidth(2)
@@ -136,18 +115,19 @@ def _render_single_scene_worker(job: dict[str, Any]) -> str:
     out_mp4 = Path(job["out_mp4"])
     fps = int(job["fps"])
     is_short = bool(job["is_short"])
+    idx = int(job["index"])
+    scene = job["scene"]
 
-    scored_wav = out_mp4.with_suffix(".scored.wav")
-    _add_subtle_sound_design(wav_path, scored_wav, is_short=is_short)
+    scored_wav = out_mp4.with_suffix(".foley.wav")
+    _write_foley_scored_wav(wav_path, scored_wav, scene=scene, index=idx)
     envelope = _compute_audio_envelope(wav_path, fps=fps)
 
     skia_job = {
-        "scene": job["scene"],
-        "index": int(job["index"]),
+        "scene": scene,
+        "index": idx,
         "ttsMeta": job["tts_meta"],
         "wavPath": str(scored_wav),
         "visualDir": str(job["visual_dir"]),
-        "bgFile": job.get("bg_file"),
         "outMp4": str(out_mp4),
         "w": int(job["w"]),
         "h": int(job["h"]),
@@ -163,7 +143,9 @@ def _render_single_scene_worker(job: dict[str, Any]) -> str:
         "/content/tradeoff_layer_carbon/animator_env/node_modules",
         str(Path.home() / "tradeoff-layer-gemini-4-carbon" / "node_modules"),
     ]
-    env["NODE_PATH"] = ":".join(p for p in extra_node_mods if os.path.exists(p))
+    existing_mods = [p for p in extra_node_mods if os.path.exists(p)]
+    if existing_mods:
+        env["NODE_PATH"] = ":".join(existing_mods)
 
     try:
         subprocess.run([node_bin, str(SKIA_SCRIPT), str(job_json)], check=True, env=env)
@@ -181,10 +163,10 @@ def _format_srt_ts(sec: float) -> str:
     return f"{h:02d}:{m:02d}:{s:02d},{ms:03d}"
 
 
-def write_srt_subtitles(tts_report: dict[str, Any], out_srt: Path) -> None:
+def write_srt_subtitles(scenes_tts: list[dict[str, Any]], out_srt: Path) -> None:
     entries: list[str] = []
     idx = 1
-    for sc in tts_report.get("scenes", []):
+    for sc in scenes_tts:
         words = sc.get("words") or []
         for i in range(0, len(words), 8):
             chunk = words[i : i + 8]
@@ -197,59 +179,59 @@ def write_srt_subtitles(tts_report: dict[str, Any], out_srt: Path) -> None:
 
 
 def generate_thumbnail(plan: dict[str, Any], visual_dir: Path, out_png: Path) -> Path:
+    """
+    Replicates @TradeoffLayer's signature comic YouTube thumbnail style (`PAY UP`, `STILL ALIVE`, `TPU VS GPU`):
+    bold diagonal comic split + giant angled black-stroked comic headline + clean brand badge + neural cutouts.
+    """
     w, h = 1280, 720
     bg_p = visual_dir / "thumbnail_bg.png"
     if bg_p.exists():
         img = Image.open(bg_p).convert("RGB").resize((w, h), Image.Resampling.LANCZOS).convert("RGBA")
     else:
-        img = Image.new("RGBA", (w, h), (186, 230, 253, 255))
+        img = Image.new("RGBA", (w, h), (24, 43, 89, 255))
 
-    grad = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    gdraw = ImageDraw.Draw(grad, "RGBA")
-    for x in range(w):
-        a = int(195 * max(0.0, 1.0 - (x / (w * 0.68))))
-        gdraw.line([(x, 0), (x, h)], fill=(12, 18, 32, a))
-    img = Image.alpha_composite(img, grad)
+    # Crisp comic dark-navy angled left panel (`STILL ALIVE` / `TPU VS GPU` split style)
+    wedge = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    wdraw = ImageDraw.Draw(wedge, "RGBA")
+    wdraw.polygon([(0, 0), (575, 0), (465, h), (0, h)], fill=(15, 23, 42, 246))
+    wdraw.line([(575, 0), (465, h)], fill=(255, 255, 255, 255), width=9)
+    img = Image.alpha_composite(img, wedge)
 
-    draw = ImageDraw.Draw(img, "RGBA")
+    # Optional crisp stacked HBM cube accent bridging the comic divider line
+    hbm_p = visual_dir / "prop_hbm_tower.png"
+    if hbm_p.exists():
+        hb_im = Image.open(hbm_p).convert("RGBA").resize((250, 250), Image.Resampling.LANCZOS)
+        img.alpha_composite(hb_im, dest=(375, 435))
+
     thumb = plan.get("thumbnail") or {}
-    headline = (thumb.get("headline") or plan.get("title", "THE TRADEOFF"))[:28].upper()
-    subbadge = (thumb.get("subbadge") or "")[:18]
+    headline = (thumb.get("headline") or "SOLD OUT").upper()
+    accent_word = (thumb.get("accent_word") or "SK hynix").strip()
 
-    f_big = _find_font(bold=True, size=90)
-    f_badge = _find_font(bold=True, mono=True, size=42)
-    lines = _wrap_text(draw, headline, f_big, 730)
-    cy = 148
-    for ln in lines[:3]:
-        draw.text((66, cy + 5), ln, font=f_big, fill=(0, 0, 0, 210))
-        draw.text((62, cy), ln, font=f_big, fill=(255, 255, 255, 255))
-        cy += 100
+    # Angled giant comic text layer (`-5 deg` tilt, thick black comic outline!)
+    txt_layer = Image.new("RGBA", (620, 400), (0, 0, 0, 0))
+    tdraw = ImageDraw.Draw(txt_layer, "RGBA")
+    words = headline.split()
+    f_giant = _find_font(bold=True, size=124 if len(headline) <= 10 else 98)
 
-    if subbadge:
-        bb = draw.textbbox((0, 0), subbadge, font=f_badge)
-        bw = (bb[2] - bb[0]) + 48
-        draw.rounded_rectangle([62, cy + 20, 62 + bw, cy + 92], radius=16, fill=(239, 68, 68, 248))
-        draw.text((86, cy + 32), subbadge, font=f_badge, fill=(255, 255, 255, 255))
+    cy = 48
+    for i, wd in enumerate(words[:2]):
+        fill_col = (255, 255, 255, 255) if i == 0 else (253, 224, 71, 255)
+        tdraw.text((34, cy), wd, font=f_giant, fill=fill_col, stroke_width=14, stroke_fill=(9, 13, 24, 255))
+        cy += 128
 
-    # Composite full-color character sprite + prop sprite on right
-    char_p = visual_dir / "char_engineer.png"
-    prop_p = visual_dir / "prop_chip_stack.png"
-    if char_p.exists():
-        cb = Image.open(char_p).convert("RGBA")
-        ch_h = 340
-        ch_w = int(ch_h * (cb.width / max(1, cb.height)))
-        cb_r = cb.resize((ch_w, ch_h), Image.Resampling.LANCZOS)
-        # Stick legs beneath character bust
-        cx, hip_y, foot_y = 1045, 545, 698
-        ink = (20, 24, 33, 255)
-        draw.line([(cx - 26, hip_y), (cx - 26, foot_y)], fill=ink, width=6)
-        draw.line([(cx + 26, hip_y), (cx + 26, foot_y)], fill=ink, width=6)
-        draw.pieslice([cx - 42, foot_y - 12, cx - 10, foot_y + 12], 180, 360, fill=ink)
-        draw.pieslice([cx + 10, foot_y - 12, cx + 42, foot_y + 12], 180, 360, fill=ink)
-        img.alpha_composite(cb_r, dest=(cx - ch_w // 2, hip_y - ch_h + 18))
-    if prop_p.exists():
-        pb = Image.open(prop_p).convert("RGBA").resize((175, 175), Image.Resampling.LANCZOS)
-        img.alpha_composite(pb, dest=(815, 435))
+    rotated_txt = txt_layer.rotate(5.0, resample=Image.Resampling.BICUBIC, expand=True)
+    img.alpha_composite(rotated_txt, dest=(14, 26))
+
+    # Clean brand signplate badge (`SK hynix` / `ARM` / `ASML` style!)
+    draw = ImageDraw.Draw(img, "RGBA")
+    if accent_word:
+        f_brand = _find_font(bold=True, size=58)
+        bb = draw.textbbox((0, 0), accent_word, font=f_brand)
+        bw = (bb[2] - bb[0]) + 64
+        bh = 98
+        bx, by = 42, 365
+        draw.rounded_rectangle([bx, by, bx + bw, by + bh], radius=18, fill=(255, 255, 255, 255), outline=(15, 23, 42, 255), width=6)
+        draw.text((bx + 32, by + 15), accent_word, font=f_brand, fill=(220, 38, 38, 255))
 
     out_png.parent.mkdir(parents=True, exist_ok=True)
     img.convert("RGB").save(str(out_png), quality=95)
@@ -292,10 +274,11 @@ def build_youtube_metadata_and_citations(
     for sh in plan.get("shorts", []):
         shorts_meta.append({
             "id": sh["id"],
+            "mode": sh.get("mode", "hook_prefix_excerpt"),
             "title": sh.get("title"),
             "description": (
                 f"{sh.get('hook_angle', '')}\n\n"
-                f"Full animated breakdown on @TradeoffLayer: \"{plan.get('title')}\"\n\n"
+                f"Watch the full 8-minute animated story on @TradeoffLayer: \"{plan.get('title')}\"\n\n"
                 f"Sources:\n" + "\n".join(source_lines[:4])
             ),
             "related_long_video_title": plan.get("title"),
@@ -303,6 +286,7 @@ def build_youtube_metadata_and_citations(
 
     meta = {
         "channel": "@TradeoffLayer",
+        "version": "v3",
         "long_video": {
             "title": plan.get("title"),
             "description": description,
@@ -316,13 +300,15 @@ def build_youtube_metadata_and_citations(
 
     audit = {
         "title": plan.get("title"),
+        "version": "v3",
         "retrieved_at": plan.get("research_metadata", {}).get("retrieved_at"),
         "sources": sources,
+        "shot_count": len(plan.get("long_scenes", [])),
         "scene_citations": [
             {
                 "scene_id": sc["id"],
-                "animation_type": sc.get("animation_type"),
-                "citation_fact": sc.get("citation_fact"),
+                "template": sc.get("template") or sc.get("animation_type"),
+                "citation_note": sc.get("citation_note") or sc.get("citation_fact"),
                 "sources": sc.get("resolved_sources", []),
             }
             for sc in plan.get("long_scenes", [])
@@ -342,7 +328,6 @@ def concat_scene_mp4s(scene_mp4s: list[Path], out_mp4: Path) -> Path:
             "-f", "concat", "-safe", "0",
             "-i", str(concat_txt),
             "-c:v", "copy",
-            "-af", "loudnorm=I=-14.0:TP=-1.5:LRA=6.5",
             "-c:a", "aac", "-b:a", "192k",
             "-movflags", "+faststart",
             str(out_mp4),
@@ -357,10 +342,10 @@ def render_all(
     plan_path: Path,
     visual_dir: Path,
     long_tts_dir: Path,
-    shorts_tts_root: Path,
+    shorts_tts_root: Path | None,
     output_dir: Path,
     fps: int = 60,
-    max_workers: int = 12,
+    max_workers: int = 16,
     allow_local_override: bool = False,
 ) -> dict[str, Any]:
     _guard_not_alan_hub(allow_override=allow_local_override)
@@ -374,24 +359,23 @@ def render_all(
     long_tts_map = {s["id"]: s for s in long_tts["scenes"]}
     long_total_dur = float(long_tts["total_duration_sec"])
 
-    workers = min(max_workers, max(2, (os.cpu_count() or 4) // 2))
-    print(f"[video_composer] Animating Long-Form (1920x1080@{fps}fps Skia 2D Engine) across {workers} workers...", flush=True)
+    workers = min(max_workers, max(2, (os.cpu_count() or 8) - 2))
+    long_scenes = plan.get("long_scenes", [])
+    print(f"[video_composer v3] Rendering {len(long_scenes)} Long-Form shots (1920x1080@{fps}fps) across {workers} workers...", flush=True)
 
     long_jobs: list[dict[str, Any]] = []
     long_part_paths: list[Path] = []
-    for idx, sc in enumerate(plan.get("long_scenes", [])):
+    for idx, sc in enumerate(long_scenes):
         sid = sc["id"]
         tmeta = long_tts_map[sid]
         seg_mp4 = tmp_scenes_dir / f"long_{sid}.mp4"
         long_part_paths.append(seg_mp4)
-        bg_name = f"long_{sid}.png"
         long_jobs.append({
             "index": idx,
             "scene": sc,
             "tts_meta": tmeta,
             "wav_path": str(long_tts_dir / tmeta["wav_file"]),
             "visual_dir": str(visual_dir),
-            "bg_file": bg_name if (visual_dir / bg_name).exists() else None,
             "out_mp4": str(seg_mp4),
             "w": 1920,
             "h": 1080,
@@ -404,40 +388,39 @@ def render_all(
 
     long_mp4 = output_dir / "long_video_1080p60.mp4"
     concat_scene_mp4s(long_part_paths, long_mp4)
-    write_srt_subtitles(long_tts, output_dir / "long_video.srt")
+    write_srt_subtitles(long_tts["scenes"], output_dir / "long_video.srt")
 
-    short_outputs: list[str] = []
-    short_anim_cycle = [
-        "dark_cross_section_meter",
-        "rain_buckets_analogy",
-        "chip_3d_flip_stack",
-        "dark_gpu_partition_split",
-        "character_walk_handoff",
-    ]
+    # Render Paired Traffic-Driving Vertical Short(s)
+    short_outputs: list[dict[str, Any]] = []
     for sh in plan.get("shorts", []):
         sh_id = sh["id"]
-        sh_tts_dir = shorts_tts_root / sh_id
-        sh_tts = json.loads((sh_tts_dir / "tts_alignment_report.json").read_text(encoding="utf-8"))
-        sh_map = {s["id"]: s for s in sh_tts["scenes"]}
+        mode = sh.get("mode", "hook_prefix_excerpt")
+        if mode == "hook_prefix_excerpt":
+            n_ex = min(int(sh.get("excerpt_shot_count", 25)), len(long_scenes))
+            sh_scenes = long_scenes[:n_ex]
+            sh_tts_list = [long_tts_map[sc["id"]] for sc in sh_scenes]
+            sh_wav_dir = long_tts_dir
+        else:
+            assert shorts_tts_root is not None
+            sh_wav_dir = shorts_tts_root / sh_id
+            sh_rep = json.loads((sh_wav_dir / "tts_alignment_report.json").read_text(encoding="utf-8"))
+            sh_map = {s["id"]: s for s in sh_rep["scenes"]}
+            sh_scenes = sh.get("scenes", [])
+            sh_tts_list = [sh_map[sc["id"]] for sc in sh_scenes]
 
-        print(f"[video_composer] Animating Vertical Short '{sh_id}' (1080x1920@{fps}fps Skia 2D Engine)...", flush=True)
+        print(f"[video_composer v3] Rendering Vertical Short '{sh_id}' ({len(sh_scenes)} shots, mode={mode}, 1080x1920@{fps}fps)...", flush=True)
         sh_jobs: list[dict[str, Any]] = []
         sh_parts: list[Path] = []
-        for idx, sc in enumerate(sh.get("scenes", [])):
+        for idx, (sc, tmeta) in enumerate(zip(sh_scenes, sh_tts_list)):
             sid = sc["id"]
-            if not sc.get("animation_type"):
-                sc = {**sc, "animation_type": short_anim_cycle[idx % len(short_anim_cycle)]}
-            tmeta = sh_map[sid]
             seg_mp4 = tmp_scenes_dir / f"{sh_id}_{sid}.mp4"
             sh_parts.append(seg_mp4)
-            bg_name = f"{sh_id}_{sid}.png"
             sh_jobs.append({
                 "index": idx,
                 "scene": sc,
                 "tts_meta": tmeta,
-                "wav_path": str(sh_tts_dir / tmeta["wav_file"]),
+                "wav_path": str(sh_wav_dir / tmeta["wav_file"]),
                 "visual_dir": str(visual_dir),
-                "bg_file": bg_name if (visual_dir / bg_name).exists() else None,
                 "out_mp4": str(seg_mp4),
                 "w": 1080,
                 "h": 1920,
@@ -450,22 +433,23 @@ def render_all(
 
         sh_mp4 = output_dir / f"{sh_id}_1080x1920_60fps.mp4"
         concat_scene_mp4s(sh_parts, sh_mp4)
-        write_srt_subtitles(sh_tts, output_dir / f"{sh_id}.srt")
-        short_outputs.append(sh_mp4.name)
+        write_srt_subtitles(sh_tts_list, output_dir / f"{sh_id}.srt")
+        sh_dur = round(sum(float(t["duration_sec"]) for t in sh_tts_list), 2)
+        short_outputs.append({"file": sh_mp4.name, "shots": len(sh_scenes), "duration_sec": sh_dur, "mode": mode})
 
     thumb_png = generate_thumbnail(plan, visual_dir, output_dir / "thumbnail_1280x720.png")
     build_youtube_metadata_and_citations(plan, long_tts, output_dir)
 
-    for p in tmp_scenes_dir.glob("*"):
-        p.unlink(missing_ok=True)
-    tmp_scenes_dir.rmdir()
+    shutil.rmtree(tmp_scenes_dir, ignore_errors=True)
 
     summary = {
         "ok": True,
-        "engine": "skia-2d-60fps",
+        "engine": "skia-v3-multilayer-60fps",
         "elapsed_sec": round(time.time() - t0, 2),
         "long_video": long_mp4.name,
+        "long_shots": len(long_scenes),
         "long_duration_sec": long_total_dur,
+        "avg_shot_sec": round(long_total_dur / max(1, len(long_scenes)), 2),
         "shorts": short_outputs,
         "thumbnail": thumb_png.name,
     }
@@ -474,14 +458,14 @@ def render_all(
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Tradeoff Layer Skia 60fps 2D Animation Video & Shorts Compositor")
+    ap = argparse.ArgumentParser(description="Tradeoff Layer v3 Multi-Layer 60fps Video & Shorts Compositor")
     ap.add_argument("--plan", required=True, type=Path)
     ap.add_argument("--visual-dir", required=True, type=Path)
     ap.add_argument("--long-tts-dir", required=True, type=Path)
-    ap.add_argument("--shorts-tts-root", required=True, type=Path)
+    ap.add_argument("--shorts-tts-root", default=None, type=Path)
     ap.add_argument("--output-dir", required=True, type=Path)
     ap.add_argument("--fps", type=int, default=60)
-    ap.add_argument("--max-workers", type=int, default=12)
+    ap.add_argument("--max-workers", type=int, default=16)
     ap.add_argument("--allow-local-override", action="store_true")
     args = ap.parse_args()
 
@@ -495,7 +479,10 @@ def main() -> None:
         max_workers=args.max_workers,
         allow_local_override=args.allow_local_override,
     )
-    print(f"[video_composer] Animated & rendered in {res['elapsed_sec']}s -> {res['long_video']} + {res['shorts']}")
+    print(
+        f"[video_composer v3] Rendered {res['long_shots']} shots ({res['long_duration_sec']}s, avg {res['avg_shot_sec']}s/shot) "
+        f"in {res['elapsed_sec']}s -> {res['long_video']} + {res['shorts']}"
+    )
 
 
 if __name__ == "__main__":

@@ -3,34 +3,154 @@
   "default_style": "short_punchy",
   "scenes": [
     {
-      "id": "S01",
-      "voice_style": "short_punchy",
-      "speed": 1.05,
-      "narration": "Nvidia builds the fastest AI math chips on Earth, and they still spend most of the day waiting. Not for electricity, and not for code, but for memory."
+      "id": "L001",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Nvidia designs the most sought-after AI processor on the planet."
     },
     {
-      "id": "S02",
-      "voice_style": "short_punchy",
-      "speed": 1.05,
-      "narration": "Imagine ten thousand chefs trapped behind one tiny doorway. Flat memory chips sit too far away on the circuit board, burning power just moving numbers back and forth."
+      "id": "L002",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Tech giants wire tens of billions of dollars just to reserve future racks."
     },
     {
-      "id": "S03",
-      "voice_style": "short_punchy",
-      "speed": 1.05,
-      "narration": "In 2013, SK Hynix tried a radical fix: shave memory silicon paper-thin, stack twelve layers into a vertical tower, and drill thousands of microscopic elevators straight through."
+      "id": "L003",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Yet inside brand-new data centers, rows of thirty-thousand-dollar servers sit waiting."
     },
     {
-      "id": "S04",
-      "voice_style": "short_punchy",
-      "speed": 1.05,
-      "narration": "Benchmarks proved it could beat traditional CPU setups by up to twelve point nine times. By 2025, AI data centers bought out the world's supply, triggering a global memory shortage."
+      "id": "L004",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Not because Nvidia forgot how to design silicon."
     },
     {
-      "id": "S05",
-      "voice_style": "short_punchy",
-      "speed": 1.05,
-      "narration": "But here is the catch: HBM towers are custom-bonded to each chip a year in advance. What made SK Hynix AI's kingmaker also locks it to a single boom. Full story on Tradeoff Layer."
+      "id": "L005",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "They are waiting on tiny stacked memory cubes sitting millimeter-close beside the processor."
+    },
+    {
+      "id": "L006",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Those cubes are called High Bandwidth Memory, or HBM."
+    },
+    {
+      "id": "L007",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "And over half of the world's AI supply comes from one South Korean underdog: SK Hynix."
+    },
+    {
+      "id": "L008",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Here is why that makes no sense on paper."
+    },
+    {
+      "id": "L009",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "For three decades, Samsung dominated global memory like an untouchable empire."
+    },
+    {
+      "id": "L010",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Samsung had bigger fabs, deeper cash reserves, and even helped draft early HBM standards."
+    },
+    {
+      "id": "L011",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Then, in 2019, Samsung looked at HBM's tiny sales and disbanded its core development team."
+    },
+    {
+      "id": "L012",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Executives bet the future belonged to standard server and smartphone memory instead."
+    },
+    {
+      "id": "L013",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Meanwhile, rival SK Hynix kept funding a weird vertical chip it first built in 2013."
+    },
+    {
+      "id": "L014",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "For nearly ten years, that bet looked like an expensive commercial dead end."
+    },
+    {
+      "id": "L015",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Gamers didn't want to pay extra for exotic stacked silicon."
+    },
+    {
+      "id": "L016",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Then ChatGPT arrived, and overnight every AI lab hit the exact same physical wall."
+    },
+    {
+      "id": "L017",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Nvidia locked up SK Hynix's entire HBM calendar a full year before chips even left the fab."
+    },
+    {
+      "id": "L018",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "When Samsung rushed back in, its twelve-layer stacks ran into brutal heat and yield traps."
+    },
+    {
+      "id": "L019",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Even wilder, every gigabyte of HBM devours roughly three times the wafer space of normal RAM."
+    },
+    {
+      "id": "L020",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "So feeding AI servers started starving laptops, phones, and cloud memory worldwide."
+    },
+    {
+      "id": "L021",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "One forgotten gaming experiment quietly became the tollbooth of artificial intelligence."
+    },
+    {
+      "id": "L022",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Why can't the fastest GPU on earth think without stacked memory right beside it?"
+    },
+    {
+      "id": "L023",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "How did liquid glue give SK Hynix a multi-year manufacturing lead over Samsung?"
+    },
+    {
+      "id": "L024",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "And why does SK Hynix's biggest victory now force a dangerous new dependency on TSMC?"
+    },
+    {
+      "id": "L025",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "To understand how SK Hynix cornered AI, we have to go back to a desperate GPU gamble in 2013."
     }
   ]
 }

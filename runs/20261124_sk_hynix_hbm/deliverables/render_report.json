@@ -1,11 +1,18 @@
 {
   "ok": true,
-  "engine": "skia-2d-60fps",
-  "elapsed_sec": 22.7,
+  "engine": "skia-v3-multilayer-60fps",
+  "elapsed_sec": 44.48,
   "long_video": "long_video_1080p60.mp4",
-  "long_duration_sec": 172.737,
+  "long_shots": 92,
+  "long_duration_sec": 464.584,
+  "avg_shot_sec": 5.05,
   "shorts": [
-    "short_01_1080x1920_60fps.mp4"
+    {
+      "file": "short_01_1080x1920_60fps.mp4",
+      "shots": 25,
+      "duration_sec": 120.26,
+      "mode": "hook_prefix_excerpt"
+    }
   ],
   "thumbnail": "thumbnail_1280x720.png"
 }

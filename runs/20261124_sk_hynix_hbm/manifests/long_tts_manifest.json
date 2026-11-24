@@ -3,64 +3,556 @@
   "default_style": "narrative",
   "scenes": [
     {
-      "id": "L01",
+      "id": "L001",
       "voice_style": "hook",
-      "speed": 1.0,
-      "narration": "In 2013, engineers at SK Hynix built a strange new memory chip by stacking silicon vertically like a tiny skyscraper. Almost nobody in the PC industry wanted to pay for it. Two years later it shipped inside one niche AMD graphics card. Today, Nvidia cannot ship a flagship AI server without it."
+      "speed": 1.02,
+      "narration": "Nvidia designs the most sought-after AI processor on the planet."
     },
     {
-      "id": "L02",
+      "id": "L002",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Tech giants wire tens of billions of dollars just to reserve future racks."
+    },
+    {
+      "id": "L003",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Yet inside brand-new data centers, rows of thirty-thousand-dollar servers sit waiting."
+    },
+    {
+      "id": "L004",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Not because Nvidia forgot how to design silicon."
+    },
+    {
+      "id": "L005",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "They are waiting on tiny stacked memory cubes sitting millimeter-close beside the processor."
+    },
+    {
+      "id": "L006",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Those cubes are called High Bandwidth Memory, or HBM."
+    },
+    {
+      "id": "L007",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "And over half of the world's AI supply comes from one South Korean underdog: SK Hynix."
+    },
+    {
+      "id": "L008",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Here is why that makes no sense on paper."
+    },
+    {
+      "id": "L009",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "For three decades, Samsung dominated global memory like an untouchable empire."
+    },
+    {
+      "id": "L010",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Samsung had bigger fabs, deeper cash reserves, and even helped draft early HBM standards."
+    },
+    {
+      "id": "L011",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Then, in 2019, Samsung looked at HBM's tiny sales and disbanded its core development team."
+    },
+    {
+      "id": "L012",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Executives bet the future belonged to standard server and smartphone memory instead."
+    },
+    {
+      "id": "L013",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Meanwhile, rival SK Hynix kept funding a weird vertical chip it first built in 2013."
+    },
+    {
+      "id": "L014",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "For nearly ten years, that bet looked like an expensive commercial dead end."
+    },
+    {
+      "id": "L015",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Gamers didn't want to pay extra for exotic stacked silicon."
+    },
+    {
+      "id": "L016",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Then ChatGPT arrived, and overnight every AI lab hit the exact same physical wall."
+    },
+    {
+      "id": "L017",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Nvidia locked up SK Hynix's entire HBM calendar a full year before chips even left the fab."
+    },
+    {
+      "id": "L018",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "When Samsung rushed back in, its twelve-layer stacks ran into brutal heat and yield traps."
+    },
+    {
+      "id": "L019",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Even wilder, every gigabyte of HBM devours roughly three times the wafer space of normal RAM."
+    },
+    {
+      "id": "L020",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "So feeding AI servers started starving laptops, phones, and cloud memory worldwide."
+    },
+    {
+      "id": "L021",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "One forgotten gaming experiment quietly became the tollbooth of artificial intelligence."
+    },
+    {
+      "id": "L022",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "Why can't the fastest GPU on earth think without stacked memory right beside it?"
+    },
+    {
+      "id": "L023",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "How did liquid glue give SK Hynix a multi-year manufacturing lead over Samsung?"
+    },
+    {
+      "id": "L024",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "And why does SK Hynix's biggest victory now force a dangerous new dependency on TSMC?"
+    },
+    {
+      "id": "L025",
+      "voice_style": "hook",
+      "speed": 1.02,
+      "narration": "To understand how SK Hynix cornered AI, we have to go back to a desperate GPU gamble in 2013."
+    },
+    {
+      "id": "L026",
       "voice_style": "narrative",
-      "speed": 1.0,
-      "narration": "Starting in 2025, an unprecedented wave of AI data center buildouts triggered a global memory supply shortage. Hyperscalers were not running out of math cores. They were running out of High Bandwidth Memory, or HBM, the specialized memory towers bolted micrometers away from every AI accelerator."
+      "speed": 1.02,
+      "narration": "It is 2013, and graphics chip engineers at AMD are staring at a circuit board problem."
     },
     {
-      "id": "L03",
-      "voice_style": "analytical",
-      "speed": 1.0,
-      "narration": "Picture a kitchen with ten thousand chefs who can chop ingredients in a microsecond, fed through a single narrow hallway. Standard memory lays chips flat across a circuit board, forcing data down long copper traces. The chefs spend most of their day staring at an empty counter, burning electricity while waiting."
-    },
-    {
-      "id": "L04",
-      "voice_style": "analytical",
-      "speed": 1.0,
-      "narration": "HBM fixes the hallway by building upward. Instead of spreading memory chips across the board, engineers thin each DRAM die until it bends like paper, stack eight or twelve of them vertically, and drill thousands of microscopic vertical elevators called Through-Silicon Vias straight through the silicon."
-    },
-    {
-      "id": "L05",
+      "id": "L027",
       "voice_style": "narrative",
-      "speed": 1.0,
-      "narration": "You still cannot drop a fragile memory tower onto a normal fiberglass board. So chipmakers place the GPU and its HBM stacks side by side on a razor-thin silicon bridge called a 2.5D interposer. Millions of microscopic wires connect them across fractions of a millimeter, slashing energy per bit."
+      "speed": 1.02,
+      "narration": "Every generation, GPU cores get faster, demanding wider rivers of data every millisecond."
     },
     {
-      "id": "L06",
-      "voice_style": "analytical",
-      "speed": 1.0,
-      "narration": "Independent hardware benchmarks show why architects pay the premium. Even an early two-stack HBM subsystem delivered 425 gigabytes per second of real measured bandwidth, beating dual-socket server CPUs by up to 12.9 times on database joins and 3.2 times on machine learning training."
-    },
-    {
-      "id": "L07",
-      "voice_style": "analytical",
-      "speed": 1.0,
-      "narration": "Yet HBM has a catch: you can only fit a handful of stacks around one GPU package. Research on H100 inference shows that once giant AI models and embedding tables outgrow on-package HBM, engineers must split them across multiple GPUs, paying heavy network synchronization penalties."
-    },
-    {
-      "id": "L08",
+      "id": "L028",
       "voice_style": "narrative",
-      "speed": 1.0,
-      "narration": "Samsung had bigger factories and even unveiled HBM with built-in AI processing in 2021. Apple tapped SK Hynix for custom high-speed DRAM on Vision Pro's R1 chip at 256 gigabytes per second. By perfecting heat-dissipating liquid molding between stacked dies, SK Hynix became Nvidia's primary HBM supplier."
+      "speed": 1.02,
+      "narration": "With traditional GDDR5 memory, you surround the processor with a flat ring of memory chips."
     },
     {
-      "id": "L09",
+      "id": "L029",
       "voice_style": "narrative",
-      "speed": 1.0,
-      "narration": "Because HBM dies are larger, harder to test, and stacked twelve high, one gigabyte of HBM consumes roughly three times more wafer capacity than standard DDR5 memory. As factories shifted cleanrooms toward AI towers, ordinary server and consumer memory tightened across the entire electronics market."
+      "speed": 1.02,
+      "narration": "Push clock speeds higher across inches of copper, and memory alone burns dozens of watts."
     },
     {
-      "id": "L10",
+      "id": "L030",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "So AMD sketches a radical alternative: stop spreading memory outward and build a skyscraper."
+    },
+    {
+      "id": "L031",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "AMD brings that skyscraper proposal to memory makers, looking for a manufacturing partner."
+    },
+    {
+      "id": "L032",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "To giant commodity DRAM fabs, drilling vertical holes through thinned silicon looks insane."
+    },
+    {
+      "id": "L033",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "PCs and phones buy billions of cheap flat chips; nobody is asking for pricey 3D towers."
+    },
+    {
+      "id": "L034",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "SK Hynix, forever playing catch-up behind Samsung in DRAM, decides to take the risk."
+    },
+    {
+      "id": "L035",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "In late 2013, SK Hynix produces the world's first working HBM memory cube."
+    },
+    {
+      "id": "L036",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "Two years later, AMD ships it inside the Radeon Fury graphics card."
+    },
+    {
+      "id": "L037",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "Technically, it is a marvel, packing a 1,024-bit interface per stack onto a tiny card."
+    },
+    {
+      "id": "L038",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "Commercially, for consumer gaming cards, the silicon interposer costs way too much."
+    },
+    {
+      "id": "L039",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "Nvidia sticks with cheaper GDDR5X on gaming cards and crushes AMD in retail sales."
+    },
+    {
+      "id": "L040",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "Inside Samsung's headquarters, finance teams look at tiny HBM shipments and pull the plug."
+    },
+    {
+      "id": "L041",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "Why burn cleanroom engineers on niche supercomputer memory when phone DRAM prints billions?"
+    },
+    {
+      "id": "L042",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "Yet inside SK Hynix, engineers quietly keep iterating: HBM2, HBM2E, then HBM3."
+    },
+    {
+      "id": "L043",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "Every generation teaches SK Hynix painful lessons about wafer thinning, heat, and warpage."
+    },
+    {
+      "id": "L044",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "Lessons nobody cared about, until large language models broke computer architecture."
+    },
+    {
+      "id": "L045",
       "voice_style": "analytical",
-      "speed": 1.0,
-      "narration": "And that is the tradeoff. Commodity memory can be sold to anyone, anytime. HBM is custom-built, bonded to a specific GPU layout, and booked a year in advance. What turned SK Hynix from a cyclical underdog into AI's kingmaker now ties its fortune to whether hyperscalers keep spending."
+      "speed": 1.02,
+      "narration": "Most people assume AI is slow because GPUs cannot multiply numbers fast enough."
+    },
+    {
+      "id": "L046",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "In reality, modern AI chips spend most of token generation waiting for memory to arrive."
+    },
+    {
+      "id": "L047",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "Picture ten thousand Michelin chefs standing ready inside a giant stadium kitchen."
+    },
+    {
+      "id": "L048",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "If ingredients trickle through one narrow doorway, nine thousand chefs stand around idle."
+    },
+    {
+      "id": "L049",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "Every single word an LLM writes requires hauling tens of gigabytes of weights across that doorway."
+    },
+    {
+      "id": "L050",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "To generate twenty words per second, you must stream the entire model twenty times a second."
+    },
+    {
+      "id": "L051",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "Traditional DDR5 memory uses a narrow 64-bit bus clocked faster and faster."
+    },
+    {
+      "id": "L052",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "HBM flips the physics completely: lower the clock speed, but make the highway ultra-wide."
+    },
+    {
+      "id": "L053",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "First, engineers grind each silicon DRAM wafer down until it is thinner than a human hair."
+    },
+    {
+      "id": "L054",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "Next, they stack eight, twelve, or sixteen memory dies directly on top of a base logic die."
+    },
+    {
+      "id": "L055",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "Then lasers and chemical etching drill thousands of microscopic copper elevators called TSVs."
+    },
+    {
+      "id": "L056",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "Instead of traveling centimeters across fiberglass, data drops microns straight into a silicon interposer."
+    },
+    {
+      "id": "L057",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "Hardware benchmarks on early two-stack HBM FPGAs already measured 425 gigabytes per second."
+    },
+    {
+      "id": "L058",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "On data-intensive joins, HBM accelerators beat dual-socket server CPUs by 12.9 times."
+    },
+    {
+      "id": "L059",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "With SK Hynix's HBM3E, a single stack exceeds 1.18 terabytes per second."
+    },
+    {
+      "id": "L060",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "Even Apple tapped SK Hynix custom high-bandwidth DRAM so Vision Pro's R1 hits a 12-millisecond budget."
+    },
+    {
+      "id": "L061",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "And when giant recommendation or frontier models exceed a single GPU's HBM capacity?"
+    },
+    {
+      "id": "L062",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "Engineers must split weights across multiple GPUs, paying heavy NCCL network sync penalties."
+    },
+    {
+      "id": "L063",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "That is why cloud CEOs happily pay whatever SK Hynix asks for taller, denser HBM3E towers."
+    },
+    {
+      "id": "L064",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "Which raises the obvious question: once AI exploded, why couldn't Samsung instantly catch up?"
+    },
+    {
+      "id": "L065",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "The secret weapon wasn't lithography—it was how you glue twelve hot chips together."
+    },
+    {
+      "id": "L066",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "Samsung relied on TC-NCF: laying thin solid non-conductive film between every single layer."
+    },
+    {
+      "id": "L067",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "Each layer had to be heat-pressed down under high force, risking micro-cracks and trapped heat."
+    },
+    {
+      "id": "L068",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "At four or eight layers, solid film worked fine; at twelve layers, yields and thermals suffered."
+    },
+    {
+      "id": "L069",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "SK Hynix spent years perfecting MR-MUF: Mass Reflow with Molded Underfill."
+    },
+    {
+      "id": "L070",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "Instead of pressing layers one by one, SK Hynix melts all micro-bumps simultaneously in one oven cycle."
+    },
+    {
+      "id": "L071",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "Then a specialty liquid protective resin flows into every microscopic gap and hardens."
+    },
+    {
+      "id": "L072",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "Better cooling meant cleaner Nvidia qualification, higher yields, and first-mover HBM3E profits."
+    },
+    {
+      "id": "L073",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "From South Korea, finished HBM cubes fly straight to TSMC's advanced packaging fabs in Taiwan."
+    },
+    {
+      "id": "L074",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "Inside TSMC's CoWoS line, robots place Nvidia's GPU beside six or eight SK Hynix HBM stacks."
+    },
+    {
+      "id": "L075",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "If either SK Hynix's memory yield or TSMC's CoWoS interposer capacity slows down, everything stops."
+    },
+    {
+      "id": "L076",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "Even worse, once bonded onto a CoWoS interposer, a bad stack cannot simply be unplugged."
+    },
+    {
+      "id": "L077",
+      "voice_style": "narrative",
+      "speed": 1.02,
+      "narration": "Reliability became priceless, letting SK Hynix demand upfront cash prepayments and premium margins."
+    },
+    {
+      "id": "L078",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "But every engineering triumph in semiconductors comes with an unforgiving tradeoff."
+    },
+    {
+      "id": "L079",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "Thousands of TSV elevator shafts punch right through silicon real estate that normally stores bits."
+    },
+    {
+      "id": "L080",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "Add wider buses and stacking yield losses, and one gigabyte of HBM eats three gigabytes of DDR5 wafer."
+    },
+    {
+      "id": "L081",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "Building a new cleanroom fab takes years and tens of billions of dollars."
+    },
+    {
+      "id": "L082",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "So SK Hynix, Samsung, and Micron converted existing standard DRAM lines into HBM lines."
+    },
+    {
+      "id": "L083",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "The result was the global memory crunch starting in 2025, lifting prices for everyday electronics."
+    },
+    {
+      "id": "L084",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "And SK Hynix faces an even deeper strategic tradeoff with next-generation HBM4."
+    },
+    {
+      "id": "L085",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "Until now, SK Hynix manufactured the bottom logic die inside its own memory fabs."
+    },
+    {
+      "id": "L086",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "With HBM4 doubling the interface to 2,048 bits, customers want custom logic etched on foundry nodes."
+    },
+    {
+      "id": "L087",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "So SK Hynix partnered with TSMC to fabricate HBM4 base dies, blurring memory into custom silicon."
+    },
+    {
+      "id": "L088",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "Meanwhile, Samsung owns both memory fabs and logic foundries under one roof if it fixes yields."
+    },
+    {
+      "id": "L089",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "And unlike commodity DDR RAM, custom-bonded HBM4 towers cannot be dumped onto spot markets if AI cools."
+    },
+    {
+      "id": "L090",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "In 2013, SK Hynix escaped the commodity trap by building a chip tailored for one bold partner."
+    },
+    {
+      "id": "L091",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "Today, that exact specialization gives SK Hynix the keys to the AI kingdom."
+    },
+    {
+      "id": "L092",
+      "voice_style": "analytical",
+      "speed": 1.02,
+      "narration": "And ties its entire future to keeping that crown one microscopic layer ahead of everyone else."
     }
   ]
 }
