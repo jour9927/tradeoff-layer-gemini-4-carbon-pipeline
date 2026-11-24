@@ -1,0 +1,139 @@
+{
+  "topic": "Why Every AI Chip Needs SK Hynix? HBM Memory Explained",
+  "queries": [
+    "High Bandwidth Memory",
+    "HBM memory",
+    "TSMC packaging"
+  ],
+  "retrieved_at": "2026-11-24T06:33:19Z",
+  "source_count": 10,
+  "sources": [
+    {
+      "id": "S1",
+      "badge_label": "[S1] Wikipedia (2026-11-18)",
+      "short_url": "en.wikipedia.org/wiki/High_Bandwidth_Memory",
+      "title": "Wikipedia — High Bandwidth Memory",
+      "publisher": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+      "date": "2026-11-18",
+      "retrieved_at": "2026-11-24T06:33:19Z",
+      "summary": "High Bandwidth Memory (HBM) is a computer memory interface for 3D-stacked synchronous dynamic random-access memory (SDRAM), initially developed by Samsung, AMD and SK Hynix. It is often used in conjunction with performance-oriented graphics accelerators, network devices, FPGAs and ASICs; some CPUs use HBM as on-package cache or RAM, such as the NEC SX-Aurora TSUBASA and Fujitsu A64FX. The first HBM memory chip was produced by SK Hynix in 2013, and the first devices shipped with HBM were the AMD Fiji GPUs in 2015.",
+      "key_facts": []
+    },
+    {
+      "id": "S2",
+      "badge_label": "[S2] Wikipedia (2026-10-31)",
+      "short_url": "en.wikipedia.org/wiki/Memory_bandwidth",
+      "title": "Wikipedia — Memory bandwidth",
+      "publisher": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Memory_bandwidth",
+      "date": "2026-10-31",
+      "retrieved_at": "2026-11-24T06:33:19Z",
+      "summary": "Memory bandwidth is the rate at which data can be read from or stored into a semiconductor memory by a processor. Memory bandwidth is usually expressed in units of bytes/second, though this can vary for systems with natural data sizes that are not a multiple of the commonly used 8-bit bytes.",
+      "key_facts": []
+    },
+    {
+      "id": "S3",
+      "badge_label": "[S3] Wikipedia (2026-11-24)",
+      "short_url": "en.wikipedia.org/wiki/2025%E2%80%93present_global_me",
+      "title": "Wikipedia — 2025–present global memory supply shortage",
+      "publisher": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/2025%E2%80%93present_global_memory_supply_shortage",
+      "date": "2026-11-24",
+      "retrieved_at": "2026-11-24T06:33:19Z",
+      "summary": "triggered unprecedented demand for specialized memory products, particularly high bandwidth memory (HBM) used in AI accelerators and data center GPUs.",
+      "key_facts": []
+    },
+    {
+      "id": "S4",
+      "badge_label": "[S4] arXiv (2020-05-09)",
+      "short_url": "arxiv.org/abs/2005.04324v1",
+      "title": "Benchmarking High Bandwidth Memory on FPGAs (Zeke Wang, Hongjing Huang, Jie Zhang)",
+      "publisher": "arXiv",
+      "url": "https://arxiv.org/abs/2005.04324v1",
+      "date": "2020-05-09",
+      "retrieved_at": "2026-11-24T06:33:19Z",
+      "summary": "FPGAs are starting to be enhanced with High Bandwidth Memory (HBM) as a way to reduce the memory bandwidth bottleneck encountered in some applications and to give the FPGA more capacity to deal with application state. However, the performance characteristics of HBM are still not well specified, especially in the context of FPGAs. In this paper, we bridge the gap between nominal specifications and actual performance by benchmarkingHBM on a state-of-the-art FPGA, i.e., a Xilinx Alveo U280 featuring a two-stack HBM subsystem. To this end, we propose Shuhai, a benchmarking tool that allows us to demystify all the underlying details of HBM on an FPGA. FPGA-based benchmarking should also provide a more accurate picture of HBM than doing so on CPUs/GPUs, since CPUs/GPUs are noisier systems due to their complex control logic and cache hierarchy. Since the memory itself is complex, leveraging custom hardware logic to benchmark inside an FPGA provides more details as well as accurate and deterministic measurements. We observe that 1) HBM is able to provide up to 425GB/s memory bandwidth, and 2) how HBM is used has a significant impact on performance, which in turn demonstrates the importance",
+      "key_facts": [
+        "We observe that 1) HBM is able to provide up to 425GB/s memory bandwidth, and 2) how HBM is used has a significant impact on performance, which in turn demonstrates the importance of unveiling the performance characteristics of HBM so as to select the best approach."
+      ]
+    },
+    {
+      "id": "S5",
+      "badge_label": "[S5] arXiv (2020-04-02)",
+      "short_url": "arxiv.org/abs/2004.01635v1",
+      "title": "High Bandwidth Memory on FPGAs: A Data Analytics Perspective (Kaan Kara, Christoph Hagleitner, Dionysios Diamantopoulos)",
+      "publisher": "arXiv",
+      "url": "https://arxiv.org/abs/2004.01635v1",
+      "date": "2020-04-02",
+      "retrieved_at": "2026-11-24T06:33:19Z",
+      "summary": "FPGA-based data processing in datacenters is increasing in popularity due to the demands of modern workloads and the ensuing necessity for specialization in hardware. Driven by this trend, vendors are rapidly adapting reconfigurable devices to suit data and compute intensive workloads. Inclusion of High Bandwidth Memory (HBM) in FPGA devices is a recent example. HBM promises overcoming the bandwidth bottleneck, faced often by FPGA-based accelerators due to their throughput oriented design. In this paper, we study the usage and benefits of HBM on FPGAs from a data analytics perspective. We consider three workloads that are often performed in analytics oriented databases and implement them on FPGA showing in which cases they benefit from HBM: range selection, hash join, and stochastic gradient descent for linear model training. We integrate our designs into a columnar database (MonetDB) and show the trade-offs arising from the integration related to data movement and partitioning. In certain cases, FPGA+HBM based solutions are able to surpass the highest performance provided by either a 2-socket POWER9 system or a 14-core XeonE5 by up to 1.8x (selection), 12.9x (join), and 3.2x (SGD)",
+      "key_facts": [
+        "In certain cases, FPGA+HBM based solutions are able to surpass the highest performance provided by either a 2-socket POWER9 system or a 14-core XeonE5 by up to 1.8x (selection), 12.9x (join), and 3.2x (SGD)."
+      ]
+    },
+    {
+      "id": "S6",
+      "badge_label": "[S6] arXiv (2025-12-05)",
+      "short_url": "arxiv.org/abs/2512.05831v1",
+      "title": "Dissecting Embedding Bag Performance in DLRM Inference (Chandrish Ambati, Jing Ding, Trung Diep)",
+      "publisher": "arXiv",
+      "url": "https://arxiv.org/abs/2512.05831v1",
+      "date": "2025-12-05",
+      "retrieved_at": "2026-11-24T06:33:19Z",
+      "summary": "As the size of DLRMs gets larger, the models must be partitioned across multiple GPUs or nodes of GPUs due to the size limitation of total HBM memory that can be packaged in a GPU. This partitioning adds communication and synchronization overhead of sending and receiving data across GPUs. We use the NCCL and NVSHMEM libraries to measure the performance of an Embedding Bag kernel implemented on H100 GPUs. We compare its performance across diOerent batch sizes, number of tables, table sizes, pooling factors, and embedding dimensions. For a large embedding table that spans multiple GPUs, we project the performance slowdown from distributing an embedding table across multiple GPUs.",
+      "key_facts": []
+    },
+    {
+      "id": "S7",
+      "badge_label": "[S7] Hacker News (2021-02-17)",
+      "short_url": "news.ycombinator.com/item",
+      "title": "Samsung Develops Industry’s First High Bandwidth Memory with AI Processing Power",
+      "publisher": "Hacker News",
+      "url": "https://news.ycombinator.com/item?id=26163655",
+      "date": "2021-02-17",
+      "retrieved_at": "2026-11-24T06:33:19Z",
+      "summary": "Community-verified engineering discussion (82 pts, 38 comments): Samsung Develops Industry’s First High Bandwidth Memory with AI Processing Power (https://news.samsung.com/global/samsung-develops-industrys-first-high-bandwidth-memory-with-ai-processing-power)",
+      "key_facts": []
+    },
+    {
+      "id": "S8",
+      "badge_label": "[S8] Hacker News (2015-05-19)",
+      "short_url": "news.ycombinator.com/item",
+      "title": "AMD's high-bandwidth memory explained",
+      "publisher": "Hacker News",
+      "url": "https://news.ycombinator.com/item?id=9569405",
+      "date": "2015-05-19",
+      "retrieved_at": "2026-11-24T06:33:19Z",
+      "summary": "Community-verified engineering discussion (82 pts, 18 comments): AMD's high-bandwidth memory explained (http://techreport.com/review/28294/amd-high-bandwidth-memory-explained)",
+      "key_facts": []
+    },
+    {
+      "id": "S9",
+      "badge_label": "[S9] semiengineering.com (2023-01-30)",
+      "short_url": "semiengineering.com/choosing-the-correct-high-bandwidth",
+      "title": "Choosing The Correct High-Bandwidth Memory",
+      "publisher": "semiengineering.com",
+      "url": "https://semiengineering.com/choosing-the-correct-high-bandwidth-memory/",
+      "date": "2023-01-30",
+      "retrieved_at": "2026-11-24T06:33:19Z",
+      "summary": "Choosing The Correct High-Bandwidth Memory Trending People (see all) --> Trending Technology (see all) --> Trending Entities (see all) --> Submit Subscribe Home Systems & Design Low Power - High Performance Manufacturing, Packaging & Materials Test, Measurement & Analytics Auto, Security and AI Startup Corner --> Industry Research --> Special Reports Videos --> Business & Startups Jobs Knowledge Center Technical Papers Home '; AI/ML/DL Architectures Automotive/ Aerospace Communication/Data Movement Design & Verification Lithography Manufacturing Materials Memory Optoelectronics / Photonics Packaging Power & Performance Quantum Security Test, Measurement, Analytics tech papers Transistors Z-End Applications Events & Webinars Events Webinars Videos & Research Videos Industry Research Startup Corner --> Newsletters --> Newsletters & Store Newsletters Store MENU Home Special Reports Systems & Design Low Power-High Performance Manufacturing, Packaging & Materials Test, Measurement & Analytics Auto, Security and AI Knowledge Center Videos Startup Corner Business & Startups Jobs Technical Papers Events Webinars Industry Research Newsletters Store Special Reports Home > Low Power-High Perf",
+      "key_facts": []
+    },
+    {
+      "id": "S10",
+      "badge_label": "[S10] news.ycombinator.com (2024-01-22)",
+      "short_url": "news.ycombinator.com/item",
+      "title": "Ask HN: Is Apple's R1 a Discrete GPU? | Hacker News",
+      "publisher": "news.ycombinator.com",
+      "url": "https://news.ycombinator.com/item?id=39094181",
+      "date": "2024-01-22",
+      "retrieved_at": "2026-11-24T06:33:19Z",
+      "summary": "Ask HN: Is Apple's R1 a Discrete GPU? | Hacker News Hacker News new | past | comments | ask | show | jobs | submit login Ask HN: Is Apple's R1 a Discrete GPU? 77 points by toasterlovin on Jan 23, 2024 | hide | past | favorite | 55 comments I think the R1 in Apple's Vision Pro is a discrete GPU, which would be significant since it would be the first time Apple has shipped a discrete GPU of their own design and could be an indicator that discrete GPUs in Macs are imminent. But I'm asking here because I haven't been able to find any knowledgeable coverage or speculation about what the R1 chip actually is. The confirmed details of the R1 chip are scant: - It does a lot of image processing and sensor data integration: \"the brand-new R1 chip processes input from 12 cameras, five sensors, and six microphones to ensure that content feels like it is appearing right in front of the user's eyes, in real time. R1 streams new images to the displays within 12 milliseconds\"[0] - It has substantial memory bandwidth: \"256GB/s memory bandwidth\"[1] - It uses special, high bandwidth memory: \"To support R1’s high-speed processing, SK hynix has developed the custom 1-gigabit DRAM. The new DRAM is known ",
+      "key_facts": [
+        "R1 streams new images to the displays within 12 milliseconds\"[0] - It has substantial memory bandwidth: \"256GB/s memory bandwidth\"[1] - It uses special, high bandwidth memory: \"To support R1’s high-speed processing, SK hynix has developed the custom 1-gigabit DRAM.",
+        "It is doing an enormous amount of image signal processing, which seems to explain the 256GB/s memory bandwidth."
+      ]
+    }
+  ]
+}

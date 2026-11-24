@@ -1,0 +1,36 @@
+{
+  "variant": "short",
+  "default_style": "short_punchy",
+  "scenes": [
+    {
+      "id": "S01",
+      "voice_style": "short_punchy",
+      "speed": 1.05,
+      "narration": "Nvidia builds the fastest AI math chips on Earth, and they still spend most of the day waiting. Not for electricity, and not for code, but for memory."
+    },
+    {
+      "id": "S02",
+      "voice_style": "short_punchy",
+      "speed": 1.05,
+      "narration": "Imagine ten thousand chefs trapped behind one tiny doorway. Flat memory chips sit too far away on the circuit board, burning power just moving numbers back and forth."
+    },
+    {
+      "id": "S03",
+      "voice_style": "short_punchy",
+      "speed": 1.05,
+      "narration": "In 2013, SK Hynix tried a radical fix: shave memory silicon paper-thin, stack twelve layers into a vertical tower, and drill thousands of microscopic elevators straight through."
+    },
+    {
+      "id": "S04",
+      "voice_style": "short_punchy",
+      "speed": 1.05,
+      "narration": "Benchmarks proved it could beat traditional CPU setups by up to twelve point nine times. By 2025, AI data centers bought out the world's supply, triggering a global memory shortage."
+    },
+    {
+      "id": "S05",
+      "voice_style": "short_punchy",
+      "speed": 1.05,
+      "narration": "But here is the catch: HBM towers are custom-bonded to each chip a year in advance. What made SK Hynix AI's kingmaker also locks it to a single boom. Full story on Tradeoff Layer."
+    }
+  ]
+}

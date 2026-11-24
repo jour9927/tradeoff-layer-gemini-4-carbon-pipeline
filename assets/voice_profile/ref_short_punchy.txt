@@ -1,0 +1,1 @@
+in both directions. You pay for what you send and for what it sends back. So you hit enter and your prompt becomes a packet that physically crosses the world, sometimes an ocean, to a data center.

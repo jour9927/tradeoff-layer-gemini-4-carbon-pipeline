@@ -1,0 +1,45 @@
+# Downloaded channel reference media & scratch caches
+reference_channel/videos/*.mp4
+reference_channel/videos/*.m4a
+reference_channel/videos/*.webm
+reference_channel/shorts/*.mp4
+reference_channel/shorts/*.m4a
+reference_channel/shorts/*.webm
+reference_channel/frames/
+assets/voice_raw/
+
+# Ephemeral credentials / tunnel URLs
+config/colab_rtx6000_connection.json
+scripts/_*.py
+scripts/_*.js
+scripts/_*.txt
+
+# Python & OS artifacts
+__pycache__/
+*.py[cod]
+.venv/
+.DS_Store
+*.egg-info/
+dist/
+build/
+
+# Large intermediate run WAVs (keep showcase deliverables & metadata selectively)
+runs/*/_scene_segments/
+runs/*/tts_long/scenes/
+runs/*/tts_shorts/*/scenes/
+
+# Reference channel large JSONs
+reference_channel/*.json
+reference_channel/videos/*.info.json
+reference_channel/videos/*.vtt
+reference_channel/videos/*.webp
+reference_channel/videos/*.jpg
+reference_channel/shorts/*.info.json
+reference_channel/shorts/*.vtt
+reference_channel/shorts/*.webp
+reference_channel/shorts/*.jpg
+runs/*/*.mp4
+runs/*/deliverables/*.mp4
+runs/*/tts_long/*.wav
+runs/*/tts_shorts/*/*.wav
+runs/*/visuals/*.png

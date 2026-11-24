@@ -1,0 +1,66 @@
+{
+  "variant": "long",
+  "default_style": "narrative",
+  "scenes": [
+    {
+      "id": "L01",
+      "voice_style": "hook",
+      "speed": 1.0,
+      "narration": "In 2013, engineers at SK Hynix built a strange new memory chip by stacking silicon vertically like a tiny skyscraper. Almost nobody in the PC industry wanted to pay for it. Two years later it shipped inside one niche AMD graphics card. Today, Nvidia cannot ship a flagship AI server without it."
+    },
+    {
+      "id": "L02",
+      "voice_style": "narrative",
+      "speed": 1.0,
+      "narration": "Starting in 2025, an unprecedented wave of AI data center buildouts triggered a global memory supply shortage. Hyperscalers were not running out of math cores. They were running out of High Bandwidth Memory, or HBM, the specialized memory towers bolted micrometers away from every AI accelerator."
+    },
+    {
+      "id": "L03",
+      "voice_style": "analytical",
+      "speed": 1.0,
+      "narration": "Picture a kitchen with ten thousand chefs who can chop ingredients in a microsecond, fed through a single narrow hallway. Standard memory lays chips flat across a circuit board, forcing data down long copper traces. The chefs spend most of their day staring at an empty counter, burning electricity while waiting."
+    },
+    {
+      "id": "L04",
+      "voice_style": "analytical",
+      "speed": 1.0,
+      "narration": "HBM fixes the hallway by building upward. Instead of spreading memory chips across the board, engineers thin each DRAM die until it bends like paper, stack eight or twelve of them vertically, and drill thousands of microscopic vertical elevators called Through-Silicon Vias straight through the silicon."
+    },
+    {
+      "id": "L05",
+      "voice_style": "narrative",
+      "speed": 1.0,
+      "narration": "You still cannot drop a fragile memory tower onto a normal fiberglass board. So chipmakers place the GPU and its HBM stacks side by side on a razor-thin silicon bridge called a 2.5D interposer. Millions of microscopic wires connect them across fractions of a millimeter, slashing energy per bit."
+    },
+    {
+      "id": "L06",
+      "voice_style": "analytical",
+      "speed": 1.0,
+      "narration": "Independent hardware benchmarks show why architects pay the premium. Even an early two-stack HBM subsystem delivered 425 gigabytes per second of real measured bandwidth, beating dual-socket server CPUs by up to 12.9 times on database joins and 3.2 times on machine learning training."
+    },
+    {
+      "id": "L07",
+      "voice_style": "analytical",
+      "speed": 1.0,
+      "narration": "Yet HBM has a catch: you can only fit a handful of stacks around one GPU package. Research on H100 inference shows that once giant AI models and embedding tables outgrow on-package HBM, engineers must split them across multiple GPUs, paying heavy network synchronization penalties."
+    },
+    {
+      "id": "L08",
+      "voice_style": "narrative",
+      "speed": 1.0,
+      "narration": "Samsung had bigger factories and even unveiled HBM with built-in AI processing in 2021. Apple tapped SK Hynix for custom high-speed DRAM on Vision Pro's R1 chip at 256 gigabytes per second. By perfecting heat-dissipating liquid molding between stacked dies, SK Hynix became Nvidia's primary HBM supplier."
+    },
+    {
+      "id": "L09",
+      "voice_style": "narrative",
+      "speed": 1.0,
+      "narration": "Because HBM dies are larger, harder to test, and stacked twelve high, one gigabyte of HBM consumes roughly three times more wafer capacity than standard DDR5 memory. As factories shifted cleanrooms toward AI towers, ordinary server and consumer memory tightened across the entire electronics market."
+    },
+    {
+      "id": "L10",
+      "voice_style": "analytical",
+      "speed": 1.0,
+      "narration": "And that is the tradeoff. Commodity memory can be sold to anyone, anytime. HBM is custom-built, bonded to a specific GPU layout, and booked a year in advance. What turned SK Hynix from a cyclical underdog into AI's kingmaker now ties its fortune to whether hyperscalers keep spending."
+    }
+  ]
+}

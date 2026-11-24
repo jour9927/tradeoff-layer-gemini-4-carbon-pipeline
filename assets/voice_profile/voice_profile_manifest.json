@@ -1,0 +1,59 @@
+{
+  "channel": "@TradeoffLayer",
+  "default_long_style": "narrative",
+  "default_short_style": "short_punchy",
+  "profiles": [
+    {
+      "style": "narrative",
+      "source_video": "2d883UK7p9E",
+      "start_sec": 11.44,
+      "wav_file": "ref_narrative.wav",
+      "txt_file": "ref_narrative.txt",
+      "ref_text": "The first test failed so badly, nobody could work out why. He thought about resigning. And when it finally worked, not one customer had ordered it.",
+      "duration_sec": 9.64,
+      "sample_rate": 24000,
+      "noise_floor_db": -77.8,
+      "speech_p90_db": -14.7,
+      "snr_db": 63.1
+    },
+    {
+      "style": "analytical",
+      "source_video": "2d883UK7p9E",
+      "start_sec": 93.98,
+      "wav_file": "ref_analytical.wav",
+      "txt_file": "ref_analytical.txt",
+      "ref_text": "Each bucket catches a little, and the chip measures how full each one is. That's your photo. And a phone has to be thin. So the sensor is tiny, and the buckets keep shrinking.",
+      "duration_sec": 10.42,
+      "sample_rate": 24000,
+      "noise_floor_db": -76.6,
+      "speech_p90_db": -14.9,
+      "snr_db": 61.6
+    },
+    {
+      "style": "hook",
+      "source_video": "2d883UK7p9E",
+      "start_sec": 3.68,
+      "wav_file": "ref_hook.wav",
+      "txt_file": "ref_hook.txt",
+      "ref_text": "In 2009 it was just an idea, from a team of five at Sony. The engineer behind it had never worked on a camera chip. The first test failed so badly, nobody could work out why.",
+      "duration_sec": 11.66,
+      "sample_rate": 24000,
+      "noise_floor_db": -79.2,
+      "speech_p90_db": -14.3,
+      "snr_db": 64.9
+    },
+    {
+      "style": "short_punchy",
+      "source_video": "0vZCvW7IzmA",
+      "start_sec": 29.64,
+      "wav_file": "ref_short_punchy.wav",
+      "txt_file": "ref_short_punchy.txt",
+      "ref_text": "in both directions. You pay for what you send and for what it sends back. So you hit enter and your prompt becomes a packet that physically crosses the world, sometimes an ocean, to a data center.",
+      "duration_sec": 11.24,
+      "sample_rate": 24000,
+      "noise_floor_db": -71.9,
+      "speech_p90_db": -15.4,
+      "snr_db": 56.5
+    }
+  ]
+}

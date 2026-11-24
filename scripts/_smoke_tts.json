@@ -1,0 +1,12 @@
+{
+  "variant": "long",
+  "default_style": "hook",
+  "scenes": [
+    {
+      "id": "SMOKE01",
+      "voice_style": "hook",
+      "speed": 1.0,
+      "narration": "Every advanced Nvidia AI chip depends on a stack of memory dies thinner than a human hair. And one company in South Korea controls more than half the supply."
+    }
+  ]
+}
