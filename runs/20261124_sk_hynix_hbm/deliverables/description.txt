@@ -1,0 +1,44 @@
+Every flagship AI accelerator Nvidia ships has a secret bottleneck: the math cores are so fast that they spend most of their time waiting for data to arrive. In 2013, SK Hynix built the first High Bandwidth Memory chip for a graphics card market that barely wanted it. Today, that vertical stack of silicon has triggered a global memory shortage from 2025 onward, and made one South Korean memory maker indispensable to the AI boom.
+
+Using a simple kitchen-and-skyscraper analogy, we break down how HBM stacks thin DRAM dies vertically, why 2.5D silicon interposers and Through-Silicon Vias beat flat circuit boards, how capacity limits force massive AI models across multiple GPUs, and why SK Hynix's biggest triumph is also its sharpest vulnerability.
+
+You'll learn:
+- Why compute got thousands of times faster while memory bandwidth lagged behind.
+- How SK Hynix and AMD shipped the first High Bandwidth Memory in 2013 and 2015.
+- How vertical DRAM towers, TSVs, and 2.5D silicon interposers move hundreds of gigabytes per second.
+- Why limited HBM capacity forces hyperscalers to split models across multi-GPU clusters.
+- The Tradeoff: why custom pre-sold HBM towers lock memory makers into extreme cyclical risk.
+
+CHAPTERS
+0:00 The chip nobody waited for
+0:18 The 2025–2026 memory crunch
+0:36 Master chef, narrow doorway
+0:53 Build a tower, drill elevators
+1:10 The 2.5D bridge
+1:28 What the numbers show
+1:43 Why capacity still hurts
+2:00 How SK Hynix pulled ahead
+2:18 Every wafer steals from phones
+2:36 The tradeoff
+
+SOURCES & PUBLIC DATA REFERENCES
+[S1] Wikipedia (2026-11-18) — Wikipedia — High Bandwidth Memory
+    https://en.wikipedia.org/wiki/High_Bandwidth_Memory
+[S2] Wikipedia (2026-10-31) — Wikipedia — Memory bandwidth
+    https://en.wikipedia.org/wiki/Memory_bandwidth
+[S3] Wikipedia (2026-11-24) — Wikipedia — 2025–present global memory supply shortage
+    https://en.wikipedia.org/wiki/2025%E2%80%93present_global_memory_supply_shortage
+[S4] arXiv (2020-05-09) — Benchmarking High Bandwidth Memory on FPGAs (Zeke Wang, Hongjing Huang, Jie Zhang)
+    https://arxiv.org/abs/2005.04324v1
+[S5] arXiv (2020-04-02) — High Bandwidth Memory on FPGAs: A Data Analytics Perspective (Kaan Kara, Christoph Hagleitner, Dionysios Diamantopoulos)
+    https://arxiv.org/abs/2004.01635v1
+[S6] arXiv (2025-12-05) — Dissecting Embedding Bag Performance in DLRM Inference (Chandrish Ambati, Jing Ding, Trung Diep)
+    https://arxiv.org/abs/2512.05831v1
+[S7] Hacker News (2021-02-17) — Samsung Develops Industry’s First High Bandwidth Memory with AI Processing Power
+    https://news.ycombinator.com/item?id=26163655
+[S8] Hacker News (2015-05-19) — AMD's high-bandwidth memory explained
+    https://news.ycombinator.com/item?id=9569405
+[S9] semiengineering.com (2023-01-30) — Choosing The Correct High-Bandwidth Memory
+    https://semiengineering.com/choosing-the-correct-high-bandwidth-memory/
+[S10] news.ycombinator.com (2024-01-22) — Ask HN: Is Apple's R1 a Discrete GPU? | Hacker News
+    https://news.ycombinator.com/item?id=39094181

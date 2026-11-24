@@ -1,0 +1,49 @@
+{
+  "channel": "@TradeoffLayer",
+  "long_video": {
+    "title": "Why Every AI Chip Depends on SK Hynix?",
+    "description": "Every flagship AI accelerator Nvidia ships has a secret bottleneck: the math cores are so fast that they spend most of their time waiting for data to arrive. In 2013, SK Hynix built the first High Bandwidth Memory chip for a graphics card market that barely wanted it. Today, that vertical stack of silicon has triggered a global memory shortage from 2025 onward, and made one South Korean memory maker indispensable to the AI boom.\n\nUsing a simple kitchen-and-skyscraper analogy, we break down how HBM stacks thin DRAM dies vertically, why 2.5D silicon interposers and Through-Silicon Vias beat flat circuit boards, how capacity limits force massive AI models across multiple GPUs, and why SK Hynix's biggest triumph is also its sharpest vulnerability.\n\nYou'll learn:\n- Why compute got thousands of times faster while memory bandwidth lagged behind.\n- How SK Hynix and AMD shipped the first High Bandwidth Memory in 2013 and 2015.\n- How vertical DRAM towers, TSVs, and 2.5D silicon interposers move hundreds of gigabytes per second.\n- Why limited HBM capacity forces hyperscalers to split models across multi-GPU clusters.\n- The Tradeoff: why custom pre-sold HBM towers lock memory makers into extreme cyclical risk.\n\nCHAPTERS\n0:00 The chip nobody waited for\n0:18 The 2025–2026 memory crunch\n0:36 Master chef, narrow doorway\n0:53 Build a tower, drill elevators\n1:10 The 2.5D bridge\n1:28 What the numbers show\n1:43 Why capacity still hurts\n2:00 How SK Hynix pulled ahead\n2:18 Every wafer steals from phones\n2:36 The tradeoff\n\nSOURCES & PUBLIC DATA REFERENCES\n[S1] Wikipedia (2026-11-18) — Wikipedia — High Bandwidth Memory\n    https://en.wikipedia.org/wiki/High_Bandwidth_Memory\n[S2] Wikipedia (2026-10-31) — Wikipedia — Memory bandwidth\n    https://en.wikipedia.org/wiki/Memory_bandwidth\n[S3] Wikipedia (2026-11-24) — Wikipedia — 2025–present global memory supply shortage\n    https://en.wikipedia.org/wiki/2025%E2%80%93present_global_memory_supply_shortage\n[S4] arXiv (2020-05-09) — Benchmarking High Bandwidth Memory on FPGAs (Zeke Wang, Hongjing Huang, Jie Zhang)\n    https://arxiv.org/abs/2005.04324v1\n[S5] arXiv (2020-04-02) — High Bandwidth Memory on FPGAs: A Data Analytics Perspective (Kaan Kara, Christoph Hagleitner, Dionysios Diamantopoulos)\n    https://arxiv.org/abs/2004.01635v1\n[S6] arXiv (2025-12-05) — Dissecting Embedding Bag Performance in DLRM Inference (Chandrish Ambati, Jing Ding, Trung Diep)\n    https://arxiv.org/abs/2512.05831v1\n[S7] Hacker News (2021-02-17) — Samsung Develops Industry’s First High Bandwidth Memory with AI Processing Power\n    https://news.ycombinator.com/item?id=26163655\n[S8] Hacker News (2015-05-19) — AMD's high-bandwidth memory explained\n    https://news.ycombinator.com/item?id=9569405\n[S9] semiengineering.com (2023-01-30) — Choosing The Correct High-Bandwidth Memory\n    https://semiengineering.com/choosing-the-correct-high-bandwidth-memory/\n[S10] news.ycombinator.com (2024-01-22) — Ask HN: Is Apple's R1 a Discrete GPU? | Hacker News\n    https://news.ycombinator.com/item?id=39094181\n",
+    "tags": [
+      "SK Hynix",
+      "HBM",
+      "High Bandwidth Memory",
+      "HBM3E",
+      "Nvidia AI chip",
+      "memory shortage",
+      "TSMC CoWoS",
+      "2.5D packaging",
+      "Samsung vs SK Hynix",
+      "semiconductor explained",
+      "AI hardware bottleneck",
+      "GPU memory wall",
+      "Tradeoff Layer",
+      "memoria HBM",
+      "mémoire HBM",
+      "HBM Speicher",
+      "SKハイニックス HBM",
+      "SK하이닉스 HBM",
+      "高頻寬記憶體",
+      "半导体封装"
+    ],
+    "chapters": [
+      "0:00 The chip nobody waited for",
+      "0:18 The 2025–2026 memory crunch",
+      "0:36 Master chef, narrow doorway",
+      "0:53 Build a tower, drill elevators",
+      "1:10 The 2.5D bridge",
+      "1:28 What the numbers show",
+      "1:43 Why capacity still hurts",
+      "2:00 How SK Hynix pulled ahead",
+      "2:18 Every wafer steals from phones",
+      "2:36 The tradeoff"
+    ]
+  },
+  "shorts": [
+    {
+      "id": "short_01",
+      "title": "Why Nvidia’s Fastest AI Chip Spends Its Day Waiting #ai #gpu #semiconductors #tech",
+      "description": "Nvidia's math cores are not the bottleneck — feeding them memory is.\n\nFull animated breakdown on @TradeoffLayer: \"Why Every AI Chip Depends on SK Hynix?\"\n\nSources:\n[S1] Wikipedia (2026-11-18) — Wikipedia — High Bandwidth Memory\n    https://en.wikipedia.org/wiki/High_Bandwidth_Memory\n[S2] Wikipedia (2026-10-31) — Wikipedia — Memory bandwidth\n    https://en.wikipedia.org/wiki/Memory_bandwidth\n[S3] Wikipedia (2026-11-24) — Wikipedia — 2025–present global memory supply shortage\n    https://en.wikipedia.org/wiki/2025%E2%80%93present_global_memory_supply_shortage\n[S4] arXiv (2020-05-09) — Benchmarking High Bandwidth Memory on FPGAs (Zeke Wang, Hongjing Huang, Jie Zhang)\n    https://arxiv.org/abs/2005.04324v1",
+      "related_long_video_title": "Why Every AI Chip Depends on SK Hynix?"
+    }
+  ]
+}

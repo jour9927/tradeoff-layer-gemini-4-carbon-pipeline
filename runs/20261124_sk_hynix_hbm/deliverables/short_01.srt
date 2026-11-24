@@ -1,0 +1,83 @@
+1
+00:00:00,000 --> 00:00:02,140
+NVIDIA builds the fastest AI math chips on
+
+2
+00:00:02,140 --> 00:00:03,980
+earth, and they still spend most of the
+
+3
+00:00:03,980 --> 00:00:06,440
+day waiting. Not for electricity and not for
+
+4
+00:00:06,440 --> 00:00:07,440
+code, but for memory.
+
+5
+00:00:07,820 --> 00:00:10,180
+Imagine 10 ,000 chefs trapped behind one tiny
+
+6
+00:00:10,180 --> 00:00:12,740
+doorway. Flat memory chips sit too far away
+
+7
+00:00:12,740 --> 00:00:14,980
+on the circuit board, burning power just moving
+
+8
+00:00:14,980 --> 00:00:16,060
+numbers back and forth.
+
+9
+00:00:16,450 --> 00:00:18,850
+In 2013, SK Hennix tried a radical fixed
+
+10
+00:00:18,850 --> 00:00:21,330
+-shape memory silicone paper thin, stacked 12 layers
+
+11
+00:00:21,330 --> 00:00:23,750
+into a vertical tower, and drilled thousands of
+
+12
+00:00:23,750 --> 00:00:25,350
+microscopic elevators straight through.
+
+13
+00:00:25,687 --> 00:00:28,467
+Benchmarks proved it could beat traditional CPU setups
+
+14
+00:00:28,467 --> 00:00:31,387
+by up to 12 .9 times. By 2025,
+
+15
+00:00:31,807 --> 00:00:33,627
+AI data centers bought out the world's supply,
+
+16
+00:00:33,727 --> 00:00:34,887
+triggering a global memory shortage.
+
+17
+00:00:35,334 --> 00:00:36,994
+But here is the catch HBM towers are
+
+18
+00:00:36,994 --> 00:00:38,514
+custom bonded to each chip a year in
+
+19
+00:00:38,514 --> 00:00:41,534
+advance. What made SK Hynix AI's Kingmaker also
+
+20
+00:00:41,534 --> 00:00:43,674
+locks it to a single boom. Full story
+
+21
+00:00:43,674 --> 00:00:44,414
+on trade -off layer.

@@ -129,6 +129,14 @@ def _draw_bezier(
         draw.line(pts, fill=color, width=width, joint="curve")
 
 
+def _smart_clip(text: str, max_len: int) -> str:
+    s = str(text).strip()
+    if len(s) <= max_len:
+        return s
+    cut = s[: max_len - 1].rsplit(" ", 1)[0]
+    return (cut if len(cut) >= max_len // 2 else s[: max_len - 1]) + "…"
+
+
 def _draw_tradeoff_character(
     img: Image.Image,
     cx: int,
@@ -139,6 +147,7 @@ def _draw_tradeoff_character(
     t: float,
     speaking_amp: float,
     point_dir: int = -1,
+    bust_rgba: Image.Image | None = None,
 ) -> None:
     """
     Draws @TradeoffLayer's signature 2D vector character:
@@ -196,6 +205,17 @@ def _draw_tradeoff_character(
     o_hand_x = cx - point_dir * int(34 * scale)
     o_hand_y = int(hip_y - 8 * scale)
     draw.line([(o_sh_x, shoulder_y), (o_elb_x, o_elb_y), (o_hand_x, o_hand_y)], fill=ink, width=lw)
+
+    # If AI-generated cel-shaded character bust cutout is available, composite it atop stick limbs!
+    if bust_rgba is not None:
+        target_h = int(235 * scale * (1.0 + 0.018 * speaking_amp))
+        aspect = bust_rgba.width / max(1, bust_rgba.height)
+        target_w = max(40, int(target_h * aspect))
+        bust_resized = bust_rgba.resize((target_w, target_h), Image.Resampling.LANCZOS)
+        bx = cx - target_w // 2
+        by = hip_y - target_h + int(8 * scale + bob)
+        img.alpha_composite(bust_resized, dest=(max(0, bx), max(0, by)))
+        return
 
     # Cel-shaded upper body jacket/hoodie
     tw = int(52 * scale)
@@ -287,9 +307,9 @@ def _draw_source_badge(
     f_reg = _find_font(bold=False, mono=True, size=18 if not is_short else 20)
 
     top_txt = f"SOURCE {src['badge_label']}"
-    bot_txt = src.get("short_url") or src.get("url", "")[:48]
+    bot_txt = src.get("short_url") or _smart_clip(src.get("url", ""), 48)
     if citation_fact and not is_short:
-        bot_txt = f"{bot_txt}  •  {citation_fact[:58]}"
+        bot_txt = f"{bot_txt}  •  {_smart_clip(citation_fact, 62)}"
 
     b1 = draw.textbbox((0, 0), top_txt, font=f_bold)
     b2 = draw.textbbox((0, 0), bot_txt, font=f_reg)
@@ -452,6 +472,7 @@ def _crop_ken_burns(bg: Image.Image, w: int, h: int, t: float, dur: float, zoom_
 def _render_whiteboard_or_editorial_scene(
     scene: dict[str, Any],
     bg_img: Image.Image | None,
+    char_bust: Image.Image | None,
     w: int,
     h: int,
     t: float,
@@ -465,7 +486,6 @@ def _render_whiteboard_or_editorial_scene(
     else:
         img = Image.new("RGBA", (w, h), (222, 236, 250, 255))
 
-    draw = ImageDraw.Draw(img, "RGBA")
     enter = _ease_out_cubic(t / 0.5)
     headline = scene.get("headline") or ""
     subhead = scene.get("subheadline") or ""
@@ -474,8 +494,9 @@ def _render_whiteboard_or_editorial_scene(
     chars = scene.get("characters") or [{"role": "engineer", "accent": "#3B82F6"}]
 
     if vmode == "vector_whiteboard_scene":
-        # Light subtle studio veil so whiteboard & characters pop cleanly (`yB9SC4HbH5o_t0120s.jpg`!)
-        draw.rectangle([0, 0, w, h], fill=(244, 248, 255, 58))
+        # Proper RGBA alpha-composite subtle 10% clarity veil (preserves crisp cel-shaded background!)
+        img = Image.alpha_composite(img, Image.new("RGBA", (w, h), (245, 249, 255, 24)))
+        draw = ImageDraw.Draw(img, "RGBA")
 
         if not is_short:
             wb_x, wb_y, wb_w, wb_h = 96, 98, 1280, 770
@@ -565,8 +586,10 @@ def _render_whiteboard_or_editorial_scene(
                 mx = wb_x + 48 + m_i * (mw + 20)
                 draw.rounded_rectangle([mx, my, mx + mw, my + 90], radius=14, fill=(18, 24, 36, int(238 * mp)))
                 tone = TONE_COLORS.get(str(m.get("tone", "blue")).lower(), TONE_COLORS["blue"])
-                draw.text((mx + 20, my + 12), str(m.get("label", ""))[:26], font=f_mlbl, fill=(185, 196, 214, int(255 * mp)))
-                draw.text((mx + 20, my + 42), str(m.get("value", ""))[:18], font=f_val, fill=(*tone, int(255 * mp)))
+                val_str = _smart_clip(str(m.get("value", "")), 24)
+                use_val_font = _find_font(bold=True, mono=True, size=27 if len(val_str) > 16 else 34)
+                draw.text((mx + 20, my + 12), _smart_clip(str(m.get("label", "")), 28), font=f_mlbl, fill=(185, 196, 214, int(255 * mp)))
+                draw.text((mx + 20, my + 42), val_str, font=use_val_font, fill=(*tone, int(255 * mp)))
 
         # Draw @TradeoffLayer character(s) beside/below whiteboard!
         char_cfg = chars[0]
@@ -574,27 +597,30 @@ def _render_whiteboard_or_editorial_scene(
             _draw_tradeoff_character(
                 img,
                 cx=1635,
-                foot_y=945,
+                foot_y=955,
                 scale=1.22,
                 role=str(char_cfg.get("role", "engineer")),
                 accent_hex=str(char_cfg.get("accent", "#3B82F6")),
                 t=t,
                 speaking_amp=speaking_amp,
                 point_dir=-1,
+                bust_rgba=char_bust,
             )
         else:
             _draw_tradeoff_character(
                 img,
                 cx=835,
-                foot_y=1345,
+                foot_y=1355,
                 scale=0.95,
                 role=str(char_cfg.get("role", "engineer")),
                 accent_hex=str(char_cfg.get("accent", "#3B82F6")),
                 t=t,
                 speaking_amp=speaking_amp,
                 point_dir=-1,
+                bust_rgba=char_bust,
             )
     else:
+        draw = ImageDraw.Draw(img, "RGBA")
         # Mode B: `editorial_illustration` (`2d883UK7p9E` clean cel-shaded scene + floating dark glass header & metric pills)
         f_head = _find_font(bold=True, size=44 if not is_short else 46)
         f_sub = _find_font(bold=False, size=25 if not is_short else 26)
@@ -810,6 +836,8 @@ def _render_single_scene_worker(job: dict[str, Any]) -> str:
     total_dur = float(job["total_dur"])
 
     bg_img = Image.open(bg_path).convert("RGB") if (bg_path and bg_path.exists()) else None
+    char_path = Path(job["char_path"]) if job.get("char_path") else None
+    char_bust = Image.open(char_path).convert("RGBA") if (char_path and char_path.exists()) else None
     env = _compute_audio_envelope(wav_path, fps=fps)
     n_frames = len(env)
     dur = n_frames / float(fps)
@@ -850,7 +878,7 @@ def _render_single_scene_worker(job: dict[str, Any]) -> str:
             frame_rgba = _render_dark_metric_scene(scene, w, h, t, dur, is_short=is_short)
         else:
             frame_rgba = _render_whiteboard_or_editorial_scene(
-                scene, bg_img, w, h, t, dur, speaking_amp=amp, is_short=is_short
+                scene, bg_img, char_bust, w, h, t, dur, speaking_amp=amp, is_short=is_short
             )
 
         _draw_source_badge(frame_rgba, sources, citation_fact, w, h, t, is_short=is_short)
@@ -939,7 +967,9 @@ def generate_thumbnail(plan: dict[str, Any], visual_dir: Path, out_png: Path) ->
         draw.rounded_rectangle([64, cy + 24, 64 + bw, cy + 98], radius=16, fill=(239, 68, 68, 245))
         draw.text((88, cy + 36), subbadge, font=f_badge, fill=(255, 255, 255, 255))
 
-    _draw_tradeoff_character(img, cx=1055, foot_y=695, scale=1.18, role="ceo", accent_hex="#10B981", t=0.4, speaking_amp=0.35, point_dir=-1)
+    ceo_bust_p = visual_dir / "char_ceo.png"
+    ceo_bust = Image.open(ceo_bust_p).convert("RGBA") if ceo_bust_p.exists() else None
+    _draw_tradeoff_character(img, cx=1055, foot_y=695, scale=1.18, role="ceo", accent_hex="#10B981", t=0.4, speaking_amp=0.35, point_dir=-1, bust_rgba=ceo_bust)
     out_png.parent.mkdir(parents=True, exist_ok=True)
     img.convert("RGB").save(str(out_png), quality=95)
     return out_png
@@ -1078,11 +1108,14 @@ def render_all(
         seg_mp4 = tmp_scenes_dir / f"long_{sid}.mp4"
         long_part_paths.append(seg_mp4)
         bg_cand = visual_dir / f"long_{sid}.png"
+        c_role = ((sc.get("characters") or [{}])[0].get("role") or "engineer").lower()
+        char_cand = visual_dir / f"char_{c_role}.png"
         long_jobs.append({
             "scene": sc,
             "tts_meta": tmeta,
             "wav_path": str(long_tts_dir / tmeta["wav_file"]),
             "bg_path": str(bg_cand) if bg_cand.exists() else None,
+            "char_path": str(char_cand) if char_cand.exists() else None,
             "out_mp4": str(seg_mp4),
             "w": 1920,
             "h": 1080,
@@ -1115,11 +1148,14 @@ def render_all(
             seg_mp4 = tmp_scenes_dir / f"{sh_id}_{sid}.mp4"
             sh_parts.append(seg_mp4)
             bg_cand = visual_dir / f"{sh_id}_{sid}.png"
+            c_role = ((sc.get("characters") or [{}])[0].get("role") or "engineer").lower()
+            char_cand = visual_dir / f"char_{c_role}.png"
             sh_jobs.append({
                 "scene": sc,
                 "tts_meta": tmeta,
                 "wav_path": str(sh_tts_dir / tmeta["wav_file"]),
                 "bg_path": str(bg_cand) if bg_cand.exists() else None,
+                "char_path": str(char_cand) if char_cand.exists() else None,
                 "out_mp4": str(seg_mp4),
                 "w": 1080,
                 "h": 1920,

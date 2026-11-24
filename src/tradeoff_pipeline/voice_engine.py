@@ -273,15 +273,26 @@ def synthesize_manifest(
         synth_outs = [_synth_scene_task(j) for j in jobs]
 
     whisper_model = None
+    whisper_dev = use_device
     if verify_asr:
         from faster_whisper import WhisperModel
-        w_compute = "float16" if use_device == "cuda" else "int8"
-        whisper_model = WhisperModel(
-            "large-v3-turbo",
-            device=use_device,
-            compute_type=w_compute,
-            cpu_threads=min(16, max(4, n_cpus // 2)),
-        )
+        try:
+            w_compute = "float16" if use_device == "cuda" else "int8"
+            whisper_model = WhisperModel(
+                "large-v3-turbo",
+                device=use_device,
+                compute_type=w_compute,
+                cpu_threads=min(16, max(4, n_cpus // 2)),
+            )
+        except Exception as exc:
+            print(f"[voice_engine] faster-whisper CUDA init note ({exc}); using 16-thread int8 CPU Whisper.", flush=True)
+            whisper_dev = "cpu"
+            whisper_model = WhisperModel(
+                "large-v3-turbo",
+                device="cpu",
+                compute_type="int8",
+                cpu_threads=min(16, max(4, n_cpus // 2)),
+            )
 
     results: list[dict[str, Any]] = []
     full_audio_parts: list[np.ndarray] = []
@@ -297,6 +308,7 @@ def synthesize_manifest(
         asr_text = ""
         if whisper_model is not None:
             audio_16k = _to_16k_mono(mastered_audio, sr_out)
+        try:
             segments, _ = whisper_model.transcribe(
                 audio_16k,
                 language="en",
@@ -314,7 +326,28 @@ def synthesize_manifest(
                         "global_start": round(cursor_sec + float(w.start), 3),
                         "global_end": round(cursor_sec + float(w.end), 3),
                     })
+        except Exception as exc:
+            if whisper_dev == "cuda":
+                print(f"[voice_engine] faster-whisper runtime fallback to CPU ({exc})", flush=True)
+                from faster_whisper import WhisperModel
+                whisper_dev = "cpu"
+                whisper_model = WhisperModel("large-v3-turbo", device="cpu", compute_type="int8", cpu_threads=min(16, max(4, n_cpus // 2)))
+                segments, _ = whisper_model.transcribe(audio_16k, language="en", word_timestamps=True, beam_size=3)
+                seg_texts = []
+                for seg in segments:
+                    seg_texts.append(seg.text.strip())
+                    for w in (seg.words or []):
+                        words_aligned.append({
+                            "word": w.word.strip(),
+                            "start": round(float(w.start), 3),
+                            "end": round(float(w.end), 3),
+                            "global_start": round(cursor_sec + float(w.start), 3),
+                            "global_end": round(cursor_sec + float(w.end), 3),
+                        })
+            else:
+                raise
             asr_text = " ".join(seg_texts).strip()
+        asr_text = " ".join(seg_texts).strip()
 
         results.append({
             "id": j["id"],

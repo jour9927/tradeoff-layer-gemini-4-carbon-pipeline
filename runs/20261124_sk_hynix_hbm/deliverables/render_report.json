@@ -1,0 +1,10 @@
+{
+  "ok": true,
+  "elapsed_sec": 79.47,
+  "long_video": "long_video_1080p60.mp4",
+  "long_duration_sec": 172.737,
+  "shorts": [
+    "short_01_1080x1920_60fps.mp4"
+  ],
+  "thumbnail": "thumbnail_1280x720.png"
+}

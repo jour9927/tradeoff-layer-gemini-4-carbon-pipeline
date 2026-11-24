@@ -1,0 +1,259 @@
+1
+00:00:00,000 --> 00:00:02,920
+In 2013, engineers at SK Hynix built a
+
+2
+00:00:02,920 --> 00:00:05,580
+strange new memory chip by stacking silicon vertically
+
+3
+00:00:05,580 --> 00:00:08,640
+like a tiny skyscraper. Almost nobody in the
+
+4
+00:00:08,640 --> 00:00:10,820
+PC industry wanted to pay for it. Two
+
+5
+00:00:10,820 --> 00:00:13,340
+years later, it shipped inside one niche AMD
+
+6
+00:00:13,340 --> 00:00:16,620
+graphics card. Today, NVIDIA cannot ship a flagship
+
+7
+00:00:16,620 --> 00:00:18,060
+AI server without it.
+
+8
+00:00:18,312 --> 00:00:21,432
+Starting in 2025, an unprecedented wave of AI
+
+9
+00:00:21,432 --> 00:00:23,972
+data center build -outs triggered a global memory
+
+10
+00:00:23,972 --> 00:00:27,112
+supply shortage. Hyperscalers were not running out of
+
+11
+00:00:27,112 --> 00:00:29,012
+math cores, they were running out of high
+
+12
+00:00:29,012 --> 00:00:32,812
+-bandwidth memory, or HBM. The specialized memory towers
+
+13
+00:00:32,812 --> 00:00:35,632
+bolted micrometers away from every AI accelerator.
+
+14
+00:00:36,177 --> 00:00:38,337
+Picture a kitchen with 10 ,000 chefs who
+
+15
+00:00:38,337 --> 00:00:41,077
+can chop ingredients in a microsecond, fed through
+
+16
+00:00:41,077 --> 00:00:44,517
+a single, narrow hallway. Standard memory lays chips
+
+17
+00:00:44,517 --> 00:00:46,977
+flat across a circuit board, forcing data down
+
+18
+00:00:46,977 --> 00:00:49,197
+long copper traces. The chefs spend most of
+
+19
+00:00:49,197 --> 00:00:51,857
+their day staring at an empty counter, burning
+
+20
+00:00:51,857 --> 00:00:53,097
+electricity while waiting.
+
+21
+00:00:53,505 --> 00:00:56,125
+HBM fixes the hallway by building upward. Instead
+
+22
+00:00:56,125 --> 00:00:59,225
+of spreading memory chips across the board, engineers
+
+23
+00:00:59,225 --> 00:01:01,565
+thin each DRAM die until it bends like
+
+24
+00:01:01,565 --> 00:01:03,865
+paper, stack 8 or 12 of them vertically,
+
+25
+00:01:04,265 --> 00:01:07,545
+and drill thousands of microscopic vertical elevators, called
+
+26
+00:01:07,545 --> 00:01:10,065
+through -silicon vias, straight through the silicon.
+
+27
+00:01:10,523 --> 00:01:12,483
+you still cannot drop a fragile memory tower
+
+28
+00:01:12,483 --> 00:01:15,643
+onto a normal fibreglass board. So chipmakers place
+
+29
+00:01:15,643 --> 00:01:18,163
+the GPU and its HBM stack side by
+
+30
+00:01:18,163 --> 00:01:20,443
+side on a razor -thin silicon bridge called
+
+31
+00:01:20,443 --> 00:01:24,083
+a 2 .5D interposer. Millions of microscopic wires
+
+32
+00:01:24,083 --> 00:01:27,023
+connect them across fractions of a millimetre, slashing
+
+33
+00:01:27,023 --> 00:01:27,803
+energy per bit.
+
+34
+00:01:28,097 --> 00:01:31,117
+Independent hardware benchmarks show why architects pay the
+
+35
+00:01:31,117 --> 00:01:33,877
+premium. Even an early two -stack HBM subsystem
+
+36
+00:01:33,877 --> 00:01:37,037
+delivered 425GB per second of real measured bandwidth,
+
+37
+00:01:37,457 --> 00:01:39,837
+beating dual -socket server CPOs by up to
+
+38
+00:01:39,837 --> 00:01:41,837
+12 .9 times on database joins and 3
+
+39
+00:01:41,837 --> 00:01:43,597
+.2 times on machine learning training.
+
+40
+00:01:43,931 --> 00:01:45,771
+Yet HBM has a catch, you can only
+
+41
+00:01:45,771 --> 00:01:47,791
+fit a handful of stacks around one GPU
+
+42
+00:01:47,791 --> 00:01:50,811
+package. Research on H100 inference shows that once
+
+43
+00:01:50,811 --> 00:01:53,391
+giant AI models and embedding tables outgrow, on
+
+44
+00:01:53,391 --> 00:01:56,691
+package HBM, engineers must split them across multiple
+
+45
+00:01:56,691 --> 00:01:59,651
+GPUs, paying heavy network synchronization penalties.
+
+46
+00:02:00,207 --> 00:02:02,927
+Samsung had bigger factories, and even unveiled HBM
+
+47
+00:02:02,927 --> 00:02:05,827
+with built -in AI processing in 2021. Apple
+
+48
+00:02:05,827 --> 00:02:08,087
+tapped SK Hynix for custom high -speed DRAM
+
+49
+00:02:08,087 --> 00:02:11,327
+on Vision Pro's R1 chip at 256GB per
+
+50
+00:02:11,327 --> 00:02:14,307
+second. By perfecting heat -dissipating liquid moulding between
+
+51
+00:02:14,307 --> 00:02:18,087
+stacked dyes, SK Hynix became NVIDIA's primary HBM
+
+52
+00:02:18,087 --> 00:02:18,587
+supplier.
+
+53
+00:02:18,949 --> 00:02:21,489
+Because HBM dyes are larger, harder to test,
+
+54
+00:02:21,649 --> 00:02:24,229
+and stack 12 high, one gigabyte of HBM
+
+55
+00:02:24,229 --> 00:02:27,149
+consumes roughly three times more wafer capacity than
+
+56
+00:02:27,149 --> 00:02:30,529
+standard DDR5 memory. As factories shifted clean rooms
+
+57
+00:02:30,529 --> 00:02:34,069
+toward AI towers, ordinary server and consumer memory
+
+58
+00:02:34,069 --> 00:02:36,249
+tightened across the entire electronics market.
+
+59
+00:02:36,575 --> 00:02:38,595
+and that is the trade -off. Commodity memory
+
+60
+00:02:38,595 --> 00:02:41,455
+can be sold to anyone, anytime. HBMem is
+
+61
+00:02:41,455 --> 00:02:43,955
+custom -built, bonded to a specific GPU layout,
+
+62
+00:02:44,135 --> 00:02:46,075
+and booked a year in advance. What turned
+
+63
+00:02:46,075 --> 00:02:49,235
+SKHenix from a cyclical underdog into AI's kingmaker
+
+64
+00:02:49,235 --> 00:02:52,035
+now ties its fortune to whether hyperscalers keep
+
+65
+00:02:52,035 --> 00:02:52,415
+spending.

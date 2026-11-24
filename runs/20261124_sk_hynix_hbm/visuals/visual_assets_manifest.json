@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "device": "cuda",
+  "model": "sdxl_base",
+  "count": 14,
+  "elapsed_sec": 59.31,
+  "assets": {
+    "thumbnail_bg": "thumbnail_bg.png",
+    "long_L01": "long_L01.png",
+    "long_L03": "long_L03.png",
+    "long_L04": "long_L04.png",
+    "long_L05": "long_L05.png",
+    "long_L08": "long_L08.png",
+    "long_L09": "long_L09.png",
+    "long_L10": "long_L10.png",
+    "short_01_S02": "short_01_S02.png",
+    "short_01_S03": "short_01_S03.png",
+    "short_01_S05": "short_01_S05.png",
+    "char_engineer": "char_engineer.png",
+    "char_ceo": "char_ceo.png",
+    "char_analyst": "char_analyst.png"
+  }
+}
